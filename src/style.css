@@ -1216,3 +1216,4 @@ table{font-size:14px}th,td{padding:12px 8px}.scroll-table{margin:16px 0}a{color:
 .cosma-home{min-height:128px}.cosma-small{min-height:48px}
 .no-nav .shell{height:auto;min-height:100dvh}.no-nav main{overflow:visible;flex:1}
 body:has(input:focus) #cosma-stage,body:has(textarea:focus) #cosma-stage,body:has(select:focus) #cosma-stage{display:none}
+body[data-busy=true] button{pointer-events:none;cursor:wait}

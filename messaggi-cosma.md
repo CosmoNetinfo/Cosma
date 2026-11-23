@@ -6,7 +6,7 @@ Catalogo generato da src/cosma-messages.js: nessuna AI online. S01–S16 e metod
 |---|---|---|
 | hello | Come stai oggi? Ti va di segnarlo? | S00 |
 | end | Il flusso è finito? Se vuoi, puoi registrare la data di fine. | S00 |
-| estimate | La stima è vicina. Si basa sui cicli passati e può cambiare. | S06, S16 |
+| estimate | La stima è vicina. Si basa sui cicli passati e può cambiare. | S00, S07, S16 |
 | backup | Ti va di conservare una copia cifrata dei tuoi dati? | S00 |
 | agenda | Hai un tuo promemoria oggi. Vuoi rileggerlo? | S00 |
 | statistics | Media e variabilità descrivono il passato. Non prevedono il futuro. | S16 |
@@ -20,14 +20,14 @@ Catalogo generato da src/cosma-messages.js: nessuna AI online. S01–S16 e metod
 
 ## Tour saltabile, riprendibile e ripetibile
 
-1. **Il tuo spazio** — Dati sul telefono. Nessun account né rete. (S00; limite delle stime S06/S16).
-2. **Partiamo da una data** — Registra un inizio reale e modificabile. (S00; limite delle stime S06/S16).
-3. **Hai già usato un’altra app?** — Importa lo storico con anteprima. (S00; limite delle stime S06/S16).
-4. **Una giornata alla volta** — Scegli i dati che vuoi registrare. (S00; limite delle stime S06/S16).
-5. **Leggere le stime** — Le stime possono cambiare. Leggi il metodo. (S00; limite delle stime S06/S16).
-6. **Proteggi e conserva** — Scegli il PIN e un backup cifrato. (S00; limite delle stime S06/S16).
-7. **Promemoria discreti** — Decidi tu se attivare gli avvisi. (S00; limite delle stime S06/S16).
-8. **Con i tuoi tempi** — Scegli quanto vuoi che ti accompagni. (S00; limite delle stime S06/S16).
+1. **Il tuo spazio** — Dati sul telefono. Nessun account né rete. (S00; limite delle stime S07/S16).
+2. **Partiamo da una data** — Registra un inizio reale e modificabile. (S00; limite delle stime S07/S16).
+3. **Hai già usato un’altra app?** — Importa lo storico con anteprima. (S00; limite delle stime S07/S16).
+4. **Una giornata alla volta** — Scegli i dati che vuoi registrare. (S00; limite delle stime S07/S16).
+5. **Leggere le stime** — Le stime possono cambiare. Leggi il metodo. (S00; limite delle stime S07/S16).
+6. **Proteggi e conserva** — Scegli il PIN e un backup cifrato. (S00; limite delle stime S07/S16).
+7. **Promemoria discreti** — Decidi tu se attivare gli avvisi. (S00; limite delle stime S07/S16).
+8. **Con i tuoi tempi** — Scegli quanto vuoi che ti accompagni. (S00; limite delle stime S07/S16).
 
 ## Comandi e risposte
 

@@ -20,6 +20,25 @@ import org.junit.runner.RunWith;
 /** Avvio reale: WebView, bridge Capacitor, SQLite e cifratura Android Keystore. */
 @RunWith(AndroidJUnit4.class)
 public class DatabaseStartupTest {
+    private void confirmNativeDialog() {
+        long end=SystemClock.elapsedRealtime()+10000;
+        RuntimeException last=null;
+        while(SystemClock.elapsedRealtime()<end){
+            try{
+                androidx.test.espresso.Espresso.onView(androidx.test.espresso.matcher.ViewMatchers.withId(android.R.id.button1)).perform(androidx.test.espresso.action.ViewActions.click());
+                return;
+            }catch(RuntimeException e){last=e;SystemClock.sleep(100);}
+        }
+        throw last!=null?last:new IllegalStateException("Conferma Android non comparsa");
+    }
+    private void awaitIdle(ActivityScenario<MainActivity> scenario) throws Exception {
+        long end=SystemClock.elapsedRealtime()+10000;
+        while(SystemClock.elapsedRealtime()<end){
+            if("false".equals(js(scenario,"document.body.dataset.busy==='true'")))return;
+            SystemClock.sleep(100);
+        }
+        fail("Salvataggio non terminato entro il tempo previsto");
+    }
     private void awaitSecure(ActivityScenario<MainActivity> scenario,boolean expected) throws Exception {
         long end=SystemClock.elapsedRealtime()+5000;
         while(SystemClock.elapsedRealtime()<end){
@@ -45,7 +64,7 @@ public class DatabaseStartupTest {
         long end=SystemClock.elapsedRealtime()+45000;String body="";
         while(SystemClock.elapsedRealtime()<end){
             body=js(scenario,"document.body ? document.body.innerText : ''");
-            if(body.contains(expected))return;
+            if(body.contains(expected)){awaitIdle(scenario);return;}
             assertFalse("Errore avvio nativo: "+body,body.contains("Non riesco ad aprire l’archivio"));
             SystemClock.sleep(250);
         }
@@ -67,6 +86,7 @@ public class DatabaseStartupTest {
             js(scenario,"document.querySelector('[data-action=\"skip-onboarding\"]').click()");
             awaitBody(scenario,"Iniziamo da una data.");
             js(scenario,"document.querySelector('[data-action=\"cosma-tour-pause\"]')?.click()");
+            awaitIdle(scenario);
             js(scenario,"document.querySelector('[data-action=\"new-period\"]').click()");
             awaitBody(scenario,"Primo giorno");
             js(scenario,"const d=new Date();d.setDate(d.getDate()-2);document.querySelector('#start').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');document.querySelector('form[data-form=\"period\"]').requestSubmit()");
@@ -101,7 +121,7 @@ public class DatabaseStartupTest {
             js(scenario,"document.querySelector('.cycle-start-link').click()");
             awaitBody(scenario,"Elimina questo inizio ciclo");
             js(scenario,"setTimeout(()=>document.querySelector('dialog [data-action=\"delete-period\"]').click(),0);true");
-            androidx.test.espresso.Espresso.onView(androidx.test.espresso.matcher.ViewMatchers.withId(android.R.id.button1)).perform(androidx.test.espresso.action.ViewActions.click());
+            confirmNativeDialog();
             awaitBody(scenario,"Iniziamo da una data.");
             js(scenario,"document.querySelector('[data-tab=\"diario\"]').click()");
             awaitBody(scenario,"Note facoltative");

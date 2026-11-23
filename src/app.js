@@ -124,7 +124,9 @@ async function commit(next,{importing=false}={}) {
 async function run(task) {
   if (busy) return;
   busy = true;
-  const controls = [...document.querySelectorAll("form button[type=submit]")];
+  document.body.dataset.busy='true';
+  app.setAttribute('aria-busy','true');
+  const controls = [...document.querySelectorAll("button:not(:disabled)")];
   controls.forEach((e) => (e.disabled = true));
   try {
     await task();
@@ -136,6 +138,8 @@ async function run(task) {
     else toast(e.message);
   } finally {
     busy = false;
+    document.body.dataset.busy='false';
+    app.setAttribute('aria-busy','false');
     controls.forEach((e) => {
       if (e.isConnected) e.disabled = false;
     });
