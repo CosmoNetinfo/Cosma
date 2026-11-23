@@ -1,5 +1,7 @@
 # Cosma · Android 1.0 di prova
 
+**Versione pronta da provare: [scarica l’APK 1.0.0-prova.3](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.3/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
+
 Cosma è un diario del ciclo in italiano, senza account e senza servizi esterni. **Questo repository è già configurato con una chiave di firma definitiva e i quattro secrets Android. Non ricreare la chiave.** GitHub Actions costruisce e firma l’APK automaticamente: i file prodotti sono nella pagina [Actions](https://github.com/CosmoNetinfo/Cosma/actions), le versioni numerate nella pagina [Releases](https://github.com/CosmoNetinfo/Cosma/releases).
 
 Aggiornamento con il nuovo pacchetto: sezioni 12, 13 e 14 applicate in quest’ordine. Cosma a figura intera ha uno spazio riservato sopra la navigazione di Oggi; nelle altre schede compare il volto piccolo. Tocca Cosma per l’aiuto, per ridurla o riaprirla. In **Impostazioni → La presenza di Cosma** scegli Presente (massimo 3 messaggi al giorno), Discreta (1, predefinita) o Silenziosa (0). Pausa fra le 22 e le 8, nessun messaggio mentre scrivi, nessuna AI online. Le risposte rapide chiedono conferma prima di registrare l’umore. Il tour di otto passi è saltabile, riprendibile e ripetibile dalle Impostazioni. Testi e motivazioni sono in [messaggi-cosma.md](messaggi-cosma.md).

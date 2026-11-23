@@ -1,0 +1,15 @@
+{
+  "versione": "1.0.0-prova.3",
+  "versionCode": 10010,
+  "firma_definitiva_sha256": "66af7a444ce36cd33e89ea43c98bd97d3a7381d6ddd533733bbbcc803fee1523",
+  "apk_sha256": "551163c15ba378f328f3ebf21235362b563b29749b224540eddfa54cfe9af564",
+  "test_Node_superati": 53,
+  "test_interfaccia": "superati",
+  "test_nativi_API35": "superati",
+  "workflow": "https://github.com/CosmoNetinfo/Cosma/actions/runs/45140763437",
+  "internet": false,
+  "allowBackup": false,
+  "immagini_originali_identiche": 9,
+  "aggiornamento_sopra_prova2": "stessa firma e appId, versionCode superiore; prova su telefono ancora necessaria",
+  "export_personali_altre_app_verificati": false
+}

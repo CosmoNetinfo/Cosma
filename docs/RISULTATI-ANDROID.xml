@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.getcapacitor.myapp.ExampleInstrumentedTest" tests="2" failures="0" errors="0" skipped="0" time="12.333" timestamp="2026-11-23T08:47:41" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="useAppContext" classname="com.getcapacitor.myapp.ExampleInstrumentedTest" time="0.011" />
+  <testcase name="firstStartSaveAndReloadUseNativeDatabase" classname="info.cosmonet.cosma.DatabaseStartupTest" time="10.586" />
+</testsuite>
