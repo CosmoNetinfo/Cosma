@@ -1,27 +1,33 @@
-✔ Palette approvata: contrasto del testo normale almeno 4,5:1 (0.8513ms)
-✔ Testo bianco sul gradiente principale: contrasto almeno 4,5:1 (1.0712ms)
-✔ Archivio cifrato grande: righe limitate e ricostruzione senza perdita (20.1314ms)
-✔ Archivio incompleto o pezzi fuori ordine: rifiuto prima della decifratura (0.3399ms)
-✔ Nessun ciclo o un solo inizio: nessuna proiezione (2.4247ms)
-✔ Uno o due intervalli: i dati sono insufficienti (10.3721ms)
-✔ Sei intervalli 26,27,28,28,29,30: calcolo a mano e date 7–11 dicembre (0.322ms)
-✔ Cicli regolari: estremi uguali; non si inventa una variabilità (0.1871ms)
-✔ Intervalli irregolari inclusi, senza filtro biologico automatico (0.1749ms)
-✔ Esclusione manuale visibile; ultimi sei intervalli non esclusi (0.663ms)
-✔ Durata del sanguinamento inclusiva; nessuna fine inventata (0.3238ms)
-✔ Proiezione scaduta conservata: nessuno slittamento verso il futuro (0.1889ms)
-✔ Finestra biologica relativa −5/0: sei giorni, senza +1 (0.3027ms)
-✔ Date impossibili, doppioni, futuro e sovrapposizioni rifiutati (5.2528ms)
-✔ Ora legale e bisestile: conteggio civile invariato in cinque fusi (341.0327ms)
-✔ Avvisi separati per età e metodo, senza diagnosi né mL (0.3908ms)
-✔ Notifiche senza nomi, diagnosi, titolo visita; ID stabili e unici (0.9092ms)
-✔ Backup: tredici scadenze distanti 28 giorni, nessuna scadenza passata (0.2944ms)
-✔ Backup AES-GCM: andata e ritorno; password errata e manomissione rifiutate (973.9618ms)
-ℹ tests 19
+✔ Palette approvata: contrasto del testo normale almeno 4,5:1 (0.8971ms)
+✔ Testo bianco sul gradiente principale: contrasto almeno 4,5:1 (1.0848ms)
+✔ Archivio cifrato grande: righe limitate e ricostruzione senza perdita (3.9219ms)
+✔ Archivio incompleto o pezzi fuori ordine: rifiuto prima della decifratura (0.3408ms)
+✔ Regressione Android: due CREATE sulla stessa riga creavano solo vault (4.6403ms)
+✔ Primo avvio: entrambe le tabelle esistono e il primo salvataggio si rilegge (1.9635ms)
+✔ Aggiornamento dalla configurazione incompleta: crea vault_parts e conserva il record esistente (0.7493ms)
+✔ Riapertura e inizializzazione ripetuta non cancellano righe o revisioni (1.3689ms)
+✔ Interruzione del salvataggio: transazione annullata e archivio precedente intatto (1.0905ms)
+✔ Documento oltre quattro MB: righe piccole, cifratura e lettura SQLite completa (77.8056ms)
+✔ Nessun ciclo o un solo inizio: nessuna proiezione (2.8046ms)
+✔ Uno o due intervalli: i dati sono insufficienti (9.681ms)
+✔ Sei intervalli 26,27,28,28,29,30: calcolo a mano e date 7–11 dicembre (0.3397ms)
+✔ Cicli regolari: estremi uguali; non si inventa una variabilità (0.1892ms)
+✔ Intervalli irregolari inclusi, senza filtro biologico automatico (0.1741ms)
+✔ Esclusione manuale visibile; ultimi sei intervalli non esclusi (0.6579ms)
+✔ Durata del sanguinamento inclusiva; nessuna fine inventata (0.331ms)
+✔ Proiezione scaduta conservata: nessuno slittamento verso il futuro (0.1891ms)
+✔ Finestra biologica relativa −5/0: sei giorni, senza +1 (0.5959ms)
+✔ Date impossibili, doppioni, futuro e sovrapposizioni rifiutati (6.5282ms)
+✔ Ora legale e bisestile: conteggio civile invariato in cinque fusi (327.5588ms)
+✔ Avvisi separati per età e metodo, senza diagnosi né mL (0.3553ms)
+✔ Notifiche senza nomi, diagnosi, titolo visita; ID stabili e unici (0.7959ms)
+✔ Backup: tredici scadenze distanti 28 giorni, nessuna scadenza passata (0.2591ms)
+✔ Backup AES-GCM: andata e ritorno; password errata e manomissione rifiutate (956.9066ms)
+ℹ tests 25
 ℹ suites 0
-ℹ pass 19
+ℹ pass 25
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1493.5337
+ℹ duration_ms 1476.4727

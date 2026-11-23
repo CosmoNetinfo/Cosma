@@ -19,9 +19,50 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run android:sync
+  android-test:
+    name: Avvio reale su emulatore Android
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - run: npm ci
+      - run: npm run android:sync
+      - name: Abilita accelerazione emulatore
+        run: |
+          sudo chmod a+rw /dev/kvm
+          chmod +x android/gradlew
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          disable-animations: true
+          script: ./android/gradlew -p android :app:connectedDebugAndroidTest --no-daemon
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Prova-avvio-Android-${{ github.run_number }}
+          path: |
+            android/app/build/reports/androidTests/connected/
+            android/app/build/outputs/androidTest-results/connected/
+          if-no-files-found: warn
   apk:
     name: APK con la chiave fissa
-    needs: test
+    needs: [test, android-test]
     runs-on: ubuntu-latest
     permissions:
       contents: write
