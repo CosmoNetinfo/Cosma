@@ -101,7 +101,7 @@ Questi comandi presuppongono un repository remoto vuoto. Se contiene già modifi
 
 Ogni caricamento sul ramo `main` avvia il workflow. Per avviarlo a mano apri **Actions**, seleziona **Costruisci Cosma Android**, poi **Run workflow** (Avvia workflow), ramo `main`, e conferma.
 
-Prima girano i test: se falliscono l’APK non viene costruito. Poi GitHub ricostruisce i file, usa temporaneamente la chiave segreta, firma l’APK e controlla che non ci sia il permesso Internet. La chiave viene eliminata dal computer temporaneo anche in caso di errore.
+Prima girano i test e una prova strumentata di avvio, salvataggio e riapertura su emulatore Android: se falliscono l’APK non viene costruito. Poi GitHub ricostruisce i file, usa temporaneamente la chiave segreta, firma l’APK e controlla che non ci sia il permesso Internet. La chiave viene eliminata dal computer temporaneo anche in caso di errore.
 
 Attendi il segno verde. Apri l’esecuzione e, in **Artifacts** (File prodotti), scarica `Cosma-Android-...`. Estrai lo ZIP ottenuto: contiene `Cosma.apk`, il controllo SHA-256 e l’elenco dei permessi. La prima compilazione può richiedere diversi minuti.
 

@@ -1,5 +1,7 @@
 # Verifiche eseguite
 
+Aggiornamento **prova.2**: 25 test Node superati e prova strumentata su emulatore Android API 35 riuscita, con lo stesso schema incompleto segnalato. Il controllo apre l’app, salva ciclo e diario e verifica la nota dopo la ricreazione dell’attività: [esecuzione della correzione](https://github.com/CosmoNetinfo/Cosma/actions/runs/45126799771), [controlli della Release](https://github.com/CosmoNetinfo/Cosma/actions/runs/45127704178). Dettagli in CORREZIONE-AVVIO.md; di seguito restano le verifiche storiche della prima consegna.
+
 23 novembre 2026. Sistema di lavoro Windows; Node 26.13.1 per le verifiche locali, JDK Microsoft 21.0.13, SDK Android 36. Il workflow usa Node 24 LTS e JDK 21. Nessun telefono reale collegato.
 
 | Verifica | Risultato e limite |

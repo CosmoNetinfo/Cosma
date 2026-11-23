@@ -10,9 +10,9 @@ La chiave e i quattro secrets sono già stati configurati per GitHub Actions.
 La precedente compilazione locale usava una firma di sola prova;
 quella firma non viene usata per le distribuzioni GitHub.
 
-19 test automatici superati. Compilazione Android debug e release firmata
-di prova riuscite. Permesso Internet assente nell'APK controllato.
-Le funzioni native richiedono ancora il collaudo sul telefono reale.
+25 test automatici superati. Avvio, salvataggio e riapertura verificati
+su emulatore Android dopo la correzione della tabella vault_parts.
+Le altre funzioni native richiedono ancora il collaudo sul telefono reale.
 
 Fonti scientifiche e limiti: FONTI.md e docs/NON-VERIFICATO.md.
 Anteprima delle schermate: docs/PANORAMICA.png e docs/PANORAMICA.html.
