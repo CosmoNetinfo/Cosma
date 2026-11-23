@@ -1,0 +1,9 @@
+Cosma è un diario del ciclo in italiano per Android. Dati nella memoria privata del telefono, nessun account e nessun servizio online nell’app.
+
+Calendario mese e anno, registrazione rapida, diario con categorie facoltative, statistiche descrittive, visite, promemoria generici, blocco con PIN o impronta dove disponibile e backup manuale cifrato. Cosma è una guida locale con immagini e messaggi, senza AI online.
+
+La fascia delle prossime mestruazioni descrive i cicli passati e può cambiare. Nessuna diagnosi, nessuna certezza sull’ovulazione e nessuna finestra fertile personale non validata.
+
+Importazione locale CSV/JSON con mappatura, anteprima, copia di sicurezza e annullamento. Compatibilità con esportazioni personali delle altre app non garantita; i file di prova sono sintetici.
+
+Versione da provare: non è una validazione clinica e richiede ancora le verifiche su telefono reale riportate nel progetto.

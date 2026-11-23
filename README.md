@@ -1,5 +1,18 @@
 # Cosma · Android 1.0 di prova
 
+## Funzioni del delta completate, prova.11
+
+Completati consigli, primo avvio e verifica F-Droid. Le 29 letture hanno fonti locali e filtri per argomento, comprese schede generali sulle fasi; non identificano la fase personale. Le fonti del primo giorno includono anche ISSalute, verificata alla fonte. Il primo avvio ha sei passi, progressione, Indietro, Salta sempre accessibile e conclusione È tutto pronto. Se si importa durante il primo avvio, i dati si conservano subito e il percorso conclusivo riprende anche dopo riapertura. Il tour precedente rimane saltabile e ripetibile.
+
+Nel calendario sono espliciti primo giorno usato e intervallo descrittivo; una fascia passata non viene spostata. Le parole sono fuori dall’anello e la dimensione del numero si adatta ai conteggi lunghi. Chiave, secrets, cifratura, permessi e formule sono conservati.
+
+92 test Node e controlli dell’interfaccia locali superati, inclusi percorsi di primo avvio completi con e senza importazione, fonti, licenze e conteggi lunghi. La compilazione del tag ripete anche i due test nativi prima di firmare. Rimangono prove su telefono reale e validazioni esterne, non funzioni software promesse ma lasciate vuote.
+
+F-Droid: esame delle dipendenze completato in docs/FDROID.md; dieci componenti diretti MIT, inventario npm e 78 coordinate Android con licenze POM dove disponibili. Nessuna compatibilità certificata né invio: licenza del progetto e delle immagini da definire dal titolare, binari nativi e riproducibilità da verificare sulla loro infrastruttura. La Release GitHub di prova non è bloccata da questo obiettivo facoltativo.
+
+La prossima consegna è la Release complessiva v1.1.0-prova.1, con APK e unico ZIP completo. I riepiloghi sotto sono lo storico delle fasi.
+
+
 ## Fase 5–6 e vista annuale, prova.10
 
 Toccando Cosma si cambia posa e si apre un messaggio contestuale del catalogo locale; dal fumetto, Opzioni apre i controlli della presenza e del tour. I messaggi automatici conservano limiti, pausa notturna e modalità Silenziosa. Quelli richiesti con un tocco non attribuiscono fasi personali né modificano registrazioni.
@@ -33,7 +46,7 @@ Verifiche locali: 69 test Node, controlli dell’interfaccia aggiornati, ricerca
 Restano a fasi successive: pannelli rapidi dal basso, ulteriori categorie dei riferimenti (rapporti facoltativi, digestione, attività e nuovi sintomi), vista annuale e calendario su più mesi, gesto laterale, organizzazione dei consigli, onboarding a passi e verifica F-Droid. La nuova grafica non certifica la compatibilità su ogni telefono o con ogni impostazione dei caratteri Android.
 
 
-**Versione pronta da provare: [scarica l’APK 1.0.0-prova.10](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.10/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
+**Versione pronta da provare: [scarica l’APK 1.0.0-prova.11](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.11/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
 
 Cosma è un diario del ciclo in italiano, senza account e senza servizi esterni. **Questo repository è già configurato con una chiave di firma definitiva e i quattro secrets Android. Non ricreare la chiave.** GitHub Actions costruisce e firma l’APK automaticamente: i file prodotti sono nella pagina [Actions](https://github.com/CosmoNetinfo/Cosma/actions), le versioni numerate nella pagina [Releases](https://github.com/CosmoNetinfo/Cosma/releases).
 

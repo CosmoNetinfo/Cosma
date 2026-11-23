@@ -1,4 +1,7 @@
-import {calendarViewSwitch,yearCalendarHTML} from './calendar-view.js';
+import {licensesText} from './licenses.js';
+import {onboardingSteps,advanceOnboarding,completeOnboarding} from './onboarding.js';
+import {educationHTML,homeReadingsHTML} from './education-view.js';
+import {calendarViewSwitch,yearCalendarHTML,calendarSummaryHTML} from './calendar-view.js';
 import {installCalendarSwipe} from './calendar-gestures.js';
 import {createQuickEntry} from './quick-entry.js';
 import {INTIMACY,ACTIVITY,CONTEXT,MUCUS,togglePick,toggleIntimacy} from './diary-catalog.js';
@@ -90,7 +93,7 @@ function cosmaHelp(){
  };
  modal('Cosma ti accompagna',`<p>${esc(text[tab]||'Un giorno alla volta: scegli ciò che vuoi registrare.')}</p>`);
 }
-let foreignFlow,cosma,quickEntry,calendarView='month';
+let foreignFlow,cosma,quickEntry,calendarView='month',introStep=0,introAnswers={},educationGroup='all';
 let S = null,
   tab = "oggi",
   sel = D.today(),
@@ -118,7 +121,7 @@ function applyTheme() {
   document.documentElement.dataset.theme =
     S?.theme === "auto" ? "" : S?.theme || "";
   const root=document.documentElement;
-  if(S?.onboarded&&!locked&&tab==='oggi'){
+  if(S?.onboarded&&!S.setupPending&&!locked&&tab==='oggi'){
     const tone=homeTone(S),dark=S.theme==='dark'||S.theme==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches;
     root.dataset.homeTone=tone;
     root.style.setProperty('--home-background',homePalettes[dark?'dark':'light'][tone]);
@@ -219,10 +222,10 @@ function setupNav() {
 }
 function render() {
   cosma?.clear();
-  document.body.dataset.page=locked?'locked':!S?.onboarded?'onboarding':tab;
+  document.body.dataset.page=locked?'locked':!S?.onboarded||S.setupPending?'onboarding':tab;
   applyTheme();
-  document.body.classList.toggle("no-nav", !S?.onboarded || locked);
-  nav.hidden = !S?.onboarded || locked;
+  document.body.classList.toggle("no-nav", !S?.onboarded || S?.setupPending || locked);
+  nav.hidden = !S?.onboarded || S?.setupPending || locked;
   if (locked) {
     header.classList.remove("subpage-header");
     header.innerHTML = "";
@@ -232,7 +235,7 @@ function render() {
   if (!S) {
     return;
   }
-  if (!S.onboarded) {
+  if (!S.onboarded || S.setupPending) {
     header.classList.remove("subpage-header");
     header.innerHTML = "";
     app.innerHTML = onboarding();
@@ -292,21 +295,32 @@ function render() {
   cosma?.paint(tab);
 }
 function onboarding() {
-  return `<div class="welcome"><div class="brand">Cosma<span>✧</span></div><img class="pose" src="cosma-saluta-intera.png" alt="Cosma ti saluta"><h1>Ciao, sono Cosma.</h1><p class="lead">Uno spazio per conoscere il tuo ciclo, con i tuoi tempi.</p><div class="privacy-card">${icon("shield")}<div><b>Il tuo ciclo, solo tuo.</b><p>Dati nella memoria privata del telefono. Nessun account, nessuna pubblicità. Anche offline.</p></div></div><form data-form="onboarding">${field("start", "Primo giorno dell’ultima mestruazione", "date", "", 'max="' + D.today() + '" required')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Inizia con Cosma")}</div></form>${button("skip-onboarding", "Non ricordo la data, la aggiungo dopo", "skip")}${button("import-app","Importa da un’altra app","text-button")}${medical}</div>`;
+ const content=[
+  `<img class="wizard-pose" src="cosma-saluta-intera.png" alt="Cosma ti saluta"><h1>Ciao, sono Cosma.</h1><p>Uno spazio per conoscere il tuo ciclo, con i tuoi tempi.</p><div class="wizard-note"><b>Il tuo ciclo, solo tuo.</b><p>Dati sul telefono, nessun account, nessuna pubblicità. Tutto funziona anche offline.</p></div>${medical}`,
+  `<h1>Da quale data partiamo?</h1><p>Se la ricordi, aggiungi il primo giorno dell’ultima mestruazione.</p>${field('start','Primo giorno, facoltativo','date',introAnswers.start||'',`max="${D.today()}"`)}<p class="hint">Puoi lasciare vuoto e aggiungerlo più avanti. Le date si possono sempre correggere.</p>`,
+  `<h1>Conosci la durata abituale?</h1><p>È facoltativa e serve al riferimento iniziale dell’anello.</p>${field('cycleLen','Giorni tra due inizi, se lo sai','number',introAnswers.cycleLen??'','min="18" max="60" step="1"')}<p class="hint">Puoi lasciare vuoto. Questo parametro ammette 18–60 giorni; le registrazioni reali non hanno questo limite e le stime richiedono i tuoi dati.</p>`,
+  `<img class="wizard-pose" src="cosma-in-piedi.png" alt="Cosma ti accompagna"><h1>Hai già usato un’altra app?</h1><p>Puoi importare lo storico da un file locale, con anteprima e scelta dei dati.</p>${button('import-app','Importa il mio storico','secondary')}<p class="hint">Puoi farlo anche dopo, dalle Impostazioni.</p>`,
+  `<img class="wizard-pose" src="cosma-abbraccio.png" alt="Cosma ti accompagna"><h1>Come vuoi che ti accompagni?</h1>${select('cosmaPresence','La presenza di Cosma',[['presente','Presente · fino a 3 messaggi al giorno'],['discreta','Discreta · fino a 1 messaggio al giorno'],['silenziosa','Silenziosa · risponde al tuo tocco']],introAnswers.cosmaPresence||S.cosmaPresence)}<p class="hint">Nessun messaggio automatico di notte o mentre scrivi. Puoi cambiare scelta quando vuoi.</p>`,
+  `<img class="wizard-pose" src="cosma-saluta-intera.png" alt="Cosma ti saluta"><h1>È tutto pronto.</h1><p>${introAnswers.start?'La tua data iniziale è pronta.':'Potrai aggiungere una data quando vuoi.'} Ora puoi esplorare il tuo spazio con il tour saltabile di Cosma.</p>`
+ ];
+ return `<div class="onboarding-wizard" data-step="${introStep}"><div class="wizard-tools"><b>Cosma</b>${button('skip-onboarding','Salta','text-button')}</div><progress value="${introStep+1}" max="${onboardingSteps.length}" aria-label="Passo ${introStep+1} di ${onboardingSteps.length}"></progress><p class="wizard-step hint">${introStep+1} di ${onboardingSteps.length} · ${onboardingSteps[introStep]}</p><form data-form="onboarding">${content[introStep]}<p class="field-error" role="alert"></p><div class="form-actions">${submit(introStep===onboardingSteps.length-1?'Entra in Cosma':'Continua')}${introStep?button('onboarding-back','Indietro','text-button'):''}</div></form></div>`;
 }
+async function finishOnboarding(){const n=completeOnboarding(S,introAnswers);await commit(n);render();}
+async function nextOnboarding(form){if(introStep===onboardingSteps.length-1){await finishOnboarding();return;}const next=advanceOnboarding(introStep,introAnswers,Object.fromEntries(form.entries()));introStep=next.step;introAnswers=next.answers;render();}
+
 function lockView() {
   return `<div class="lock-screen"><img src="cosma-abbraccio.png" alt="Cosma ti accompagna"><h1>Il tuo spazio è protetto.</h1><p class="muted">Inserisci il tuo PIN o la password.</p><form data-form="unlock">${field("password", "PIN o password", "password", "", 'required autocomplete="current-password"')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Sblocca Cosma")}</div></form>${biometricEnabled?button("biometric-unlock","Sblocca con impronta","secondary"):""}${button("forgot", "Ho dimenticato il PIN", "text-button")}</div>`;
 }
 
 
-function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=Math.min(r.day-1,count-1),angle=(index/count*360-90)*Math.PI/180,x=96+84*Math.cos(angle),y=96+84*Math.sin(angle);return `<div class="cycle-indicator"><div class="cycle-ring" role="img" aria-label="Giorno ${r.day} dal primo giorno registrato. L’anello non identifica una fase ormonale."><svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="arc"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ring)" stroke-width="8"/><path d="M96 12 A84 84 0 ${index/count>.5?1:0} 1 ${x} ${y}" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/></svg><div class="ring-label" aria-hidden="true"><strong>${r.day}</strong></div></div><p class="cycle-caption">Giorno del ciclo</p></div>`;}
+function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=Math.min(r.day-1,count-1),angle=(index/count*360-90)*Math.PI/180,x=96+84*Math.cos(angle),y=96+84*Math.sin(angle);return `<div class="cycle-indicator"><div class="cycle-ring" role="img" aria-label="Giorno ${r.day} dal primo giorno registrato. L’anello non identifica una fase ormonale."><svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="arc"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ring)" stroke-width="8"/><path d="M96 12 A84 84 0 ${index/count>.5?1:0} 1 ${x} ${y}" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/></svg><div class="ring-label" data-digits="${Math.min(6,String(r.day).length)}" aria-hidden="true"><strong>${r.day}</strong></div></div><p class="cycle-caption">Giorno del ciclo</p></div>`;}
 
 
 function homeQuickActions(){return `<section class="home-quick-actions" aria-label="Registra oggi">${button('new-period',`<span class="quick-circle">${icon('plus')}</span><span>Mestruazioni</span>`,'quick-action quick-primary','aria-label="Inizio mestruazioni"')}${button('quick-entry',`<span class="quick-circle">${icon('plus')}</span><span>Sintomi</span>`,'quick-action','data-kind="symptoms"')}${button('quick-entry',`<span class="quick-circle">${icon('diary')}</span><span>Note e test</span>`,'quick-action','data-kind="notes"')}${S.categories.rapporti?button('quick-entry',`<span class="quick-circle">${icon('health')}</span><span>Rapporti</span>`,'quick-action','data-kind="rapporti"'):''}</section>`;}
-function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
+function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>${pr&&pr.high<D.today()?'Ultima fascia descrittiva':'Prossime mestruazioni'}</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button>${homeReadingsHTML({button,esc,icon})}</div>`;}
 
 function vCal() {
-  if(calendarView==='year'){const year=Number(month.slice(0,4));return calendarViewSwitch(calendarView,{button})+`<div class="month">${button('prev-month',icon('back'),'icon-button','aria-label="Anno precedente"')}<h2>${year}</h2>${button('next-month',icon('arrow'),'icon-button','aria-label="Anno successivo"')}</div>`+yearCalendarHTML(S,year,{button,esc})+button('calculation','Come l’ho calcolato?','text-button');}
+  if(calendarView==='year'){const year=Number(month.slice(0,4));return calendarViewSwitch(calendarView,{button})+`<div class="month">${button('prev-month',icon('back'),'icon-button','aria-label="Anno precedente"')}<h2>${year}</h2>${button('next-month',icon('arrow'),'icon-button','aria-label="Anno successivo"')}</div>`+calendarSummaryHTML(S,{button})+yearCalendarHTML(S,year,{button,esc});}
   const [y, m] = month.split("-").map(Number),
     first = new Date(y, m - 1, 1),
     off = (first.getDay() + 6) % 7,
@@ -343,7 +357,7 @@ function vCal() {
     );
   }).join("");
   const v = D.dayInfo(S, sel);
-  return `${calendarViewSwitch(calendarView,{button})}<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div><div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.pred ? "Stima mestruazioni" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div><p class="hint">Stima basata sui tuoi cicli passati. Può cambiare, non è una previsione medica.</p>${button("calculation","Come l’ho calcolato?","text-button")}${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
+  return `${calendarViewSwitch(calendarView,{button})}<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div>${calendarSummaryHTML(S,{button})}<div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.pred ? "Stima mestruazioni" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div><p class="hint">Stima basata sui tuoi cicli passati. Può cambiare, non è una previsione medica.</p>${button("calculation","Come l’ho calcolato?","text-button")}${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
 }
 function blankLog() {
   return {
@@ -482,7 +496,7 @@ function vSettings() {
     rapporti:"Rapporti e desiderio (facoltativi)", activity:"Attività fisica", context:"Altro: abitudini e contesto", digestion:"Digestione e feci", pms:"Scala personale dei sintomi quotidiani", temp: "Temperatura basale", mucus:"Muco cervicale", lh:"Test LH", pregnancy:"Test di gravidanza", weight:"Peso", sleep:"Sonno",
   };
   const last=D.analysis(S).record;
-  return `<div class="settings-shortcuts">${row("periods","cal","Inizi del ciclo",last?"Ultimo inizio: "+D.fmt(last.ls,true):"Aggiungi, modifica o elimina le date")}${row("privacy","shield","Screenshot e privacy",S.secureScreen?"Screenshot bloccati":"Screenshot consentiti")}${row("notify","bell","Promemoria","Orari e autorizzazioni")}${row("security","lock","Blocco app",Store.isProtected()?"PIN attivo":"PIN e biometria")}${row("import-app","download","Importa da un’altra app","CSV o JSON, con anteprima")}${row("backup","download","Backup e ripristino","Una copia cifrata dei tuoi dati")}${row("science","diary","Fonti e metodo","Calcoli, fonti e limiti")}</div>${button("cosma-tour","Rifai il tour con Cosma","text-button")}${!S.cosmaTourDone?button("cosma-tour-resume","Riprendi il tour","text-button"):""}<h2 class="block-title">Cosma e aspetto</h2><form data-form="settings">${select("cosmaPresence","La presenza di Cosma",[["presente","Presente · fino a 3 messaggi al giorno"],["discreta","Discreta · fino a 1 messaggio al giorno"],["silenziosa","Silenziosa · solo quando la tocchi"]],S.cosmaPresence)}${select(
+  return `<div class="settings-shortcuts">${row("periods","cal","Inizi del ciclo",last?"Ultimo inizio: "+D.fmt(last.ls,true):"Aggiungi, modifica o elimina le date")}${row("privacy","shield","Screenshot e privacy",S.secureScreen?"Screenshot bloccati":"Screenshot consentiti")}${row("notify","bell","Promemoria","Orari e autorizzazioni")}${row("security","lock","Blocco app",Store.isProtected()?"PIN attivo":"PIN e biometria")}${row("import-app","download","Importa da un’altra app","CSV o JSON, con anteprima")}${row("backup","download","Backup e ripristino","Una copia cifrata dei tuoi dati")}${row("science","diary","Fonti e metodo","Calcoli, fonti e limiti")}${row("licenses","diary","Licenze e componenti","Software usato da Cosma")}</div>${button("cosma-tour","Rifai il tour con Cosma","text-button")}${!S.cosmaTourDone?button("cosma-tour-resume","Riprendi il tour","text-button"):""}<h2 class="block-title">Cosma e aspetto</h2><form data-form="settings">${select("cosmaPresence","La presenza di Cosma",[["presente","Presente · fino a 3 messaggi al giorno"],["discreta","Discreta · fino a 1 messaggio al giorno"],["silenziosa","Silenziosa · solo quando la tocchi"]],S.cosmaPresence)}${select(
     "theme",
     "Aspetto",
     [
@@ -509,7 +523,8 @@ function vSecurity(){return `<div class="card"><h2>${Store.isProtected()?'Il PIN
 
 function vBackup(){const due=!S.lastBackup||D.diff(S.lastBackup,D.today())>=28;return `<div class="card"><h2>Una copia che scegli tu</h2><p class="hint">Disinstallare Cosma elimina i dati. Il backup automatico di Android è disattivato: conserva un file cifrato in una cartella sicura.</p>${due?'<p class="hint">È il momento di fare un backup. Se abiliti le notifiche, ti ricordiamo di farlo ogni quattro settimane.</p>':'<p class="hint">Ultimo file salvato: '+D.fmt(S.lastBackup,true)+'.</p>'}${primary('export-backup','Salva backup cifrato')}${button('share-backup','Condividi backup cifrato','text-button')}${button('import-backup','Ripristina un backup cifrato','text-button')}${button('import-app','Importa da un’altra app','text-button')}${Store.canUndoImport()?button('undo-import','Annulla ultima importazione','text-button'):''}${button('export-json','Esporta dati in JSON','text-button')}${button('export-csv','Esporta dati in CSV','text-button')}${button('report','Riepilogo per una visita · PDF','text-button')}</div>${button('wipe','Cancella tutti i dati','danger')}<p class="hint">Se scegli un servizio cloud dal selettore file o dalla condivisione Android, sarà una tua scelta esplicita. Cosma non invia il backup da sola.</p>`;}
 
-function vLearn(){return button('science','Fonti e metodo','secondary')+'<p class="hint">Informazioni generali con fonti consultabili offline. Nessuna revisione clinica indipendente; non una valutazione personale.</p>'+articles.map(a=>`<details class="article"><summary>${esc(a.title)}</summary><p>${esc(a.text)}</p>${button('article-source','Fonti: '+a.sources.join(', '),'text-button',`data-sources="${a.sources.join(',')}"`)}</details>`).join('');}
+function vLearn(){return button('science','Fonti e metodo','secondary')+educationHTML(educationGroup,{button,esc});}
+
 function tempChart() {
   const entries = Object.entries(S.log)
     .filter(([, l]) => l.temp != null)
@@ -644,7 +659,7 @@ function removeConfirm(collection, id, label) {
 quickEntry=createQuickEntry({state:()=>S,commit,modal,close:closeModal,render,toast,esc,button,fmt:D.fmt});
 installCalendarSwipe(app,{active:()=>tab==='cal'&&!dialog.open&&!busy,move:dir=>app.querySelector('[data-action='+(dir>0?'next-month':'prev-month')+']')?.click()});
 cosma=createCosma({state:()=>S,page:()=>tab,locked:()=>locked,typing:()=>dirty||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName),modalOpen:()=>dialog.open,commit,run,go,modal,close:closeModal,esc,button});
-foreignFlow=createImportFlow({getState:()=>S,commit,commitImport:n=>commit(n,{importing:true}),modal,closeModal,render,toast,button,select,field,formEnd,esc,fmt:D.fmt,pickFile:()=>Platform.pickBackup(),testMode:__COSMA_TEST__});
+foreignFlow=createImportFlow({getState:()=>S,commit,commitImport:async n=>{if(!S.onboarded||S.setupPending){n=completeOnboarding(n,introAnswers);n.setupPending=true;introStep=4;}await commit(n,{importing:true});},modal,closeModal,render,toast,button,select,field,formEnd,esc,fmt:D.fmt,pickFile:()=>Platform.pickBackup(),testMode:__COSMA_TEST__});
 const routes = ["pms","feedback",
   "salute",
   "stats",
@@ -683,6 +698,8 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (act) {
+    case 'education-group':educationGroup=b.dataset.group;render();break;
+    case 'read-article':{const a=articles.find(a=>a.id===Number(b.dataset.id));if(a)modal(a.title,`<p>${esc(a.text)}</p>${button('article-source','Fonti: '+a.sources.join(', '),'text-button',`data-sources="${a.sources.join(',')}"`)}`);break;}
     case 'calendar-view':calendarView=b.dataset.view==='year'?'year':'month';render();break;
     case 'calendar-month':if(D.validDate(b.dataset.month)){month=b.dataset.month;sel=month.slice(0,7)===D.today().slice(0,7)?D.today():month;calendarView='month';render();}break;
     case 'quick-entry':quickEntry.open(b.dataset.kind);break;
@@ -717,15 +734,8 @@ document.addEventListener("click", (e) => {
     case "back":
       androidBack();
       break;
-    case "skip-onboarding":
-      run(async () => {
-        const n = D.clone(S);
-        n.onboarded = true;
-        if(!n.cosmaTourDone)n.cosmaTour=0;
-        await commit(n);
-        render();
-      });
-      break;
+    case 'onboarding-back':introStep=Math.max(0,introStep-1);render();break;
+    case "skip-onboarding":run(finishOnboarding);break;
     case "new-period":
       periodModal("", b.dataset.date || D.today());
       break;
@@ -834,6 +844,7 @@ document.addEventListener("click", (e) => {
     case "article-source":
       modal("Fonte della scheda",b.dataset.sources.split(",").map(id=>sourceById[id]||"Fonte non disponibile").join(""));
       break;
+    case 'licenses':modal('Licenze e componenti','<p>I componenti di terzi hanno le licenze riportate qui sotto. I testi legali sono nella lingua originale; la licenza di Cosma e delle immagini è ancora da definire dal titolare.</p><pre class="license-text">'+esc(licensesText)+'</pre>');break;
     case "science":
       modal("Fonti e limiti scientifici", scienceHTML + medical);
       break;
@@ -982,18 +993,7 @@ document.addEventListener("submit", (e) => {
   run(async () => {
     switch (type) {
       case 'quick-note':await quickEntry.note(value('quick-note'));break;
-      case "onboarding": {
-        const n = D.clone(S),
-          date = value("start");
-        if (!D.validDate(date) || date > D.today())
-          throw Error("Scegli una data valida, fino a oggi.");
-        n.periods.push({ id: D.uid(), start: date, exclude: false });
-        n.onboarded = true;
-        if(!n.cosmaTourDone)n.cosmaTour=0;
-        await commit(n);
-        render();
-        break;
-      }
+      case 'onboarding':await nextOnboarding(f);break;
       case "unlock": {
         if (Date.now() < retryAt)
           throw Error("Attendi qualche secondo prima di riprovare.");
@@ -1260,7 +1260,7 @@ async function androidBack(){if(dialog.open){closeModal();return;}if(locked){awa
 try{
  await Platform.initPlatform(()=>{if(Store.isProtected()){if(busy)hideRequested=true;else lockNow();}},androidBack);
  if(!crypto.subtle)throw Error('Questa versione di Android WebView non rende disponibile la cifratura. Aggiorna Android System WebView.');
- const result=await Store.boot();locked=!!result.locked;S=result.state||null;biometricEnabled=await Platform.hasBiometric();render();
+ const result=await Store.boot();locked=!!result.locked;S=result.state||null;introStep=S?.setupPending?4:0;biometricEnabled=await Platform.hasBiometric();render();
  if(S){await Platform.secureScreen(S.secureScreen);syncNotifications(S).catch(()=>toast('Controlla i permessi per aggiornare i promemoria.'));}
  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>applyTheme());
 }catch(e){header.classList.remove('subpage-header');header.innerHTML=cosmaImage('cosma-conforto.png')+'<div><h1>Cosma</h1></div>';app.innerHTML=`<div class="warning"><h2>Non riesco ad aprire l’archivio</h2><p>${esc(e.message)}</p><p class="hint">Non cancellare i dati se non hai un backup. Chiudi e riapri Cosma dopo aver controllato lo spazio disponibile.</p></div>`;}

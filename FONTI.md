@@ -185,3 +185,18 @@ Versioni dei pacchetti controllate nel registro npm il 22 novembre 2026 e fissat
 ## Categorie e immagini del Diario, estensione prova.9
 
 Le categorie supplementari sono etichette di auto-osservazione richieste dall’utente a partire da riferimenti grafici. Non sono criteri diagnostici, non hanno sensibilità o specificità dimostrate e non costituiscono un questionario validato. Non generano diagnosi, giorni fertili o modifiche delle formule. Un’icona di Cosma rappresenta un modo di registrare come ci si sente; non dimostra una causa né un legame con una fase del ciclo. Le espressioni sono state mantenute descrittive (per esempio Umore basso, Pensieri ripetitivi), senza assegnare una patologia. S00: scelta di interfaccia e richiesta dell’utente, non fonte clinica.
+
+## Fonte divulgativa italiana verificata
+
+### S17 — Ciclo e primo giorno, ISSalute
+
+**Istituto Superiore di Sanità, ISSalute. Ciclo mestruale. Pubblicato il 28 febbraio 2018, aggiornato il 28 dicembre 2021; consultato il 23 novembre 2026.**
+
+[Pagina ufficiale](https://www.issalute.it/index.php/la-salute-dalla-a-alla-z-menu/c/ciclo-mestruale?width=fixed).
+
+Verifica: distingue il ciclo, misurato fra inizi consecutivi, dai giorni di sanguinamento. Usata per questa definizione, insieme a S03. Le indicazioni divulgative della pagina non sostituiscono i riferimenti FIGO già adottati da Cosma; non vengono importate nuove soglie, consigli terapeutici o formule.
+
+Il testo completo della pagina del Ministero sulla fertilità femminile non è stato verificato in questa sessione, per il blocco tecnico di accesso: non è usato per aggiungere affermazioni nell’app.
+
+
+Le schede generali su fase follicolare e fase luteale riprendono soltanto la distinzione qualitativa presente nella fonte S17, senza tempi fissi o attribuzioni personali. La scheda Intorno all’ovulazione riusa i limiti di temperatura e LH documentati in S01 e S10. Le categorie delle letture sono una navigazione tematica, non un’analisi dei dati della persona.

@@ -1,0 +1,331 @@
+[
+  {
+    "pacchetto": "@aparajita/capacitor-biometric-auth",
+    "versione": "10.0.0",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "https://github.com/aparajita/capacitor-biometric-auth.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor-community/sqlite",
+    "versione": "8.1.1",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/capacitor-community/sqlite.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/android",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/app",
+    "versione": "8.1.2",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor-plugins.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/core",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/filesystem",
+    "versione": "8.1.5",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "https://github.com/ionic-team/capacitor-filesystem.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/ios",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git+https://github.com/ionic-team/capacitor.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/local-notifications",
+    "versione": "8.3.1",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor-local-notifications.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/share",
+    "versione": "8.0.3",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor-plugins.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/splash-screen",
+    "versione": "8.0.2",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor-plugins.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/status-bar",
+    "versione": "8.0.4",
+    "licenza": "MIT",
+    "diretta": true,
+    "repository": "git+https://github.com/ionic-team/capacitor-plugins.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "@capacitor/synapse",
+    "versione": "1.0.4",
+    "licenza": "ISC",
+    "diretta": false,
+    "repository": null,
+    "testi_locali": [
+      "LICENSE.md"
+    ]
+  },
+  {
+    "pacchetto": "@rollup/rollup-win32-x64-msvc",
+    "versione": "4.44.0",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "rollup/rollup",
+    "testi_locali": []
+  },
+  {
+    "pacchetto": "@stencil/core",
+    "versione": "4.45.5",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git+https://github.com/stenciljs/core.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "browser-fs-access",
+    "versione": "0.35.0",
+    "licenza": "Apache-2.0",
+    "diretta": false,
+    "repository": "git+https://github.com/GoogleChromeLabs/browser-fs-access.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "core-util-is",
+    "versione": "1.0.3",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/isaacs/core-util-is",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "immediate",
+    "versione": "3.0.6",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/calvinmetcalf/immediate.git",
+    "testi_locali": [
+      "LICENSE.txt"
+    ]
+  },
+  {
+    "pacchetto": "inherits",
+    "versione": "2.0.4",
+    "licenza": "ISC",
+    "diretta": false,
+    "repository": "git://github.com/isaacs/inherits",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "isarray",
+    "versione": "1.0.0",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/juliangruber/isarray.git",
+    "testi_locali": [
+      "README.md#License",
+      "readme.md#License"
+    ]
+  },
+  {
+    "pacchetto": "jeep-sqlite",
+    "versione": "2.8.0",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "https://github.com/jepiqueau/jeep-sqlite.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "jszip",
+    "versione": "3.10.2",
+    "licenza": "(MIT OR GPL-3.0-or-later)",
+    "diretta": false,
+    "repository": "https://github.com/Stuk/jszip.git",
+    "testi_locali": [
+      "LICENSE.markdown"
+    ]
+  },
+  {
+    "pacchetto": "lie",
+    "versione": "3.3.0",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "https://github.com/calvinmetcalf/lie.git",
+    "testi_locali": [
+      "license.md"
+    ]
+  },
+  {
+    "pacchetto": "localforage",
+    "versione": "1.10.0",
+    "licenza": "Apache-2.0",
+    "diretta": false,
+    "repository": "git://github.com/localForage/localForage.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "lie",
+    "versione": "3.1.1",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "https://github.com/calvinmetcalf/lie.git",
+    "testi_locali": [
+      "license.md"
+    ]
+  },
+  {
+    "pacchetto": "pako",
+    "versione": "1.0.11",
+    "licenza": "(MIT AND Zlib)",
+    "diretta": false,
+    "repository": "nodeca/pako",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "process-nextick-args",
+    "versione": "2.0.1",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "https://github.com/calvinmetcalf/process-nextick-args.git",
+    "testi_locali": [
+      "license.md"
+    ]
+  },
+  {
+    "pacchetto": "readable-stream",
+    "versione": "2.3.8",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/nodejs/readable-stream",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "safe-buffer",
+    "versione": "5.1.2",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/feross/safe-buffer.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "setimmediate",
+    "versione": "1.0.5",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "YuzuJS/setImmediate",
+    "testi_locali": [
+      "LICENSE.txt"
+    ]
+  },
+  {
+    "pacchetto": "sql.js",
+    "versione": "1.17.0",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "http://github.com/sql-js/sql.js.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "string_decoder",
+    "versione": "1.1.1",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/nodejs/string_decoder.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  },
+  {
+    "pacchetto": "tslib",
+    "versione": "2.9.1",
+    "licenza": "0BSD",
+    "diretta": false,
+    "repository": "https://github.com/Microsoft/tslib.git",
+    "testi_locali": [
+      "LICENSE.txt"
+    ]
+  },
+  {
+    "pacchetto": "util-deprecate",
+    "versione": "1.0.2",
+    "licenza": "MIT",
+    "diretta": false,
+    "repository": "git://github.com/TooTallNate/util-deprecate.git",
+    "testi_locali": [
+      "LICENSE"
+    ]
+  }
+]

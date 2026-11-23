@@ -27,6 +27,8 @@
     "Importazione CSV: anteprima con duplicati e righe errate, annullamento senza modifiche, conferma e aggiunta ai cicli esistenti",
     "PIN: blocco, rifiuto del PIN errato e sblocco con PIN corretto",
     "Copia precedente all’importazione protetta anche dal nuovo PIN, annullamento e riapertura senza perdita del diario",
+    "Consigli: 29 schede con fonti, filtri per argomento e letture generali dalla Home",
+    "Primo avvio: sei passi, Indietro, dati sconosciuti, importazione facoltativa, conclusione e riapertura senza perdita dello storico",
     "Nessun errore JavaScript nei percorsi provati"
   ]
 }

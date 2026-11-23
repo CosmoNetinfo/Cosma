@@ -1,7 +1,12 @@
-import {addD,validDate,dayInfo,today} from './domain.js';
+import {addD,validDate,dayInfo,today,analysis,fmt} from './domain.js';
 export function monthDates(month){if(!validDate(month)||month.slice(8)!=='01')throw Error('Mese non valido.');const first=new Date(month+'T12:00:00Z'),offset=(first.getUTCDay()+6)%7;return Array.from({length:42},(_,i)=>{const date=addD(month,i-offset);return date.slice(0,7)===month.slice(0,7)?date:null;});}
 export function calendarViewSwitch(view,{button}){return `<div class="calendar-views" role="group" aria-label="Vista del calendario">${['month','year'].map(v=>button('calendar-view',v==='month'?'Mese':'Anno','',`data-view="${v}" aria-pressed="${v===view}"`)).join('')}</div>`;}
 export function yearCalendarHTML(state,year,{button,esc},asOf=today()){
  if(!Number.isInteger(year)||year<1900||year>2200)throw Error('Scegli un anno tra 1900 e 2200.');
  return `<div class="calendar-year" aria-label="Calendario ${year}">${Array.from({length:12},(_,i)=>{const month=year+'-'+String(i+1).padStart(2,'0')+'-01',name=new Date(month+'T12:00:00Z').toLocaleDateString('it-IT',{month:'long',timeZone:'UTC'}),cells=monthDates(month).map(date=>{if(!date)return'<span class="mini-day" aria-hidden="true"></span>';const info=dayInfo(state,date,asOf),kind=info.per?'registered':info.pred?'estimated':'';return `<span class="mini-day ${kind} ${date===asOf?'current-day':''}" aria-hidden="true">${Number(date.slice(8))}</span>`;}).join('');return button('calendar-month',`<span class="mini-title">${esc(name)}</span><span class="mini-grid" aria-hidden="true">${['L','M','M','G','V','S','D'].map(x=>'<span class="mini-weekday">'+x+'</span>').join('')}${cells}</span>`,'mini-month',`data-month="${month}" aria-label="Apri ${esc(name)} ${year}"`);}).join('')}</div><p class="hint">Pieno: registrazioni. Tratteggio: fascia descrittiva del prossimo inizio. Tocca un mese per aprirlo.</p>`;
+}
+
+export function calendarSummaryHTML(state,{button},asOf=today()){
+ const a=analysis(state,asOf),pr=a.prediction,past=pr&&pr.high<asOf;
+ return `<section class="card calendar-estimate"><h2>${past?'Ultima fascia descrittiva':'Prossimo inizio stimato'}</h2><p class="estimated-date">${pr?fmt(pr.low,true)+' – '+fmt(pr.high,true):'Dati ancora pochi'}</p><p class="hint">${a.record?'Primo giorno usato: '+fmt(a.record.ls,true)+'.':'Registra un primo giorno reale per iniziare.'}</p><p class="hint">${past?'La fascia è passata e non viene spostata automaticamente.':pr?'Stima basata sui cicli passati: può cambiare.':'Servono almeno tre intervalli completi registrati.'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>`;
 }

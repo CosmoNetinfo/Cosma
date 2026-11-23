@@ -99,3 +99,10 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] Nel calendario scorri in orizzontale: cambia il mese; lo scorrimento verticale non deve cambiare data. Le frecce continuano a funzionare.
 - [ ] Passa ad Anno, apri un mese e cambia anno; nessuna previsione aggiuntiva viene prolungata nei mesi futuri.
 - [ ] Con TalkBack apri un mese usando il suo comando completo; verifica la leggibilità con caratteri grandi.
+
+## Primo avvio e consigli, prova.11
+
+- [ ] Con archivio di prova nuovo percorri i sei passi, Indietro e Salta; nessun campo sconosciuto deve inventare una data.
+- [ ] Importa uno storico fittizio nel primo avvio, chiudi e riapri prima della conclusione: conserva i dati e riprendi la scelta della presenza di Cosma.
+- [ ] Nelle letture ogni scheda ha fonti consultabili offline. I nomi delle fasi sono argomenti generali, non un’indicazione della tua fase.
+- [ ] Verifica Licenze e componenti nelle Impostazioni; il testo lungo deve scorrere e Indietro deve chiuderlo.

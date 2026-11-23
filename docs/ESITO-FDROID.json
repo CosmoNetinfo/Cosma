@@ -1,0 +1,13 @@
+{
+  "data": "2026-11-23",
+  "esito": "Non dichiarata compatibile e non inviata a F-Droid",
+  "plugin_diretti": 10,
+  "licenze_plugin_diretti": "MIT, dai pacchetti installati",
+  "dipendenze_android_risolte": 78,
+  "pom_con_licenza": 77,
+  "licenza_progetto": "Da scegliere dal titolare, come nel brief",
+  "licenza_immagini": "Da dichiarare per la ridistribuzione",
+  "riproducibilita_apk": "Non dimostrata su infrastruttura F-Droid",
+  "ricetta_fdroid": "Non collaudata; metadati descrittivi italiani predisposti",
+  "segreti_modificati": false
+}

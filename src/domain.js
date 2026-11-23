@@ -54,6 +54,7 @@ export function initial() {
   return {
     version: 1,
     onboarded: false,
+    setupPending: false,
     createdAt: today(), lastBackup: null, secureScreen: true, ageGroup: "non-indicata",
     periods: [],
     log: {},
@@ -209,6 +210,7 @@ export function normalize(raw, { legacy = false } = {}) {
       ? +raw.periodLen
       : 5;
   for (const k of [
+    "setupPending",
     "discreet",
     "notifications",
     "cycleReminder",
