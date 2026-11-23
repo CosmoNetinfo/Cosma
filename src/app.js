@@ -1,3 +1,5 @@
+import {createQuickEntry} from './quick-entry.js';
+import {INTIMACY,ACTIVITY,CONTEXT,MUCUS,togglePick,toggleIntimacy} from './diary-catalog.js';
 import {diaryChoices,filterDiary} from './diary-view.js';
 import {createImportFlow} from './import-ui.js';
 import {createCosma} from './cosma-ui.js';
@@ -86,7 +88,7 @@ function cosmaHelp(){
  };
  modal('Cosma ti accompagna',`<p>${esc(text[tab]||'Un giorno alla volta: scegli ciò che vuoi registrare.')}</p>`);
 }
-let foreignFlow,cosma;
+let foreignFlow,cosma,quickEntry;
 let S = null,
   tab = "oggi",
   sel = D.today(),
@@ -177,7 +179,8 @@ function go(next) {
   app.scrollTop=0;
   app.focus({ preventScroll: true });
 }
-function modal(title, body) {
+function modal(title, body, {sheet=false}={}) {
+  dialog.classList.toggle('bottom-sheet',sheet);
   $("#dialog-content").innerHTML =
     `<div class="dialog-head">${cosmaImage("avatar.png","dialog-mascot")}<h2 id="dialog-title">${title}</h2>${button("close", "×", "", 'aria-label="Chiudi"')}</div>${body}`;
   document.body.classList.add("dialog-visible");
@@ -187,6 +190,7 @@ function closeModal() {
   foreignFlow?.reset();
   document.body.classList.remove("dialog-visible");
   dialog.close();
+  dialog.classList.remove('bottom-sheet');
   $("#dialog-content").replaceChildren();
   restoreCandidate = null;
   restoreText=null;
@@ -296,7 +300,8 @@ function lockView() {
 function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=Math.min(r.day-1,count-1),angle=(index/count*360-90)*Math.PI/180,x=96+84*Math.cos(angle),y=96+84*Math.sin(angle);return `<div class="cycle-indicator"><div class="cycle-ring" role="img" aria-label="Giorno ${r.day} dal primo giorno registrato. L’anello non identifica una fase ormonale."><svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="arc"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ring)" stroke-width="8"/><path d="M96 12 A84 84 0 ${index/count>.5?1:0} 1 ${x} ${y}" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/></svg><div class="ring-label" aria-hidden="true"><strong>${r.day}</strong></div></div><p class="cycle-caption">Giorno del ciclo</p></div>`;}
 
 
-function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${primary('new-period','Inizio mestruazioni')}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
+function homeQuickActions(){return `<section class="home-quick-actions" aria-label="Registra oggi">${button('new-period',`<span class="quick-circle">${icon('plus')}</span><span>Mestruazioni</span>`,'quick-action quick-primary','aria-label="Inizio mestruazioni"')}${button('quick-entry',`<span class="quick-circle">${icon('plus')}</span><span>Sintomi</span>`,'quick-action','data-kind="symptoms"')}${button('quick-entry',`<span class="quick-circle">${icon('diary')}</span><span>Note e test</span>`,'quick-action','data-kind="notes"')}${S.categories.rapporti?button('quick-entry',`<span class="quick-circle">${icon('health')}</span><span>Rapporti</span>`,'quick-action','data-kind="rapporti"'):''}</section>`;}
+function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
 
 function vCal() {
   const [y, m] = month.split("-").map(Number),
@@ -345,14 +350,26 @@ function blankLog() {
     dolore: 0,
     note: "",
     temp: null,
-    tempDisturbed: false, mucus:"", lh:"", pregnancy:"", weight:null, sleep:null,
+    rapporti:[],activity:[],context:[],tempDisturbed: false, mucus:"", lh:"", pregnancy:"", weight:null, sleep:null,
   };
+}
+function optionalDiary(l,c,section,choices){
+ const raw=(name,values)=>`<select id="${name}" name="${name}" class="visually-hidden" aria-label="Valore registrato ${name}"><option value="">Non registrato</option>${values.map(v=>`<option value="${esc(v)}" ${l[name]===v?'selected':''}>${esc(v)}</option>`).join('')}</select>`+choices(name,values,l[name]||'');
+ let out='';
+ if(c.mucus)out+=section('mucus','Perdite vaginali',raw('mucus',MUCUS));
+ if(c.lh)out+=section('lh','Test LH',raw('lh',['Non eseguito','Negativo','Positivo','Non interpretabile']),'Esito registrato, senza conferma clinica dell’ovulazione.');
+ if(c.pregnancy)out+=section('pregnancy','Test di gravidanza',raw('pregnancy',['Non eseguito','Negativo','Positivo','Non interpretabile']));
+ if(c.temp)out+=section('temp','Temperatura basale',field('temp','Temperatura (°C), facoltativa','number',l.temp??'','min="34" max="42" step="0.01" inputmode="decimal"')+check('tempDisturbed','Misura disturbata (febbre, sonno o altro)',l.tempDisturbed));
+ if(c.weight)out+=section('weight','Peso',field('weight','Peso (kg), facoltativo','number',l.weight??'','min="1" max="500" step="0.1"'));
+ if(c.sleep)out+=section('sleep','Sonno',field('sleep','Sonno (ore), facoltativo','number',l.sleep??'','min="0" max="24" step="0.25"'));
+ if(c.pms)out+=section('pms','Sintomi quotidiani · scala personale','<p class="hint">0: non presente; 1: lieve; 2: moderato; 3: intenso. Non è un questionario DRSP validato.</p>'+Object.entries({mood:'Umore basso',irritability:'Irritabilità',anxiety:'Tensione',fatigue:'Stanchezza',sleep:'Sonno',interference:'Impatto sulle attività'}).map(([k,t])=>select('pms-'+k,t,[['0','0 · Non presente'],['1','1 · Lieve'],['2','2 · Moderato'],['3','3 · Intenso']],String(l.pms?.[k]||0))).join(''));
+ return out;
 }
 function vDiario() {
  if(!draft)draft=D.clone(S.log[sel]||blankLog());
  const l=draft,c=S.categories,choices=(name,items,current,multiple=false,quick=false)=>diaryChoices(name,items,current,multiple,{button,esc},quick);
  const section=(name,title,body,help='')=>`<section class="diary-section diary-${name}" data-diary-group="${title}" aria-labelledby="diary-${name}-title"><h2 id="diary-${name}-title">${title}</h2>${help?'<p class="hint">'+help+'</p>':''}${body}</section>`;
- return `<div class="diary-page"><div class="diary-date-card"><div class="day-picker">${button('prev-day',icon('back'),'icon-button','aria-label="Giorno precedente"')}<div>${field('diary-date',sel===D.today()?'Oggi':D.fmt(sel),'date',sel,`max="${D.today()}"`)}</div>${button('next-day',icon('arrow'),'icon-button',`aria-label="Giorno successivo" ${sel>=D.today()?'disabled':''}`)}</div></div><label class="diary-search-label visually-hidden" for="diary-search">Cerca nel diario</label><div class="diary-search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="diary-search" type="search" placeholder="Cerca sintomi o categorie" autocomplete="off"></div><form data-form="diary">${c.sint?section('quick','Come ti senti oggi?',choices('sint',['Crampi','Stanchezza','Mal di testa','Gonfiore'],l.sint,true,true)):''}<div class="diary-categories"><h2>Categorie</h2>${button('settings','Personalizza','text-button')}</div>${c.flusso?section('flusso','Flusso mestruale',choices('flusso',D.FLUSSI,l.flusso),'Scegli ciò che hai osservato oggi.'):''}${c.umore?section('umore','Umore',choices('umore',D.UMORI,l.umore)):''}${c.sint?section('sint','Sintomi',choices('sint',D.SINTOMI,l.sint,true),'Tocca di nuovo una voce per toglierla.'):''}${c.dolore?section('dolore','Dolore',`<div class="split"><label for="dolore">Intensità personale</label><output class="pain-value" id="pain-output" for="dolore">${l.dolore}/10</output></div><input id="dolore" name="dolore" type="range" min="0" max="10" value="${l.dolore}"><div class="split hint"><span>Nessuno</span><span>Molto intenso</span></div>`):''}${c.note?section('note','Le tue parole',`<label for="note">Note facoltative</label><textarea id="note" name="note" maxlength="10000" rows="4" placeholder="C’è qualcosa che vuoi ricordare?">${esc(l.note)}</textarea>`):''}${['temp','mucus','lh','pregnancy','weight','sleep','pms'].some(k=>c[k])?`<section class="diary-section diary-signals" data-diary-group="Segnali e altri dati"><h2>Segnali e altri dati</h2>${c.temp ? field("temp", "Temperatura basale (°C), facoltativa", "number", l.temp ?? "", 'min="34" max="42" step="0.01" inputmode="decimal"') + check("tempDisturbed", "Misura disturbata (febbre, sonno o altro)", l.tempDisturbed) : ""}${c.mucus?select('mucus','Muco cervicale osservato',[['','Non registrato'],'Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante'],l.mucus||''):''}${c.lh?select('lh','Test LH: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.lh||''):''}${c.pregnancy?select('pregnancy','Test di gravidanza: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.pregnancy||''):''}${c.weight?field('weight','Peso (kg), facoltativo','number',l.weight??'','min="1" max="500" step="0.1"'):''}${c.sleep?field('sleep','Sonno (ore), facoltativo','number',l.sleep??'','min="0" max="24" step="0.25"'):''}${c.pms?`<fieldset class="form-group"><legend>Sintomi quotidiani · scala personale</legend><p class="hint">0: non presente; 1: lieve; 2: moderato; 3: intenso. Non è un questionario DRSP validato.</p>${Object.entries({mood:'Umore basso',irritability:'Irritabilità',anxiety:'Tensione',fatigue:'Stanchezza',sleep:'Sonno',interference:'Impatto sulle attività'}).map(([k,t])=>select('pms-'+k,t,[['0','0 · Non presente'],['1','1 · Lieve'],['2','2 · Moderato'],['3','3 · Intenso']],String(l.pms?.[k]||0))).join('')}</fieldset>`:''}</section>`:''}${S.log[sel]?.source?'<p class="hint">Importato da '+esc(S.log[sel].source)+'.</p>':''}<p class="diary-search-empty hint" role="status" hidden>Nessuna voce trovata. Prova un’altra parola.</p><p class="hint diary-save-hint">Salva le modifiche prima di cambiare schermata o mettere l’app in secondo piano.</p>${formEnd('Salva il diario')}${S.log[sel]?button('delete-log','Elimina questa registrazione','danger'):''}</div>`;
+ return `<div class="diary-page"><div class="diary-date-card"><div class="day-picker">${button('prev-day',icon('back'),'icon-button','aria-label="Giorno precedente"')}<div>${field('diary-date',sel===D.today()?'Oggi':D.fmt(sel),'date',sel,`max="${D.today()}"`)}</div>${button('next-day',icon('arrow'),'icon-button',`aria-label="Giorno successivo" ${sel>=D.today()?'disabled':''}`)}</div></div><label class="diary-search-label visually-hidden" for="diary-search">Cerca nel diario</label><div class="diary-search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="diary-search" type="search" placeholder="Cerca sintomi o categorie" autocomplete="off"></div><form data-form="diary">${c.sint?section('quick','Come ti senti oggi?',choices('sint',['Crampi','Stanchezza','Mal di testa','Insonnia'],l.sint,true,true)):''}<div class="diary-categories"><h2>Categorie</h2>${button('settings','Personalizza','text-button')}</div>${c.flusso?section('flusso','Flusso mestruale',choices('flusso',D.FLUSSI,l.flusso)+choices('sint',['Coaguli'],l.sint,true),'Scegli ciò che hai osservato oggi.'):''}${c.umore?section('umore','Umore',choices('umore',D.UMORI,l.umore)):''}${c.sint?section('sint','Sintomi',choices('sint',['Va tutto bene','Crampi','Seno dolente','Mal di testa','Acne','Mal di schiena','Stanchezza','Vampate di calore','Sudorazione notturna','Confusione mentale','Dolori articolari','Bruciore alla bocca','Voglia di dolci','Insonnia','Dolore addominale','Prurito vaginale','Secchezza vaginale',...(!c.digestion?['Nausea','Gonfiore','Stitichezza','Diarrea']:[]),...(!c.flusso?['Coaguli']:[])],l.sint,true),'Tocca di nuovo una voce per toglierla.'):''}${c.digestion?section('digestion','Digestione e feci',choices('sint',['Nausea','Gonfiore','Stitichezza','Diarrea'],l.sint,true)):''}${c.rapporti?section('rapporti','Rapporti e desiderio',choices('rapporti',INTIMACY,l.rapporti||[],true),'Facoltativo. Sono soltanto le tue registrazioni.'):''}${c.activity?section('activity','Attività fisica',choices('activity',ACTIVITY,l.activity||[],true)):''}${c.context?section('context','Altro',choices('context',CONTEXT,l.context||[],true)):''}${c.dolore?section('dolore','Dolore',`<div class="split"><label for="dolore">Intensità personale</label><output class="pain-value" id="pain-output" for="dolore">${l.dolore}/10</output></div><input id="dolore" name="dolore" type="range" min="0" max="10" value="${l.dolore}"><div class="split hint"><span>Nessuno</span><span>Molto intenso</span></div>`):''}${c.note?section('note','Le tue parole',`<label for="note">Note facoltative</label><textarea id="note" name="note" maxlength="10000" rows="4" placeholder="C’è qualcosa che vuoi ricordare?">${esc(l.note)}</textarea>`):''}${optionalDiary(l,c,section,choices)}${S.log[sel]?.source?'<p class="hint">Importato da '+esc(S.log[sel].source)+'.</p>':''}<p class="diary-search-empty hint" role="status" hidden>Nessuna voce trovata. Prova un’altra parola.</p><p class="hint diary-save-hint">Salva le modifiche prima di cambiare schermata o mettere l’app in secondo piano.</p>${formEnd('Salva il diario')}${S.log[sel]?button('delete-log','Elimina questa registrazione','danger'):''}</div>`;
 }
 
 function vSalute(){const notices=D.healthNotices(S);return `<div class="plain-list">${row('visits','cal','Visite ed esami',S.visits.length+' registrazioni')}${row('meds','pill','Farmaci e integratori',S.meds.length+' elementi')}${row('method','health','Metodo contraccettivo',S.method)}${row('stats','chart','Statistiche','Durate e sintomi registrati')}${row('temp','chart','I tuoi segnali','Temperatura, muco e test facoltativi')}${row('pms','diary','Sintomi quotidiani','Registrazione personale, senza diagnosi')}${row('periods','cal','Gestisci i cicli','Date, fine ed esclusioni')}${row('notify','bell','Promemoria','Notifiche locali Android')}${row('settings','settings','Impostazioni','Aspetto e categorie')}${row('security','lock','Blocco app',Store.isProtected()?'PIN attivo':'Configura PIN e impronta')}${row('backup','download','Backup e dati',S.lastBackup?'Ultimo backup '+D.fmt(S.lastBackup):'Nessun backup manuale registrato')}${row('science','diary','Fonti e metodo','Dati, formule e limiti scientifici')}${row('learn','star','Conoscere il ciclo','Schede informative con fonti')}${row('feedback','diary','Feedback per chi prova','Cinque domande, senza invio')}</div>${notices.length?card('<h2>Da portare a un colloquio</h2>'+notices.map(n=>'<p class="hint">'+esc(n.text)+'</p>'+button('article-source','Criterio e fonte '+n.source,'text-button',`data-sources="${n.source}"`)).join('')):''}`;}
@@ -375,7 +392,7 @@ function cycleChart(a) {
 function vStats() {
   const a = D.analysis(S),
     included = new Set(a.used.map((x) => x.start)),
-    counts = D.SINTOMI.map((name) => {
+    counts = D.SINTOMI.filter(name=>name!=='Va tutto bene').map((name) => {
       let n = 0;
       for (const x of a.used) {
         if (
@@ -459,7 +476,7 @@ function vSettings() {
     sint: "Sintomi",
     dolore: "Dolore",
     note: "Note",
-    pms:"Scala personale dei sintomi quotidiani", temp: "Temperatura basale", mucus:"Muco cervicale", lh:"Test LH", pregnancy:"Test di gravidanza", weight:"Peso", sleep:"Sonno",
+    rapporti:"Rapporti e desiderio (facoltativi)", activity:"Attività fisica", context:"Altro: abitudini e contesto", digestion:"Digestione e feci", pms:"Scala personale dei sintomi quotidiani", temp: "Temperatura basale", mucus:"Muco cervicale", lh:"Test LH", pregnancy:"Test di gravidanza", weight:"Peso", sleep:"Sonno",
   };
   const last=D.analysis(S).record;
   return `<div class="settings-shortcuts">${row("periods","cal","Inizi del ciclo",last?"Ultimo inizio: "+D.fmt(last.ls,true):"Aggiungi, modifica o elimina le date")}${row("privacy","shield","Screenshot e privacy",S.secureScreen?"Screenshot bloccati":"Screenshot consentiti")}${row("notify","bell","Promemoria","Orari e autorizzazioni")}${row("security","lock","Blocco app",Store.isProtected()?"PIN attivo":"PIN e biometria")}${row("import-app","download","Importa da un’altra app","CSV o JSON, con anteprima")}${row("backup","download","Backup e ripristino","Una copia cifrata dei tuoi dati")}${row("science","diary","Fonti e metodo","Calcoli, fonti e limiti")}</div>${button("cosma-tour","Rifai il tour con Cosma","text-button")}${!S.cosmaTourDone?button("cosma-tour-resume","Riprendi il tour","text-button"):""}<h2 class="block-title">Cosma e aspetto</h2><form data-form="settings">${select("cosmaPresence","La presenza di Cosma",[["presente","Presente · fino a 3 messaggi al giorno"],["discreta","Discreta · fino a 1 messaggio al giorno"],["silenziosa","Silenziosa · solo quando la tocchi"]],S.cosmaPresence)}${select(
@@ -621,6 +638,7 @@ function removeConfirm(collection, id, label) {
     toast("Elemento eliminato.");
   });
 }
+quickEntry=createQuickEntry({state:()=>S,commit,modal,close:closeModal,render,toast,esc,button,fmt:D.fmt});
 cosma=createCosma({state:()=>S,page:()=>tab,locked:()=>locked,typing:()=>dirty||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName),modalOpen:()=>dialog.open,commit,run,go,modal,close:closeModal,esc,button});
 foreignFlow=createImportFlow({getState:()=>S,commit,commitImport:n=>commit(n,{importing:true}),modal,closeModal,render,toast,button,select,field,formEnd,esc,fmt:D.fmt,pickFile:()=>Platform.pickBackup(),testMode:__COSMA_TEST__});
 const routes = ["pms","feedback",
@@ -661,6 +679,9 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (act) {
+    case 'quick-entry':quickEntry.open(b.dataset.kind);break;
+    case 'finish-quick':closeModal();render();break;
+    case 'quick-diary':closeModal();sel=D.today();go('diario');break;
     case 'week-day':
       if(D.validDate(b.dataset.date)&&canLeave()){
         sel=b.dataset.date;month=sel.slice(0,7)+'-01';go('cal');
@@ -752,15 +773,13 @@ document.addEventListener("click", (e) => {
       }
       break;
     case "chip": {
+      if(dialog.open&&dialog.querySelector('[data-quick-entry]')){run(()=>quickEntry.pick(b.dataset.field,b.dataset.value));break;}
       const k = b.dataset.field,
         v = b.dataset.value,
         multi = b.dataset.multi === "true";
       if (!draft) return;
-      if (multi)
-        draft[k] = draft[k].includes(v)
-          ? draft[k].filter((x) => x !== v)
-          : [...draft[k], v];
-      else draft[k] = draft[k] === v ? "" : v;
+      draft[k]=k==='rapporti'?toggleIntimacy(draft[k],v):togglePick(draft[k],v,multi,{sint:'Va tutto bene',activity:'Nessuna attività'}[k]);
+      if(['mucus','lh','pregnancy'].includes(k))document.querySelector('#'+k).value=draft[k];
       for (const item of document.querySelectorAll(
         `[data-action=chip][data-field="${k}"]`,
       ))
@@ -956,6 +975,7 @@ document.addEventListener("submit", (e) => {
   form.querySelector(".field-error")?.replaceChildren();
   run(async () => {
     switch (type) {
+      case 'quick-note':await quickEntry.note(value('quick-note'));break;
       case "onboarding": {
         const n = D.clone(S),
           date = value("start");

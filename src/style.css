@@ -1409,3 +1409,24 @@ body[data-page=diario] .diary-date-card input{background:transparent;border:0;bo
 input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
 .quick-symptoms .diary-choice[aria-pressed=true]{border-color:transparent;background:transparent}
 .quick-symptoms .diary-choice[aria-pressed=true] .diary-glyph{border:2px solid var(--accent);background:var(--diary-symptom)}
+
+.diary-glyph img{display:block;width:34px;height:34px;object-fit:contain}
+.quick-symptoms .diary-glyph img{width:50px;height:50px}
+.diary-rapporti{--choice-bg:var(--diary-flow)}.diary-mucus{--choice-bg:var(--tint)}
+.diary-activity,.diary-context{--choice-bg:var(--diary-mood)}
+
+.home-quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.quick-action{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 4px;font-size:14px;line-height:22px;min-height:88px;text-align:center}
+.quick-circle{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.quick-circle .icon{width:26px;height:26px}
+.quick-primary .quick-circle{background:linear-gradient(110deg,#7c3aed,#c026d3);border:0;color:#fff}
+dialog.bottom-sheet{position:fixed;inset:auto 0 0;margin:0 auto;width:min(100%,480px);max-width:480px;max-height:85dvh;border-radius:28px 28px 0 0;padding:12px 20px calc(24px + var(--safe-bottom));overflow-y:auto;background:var(--diary-bg)}
+dialog.bottom-sheet:before{content:"";display:block;width:40px;height:4px;border-radius:999px;background:var(--border);margin:0 auto 16px}
+[data-quick-entry]>.hint{margin-bottom:20px}
+[data-quick-entry] .secondary{width:100%}
+[data-quick-entry] .primary{margin:16px 0 24px;width:100%}
+
+.home-quick-actions:has([data-kind=rapporti]){grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.diary-choice{position:relative}
+.diary-choice[aria-pressed=true]:after{content:"\2713";position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--accent);color:var(--surface);border:2px solid var(--surface);font-size:12px;line-height:1}
+.quick-symptoms .diary-choice[aria-pressed=true]:after{top:46px;bottom:auto;right:calc(50% - 28px)}

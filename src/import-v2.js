@@ -3,7 +3,7 @@ import {clone,normalize,today,validDate,uid,diff,FLUSSI,UMORI,SINTOMI} from './d
 import {importDate} from './import-data.js';
 export const sources=['CSV generico','Clue','Flo','Natural Cycles','Drip','Cosma'];
 const fail=m=>{throw Error(m);};
-const unsafe=/sex|intercourse|sessual|contracept|predict|forecast|previs|fertil|ovulat/i;
+const unsafe=/sex|intercourse|sessual|rapport|desiderio|contracept|predict|forecast|previs|fertil|ovulat/i;
 export const fields={flusso:FLUSSI,umore:UMORI,sint:SINTOMI,mucus:['Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante'],lh:['Non eseguito','Negativo','Positivo','Non interpretabile'],temp:null,note:null};
 export function tablesIn(raw){
  const tables=[];
@@ -31,7 +31,7 @@ export function parseExport(text,index){
 export function previewImport(state,table,o,asOf=today()){
  const source=sources.includes(o.source)?o.source:'CSV generico',mode=o.mode==='replace'?'replace':'merge',conflict=o.conflict==='incoming'?'incoming':'existing';
  const base=clone(state);if(mode==='replace'){base.periods=[];base.log={};base.visits=[];base.meds=[];}
- if(table.portable)return portablePlan(base,table.portable,{source,mode,conflict,asOf});
+ if(table.portable)return portablePlan(base,table.portable,{source,mode,conflict,asOf,includeIntimacy:o.includeIntimacy===true});
  const dc=Number(o.dateColumn);if(unsafe.test(table.columns[dc]||''))fail('Scegli una data registrata: questa colonna sembra predittiva o non supportata.');
  const used=new Set([dc]);if(o.kind==='cycles'&&Number(o.endColumn)>=0)used.add(Number(o.endColumn));if(o.kind==='daily')for(const k of Object.keys(fields))if(Number(o[k+'Column']??-1)>=0)used.add(Number(o[k+'Column']));if(o.kind==='notes'){if(o.noteColumn==='all')table.columns.forEach((_,i)=>used.add(i));else used.add(Number(o.noteColumn));}const ignored=table.columns.filter((name,i)=>unsafe.test(name)||!used.has(i));
  const skipped=[],rows=table.rows.filter(r=>{if(table.columns.some((c,i)=>/^(type|kind|status|tipo|stato)$/i.test(c)&&/predict|forecast|previs|stimat/i.test(r.values[i]||''))){skipped.push({line:r.line,reason:'Previsione dell’altra app: ignorata.'});return false;}return true;});
@@ -85,7 +85,7 @@ export function mergeImport(state,plan){
 }
 export function exportPortable(s){return{formato:'cosma-portabile',versione:1,registrazioni:[...s.periods.map(p=>({tipo:'ciclo',data:p.start,fine:p.end||'',escluso:p.exclude,provenienza:p.source||'Cosma'})),...Object.entries(s.log).map(([data,l])=>({tipo:'diario',data,...clone(l),provenienza:l.source||'Cosma'})),...s.visits.map(v=>({tipo:'visita',data:v.date,...clone(v),provenienza:'Cosma'})),...s.meds.map(m=>({tipo:'farmaco',...clone(m),provenienza:'Cosma'}))]};}
 export function exportCSV(s){const cell=v=>{let text=String(v??'');if(/^[=+@\-\t\r]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';};return '\uFEFF'+[['versione','tipo','data','fine','escluso','provenienza','dati_json'],...exportPortable(s).registrazioni.map(r=>[1,r.tipo,r.data,r.fine||'',r.escluso??'',r.provenienza,JSON.stringify(r)])].map(r=>r.map(cell).join(';')).join('\r\n');}
-function portablePlan(state,raw,{source,mode,conflict,asOf}){
+function portablePlan(state,raw,{source,mode,conflict,asOf,includeIntimacy=false}){
  const n=clone(state),plan={kind:'portable',items:[],skipped:[],warnings:[],duplicates:0,source,mode,conflict,ignored:[]};
  for(const [i,r] of raw.registrazioni.entries()){
   if(r?.tipo==='farmaco'){
@@ -102,7 +102,7 @@ function portablePlan(state,raw,{source,mode,conflict,asOf}){
    if(n.periods.some(p=>p.start===r.data)){if(conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Inizio già presente.'});continue;}n.periods=n.periods.filter(p=>p.start!==r.data);}
    n.periods.push({id:uid(),start:r.data,...(r.fine?{end:r.fine}:{}),exclude:r.escluso===true,source:r.provenienza||source});
   }else if(r.tipo==='diario'){
-   if(n.log[r.data]&&conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Giorno già presente.'});continue;}n.log[r.data]={...r,source:r.provenienza||source};
+   if(n.log[r.data]&&conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Giorno già presente.'});continue;}if(!includeIntimacy&&Array.isArray(r.rapporti)&&r.rapporti.length&&!plan.ignored.includes('Rapporti e desiderio: esclusi senza consenso'))plan.ignored.push('Rapporti e desiderio: esclusi senza consenso');n.log[r.data]={...r,rapporti:includeIntimacy?r.rapporti:(n.log[r.data]?.rapporti||[]),source:r.provenienza||source};
   }else{plan.skipped.push({line:i+1,reason:'Tipo non supportato.'});continue;}
   plan.items.push({date:r.data});
  }

@@ -18,3 +18,9 @@ versione;tipo;data;fine;escluso;provenienza;dati_json
 ```
 
 Ogni riga ha `versione` uguale a `1`. `dati_json` conserva la registrazione JSON completa: è la rappresentazione autorevole per l’importazione, così elenchi, booleane e note multilinea non perdono struttura. Le altre colonne facilitano la lettura. Il file è importabile da Cosma senza mappatura delle colonne. I test verificano entrambi i percorsi. Limite attuale del selettore d’importazione: 2 MB/5.000 registrazioni, anche per questi file. Per archivi più grandi usare backup cifrato o suddividere l’esportazione esternamente mantenendo lo schema; l’app segnala il limite e non tronca.
+
+## Estensione compatibile delle registrazioni, prova.9
+
+Il diario conserva i vecchi valori. Le nuove proprietà sono elenchi di etichette: rapporti (attività/desiderio), activity (attività fisica), context (contesto). Sono normalizzate su cataloghi locali, senza proprietà arbitrarie. Il desiderio è distinto dall’assenza di rapporti. Va tutto bene e Nessuna attività sono scelte esplicite che non convivono con altre voci dello stesso gruppo. Nuove etichette ampliano sint, umore e mucus senza ricodificare quelle vecchie.
+
+JSON/CSV Cosma v1 conservano tutti i campi del diario in dati_json o nelle registrazioni; per importare rapporti è necessario selezionare la casella dedicata nell’anteprima del formato Cosma. In assenza di consenso vengono esclusi e segnalati. I formati commerciali non importano automaticamente dati sessuali. I backup cifrati ripristinano l’intero stato, comprese categorie nascoste e registrazioni facoltative.

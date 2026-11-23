@@ -1,0 +1,100 @@
+[
+  {
+    "posa": "testa",
+    "file": "src/cosma-sintomo-testa-160.png",
+    "dimensione": 160,
+    "sha256": "3c6172cfc2ca03f8cd41eb63a5bc179d7c0a698362794b0b7ec5e20326d869cf",
+    "master": "design/mascotte-sintomi/testa-originale.png"
+  },
+  {
+    "posa": "testa",
+    "file": "src/cosma-sintomo-testa-320.png",
+    "dimensione": 320,
+    "sha256": "bab6166e5fd7a26aa28e7fb215bd76a72b536838e74f4d5230dea30cff60045a",
+    "master": "design/mascotte-sintomi/testa-originale.png"
+  },
+  {
+    "posa": "gonfiore",
+    "file": "src/cosma-sintomo-gonfiore-160.png",
+    "dimensione": 160,
+    "sha256": "4fdd3be2092235bbc507eaae1e818e6b9db8e2287ccc769981d032af7e6d4ce6",
+    "master": "design/mascotte-sintomi/gonfiore-originale.png"
+  },
+  {
+    "posa": "gonfiore",
+    "file": "src/cosma-sintomo-gonfiore-320.png",
+    "dimensione": 320,
+    "sha256": "86440d38532d6b89cfb0540ef0f24854f0b595d5a4907647cd29c718ff35d6cb",
+    "master": "design/mascotte-sintomi/gonfiore-originale.png"
+  },
+  {
+    "posa": "schiena",
+    "file": "src/cosma-sintomo-schiena-160.png",
+    "dimensione": 160,
+    "sha256": "1b5dc853625952324110915eda45079036847dc32e677d9aff174256271ad95e",
+    "master": "design/mascotte-sintomi/schiena-originale.png"
+  },
+  {
+    "posa": "schiena",
+    "file": "src/cosma-sintomo-schiena-320.png",
+    "dimensione": 320,
+    "sha256": "0a73d7c5460d385c7daeee7b9e70d451971603cccc335b92886aa2c3b9b6a06f",
+    "master": "design/mascotte-sintomi/schiena-originale.png"
+  },
+  {
+    "posa": "sudore",
+    "file": "src/cosma-sintomo-sudore-160.png",
+    "dimensione": 160,
+    "sha256": "fa0f09b1c900ecc0b36e3a5bf81f83cc0f16aa0d220e8cadca1aadc821b0c83e",
+    "master": "design/mascotte-sintomi/sudore-originale.png"
+  },
+  {
+    "posa": "sudore",
+    "file": "src/cosma-sintomo-sudore-320.png",
+    "dimensione": 320,
+    "sha256": "ba53dd337c53c3a7909e37abafbbab54bfcdaf513c408f4293cbaa22bb14d5db",
+    "master": "design/mascotte-sintomi/sudore-originale.png"
+  },
+  {
+    "posa": "acne",
+    "file": "src/cosma-sintomo-acne-160.png",
+    "dimensione": 160,
+    "sha256": "105d6cec83a614a6a7a6533e8619e4bf2263b015abd5c57cef050fe6ffb43e0e",
+    "master": "design/mascotte-sintomi/acne-originale.png"
+  },
+  {
+    "posa": "acne",
+    "file": "src/cosma-sintomo-acne-320.png",
+    "dimensione": 320,
+    "sha256": "4d1859746cd617ec012aaca9f78b9bd608020f8ae1cc7b8fe5110be70e1a507f",
+    "master": "design/mascotte-sintomi/acne-originale.png"
+  },
+  {
+    "posa": "confusione",
+    "file": "src/cosma-sintomo-confusione-160.png",
+    "dimensione": 160,
+    "sha256": "0defe073b7f2b4491e453763ff4f810190c261edaa8d309e10e4f6e217842d0e",
+    "master": "design/mascotte-sintomi/confusione-originale.png"
+  },
+  {
+    "posa": "confusione",
+    "file": "src/cosma-sintomo-confusione-320.png",
+    "dimensione": 320,
+    "sha256": "02aa024c919d3109cb391eb27a4cea4248c32c4e5e2bc13abf023d192af76844",
+    "master": "design/mascotte-sintomi/confusione-originale.png"
+  },
+  {
+    "posa": "crampi",
+    "file": "src/cosma-sintomo-crampi-160.png",
+    "dimensione": 160,
+    "sha256": "7363e39dcb7e4d434c5d8fa1c7366124141af70286f18feda01287f1d6e696b2",
+    "master": "design/mascotte-sintomi/crampi-originale.png"
+  },
+  {
+    "posa": "crampi",
+    "file": "src/cosma-sintomo-crampi-320.png",
+    "dimensione": 320,
+    "sha256": "949f4012e8cc6708ca7cc313ccd855f85f8288eadf2aa6246df94a698520e97d",
+    "master": "design/mascotte-sintomi/crampi-originale.png"
+  }
+]

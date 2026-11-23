@@ -181,3 +181,7 @@ Versioni dei pacchetti controllate nel registro npm il 22 novembre 2026 e fissat
 - Keystore: https://developer.android.com/privacy-and-security/keystore . AES-GCM per il documento SQLite; la protezione hardware dipende dal dispositivo, non viene dichiarata universale.
 - Backup Android: https://developer.android.com/identity/data/autobackup . allowBackup=false più esclusioni cloud e device-transfer; differenze dei produttori da controllare sul telefono.
 - Firma APK: https://developer.android.com/studio/publish/app-signing . Una chiave fissa è indispensabile per aggiornare l’app; una chiave persa non è recuperabile da Cosma.
+
+## Categorie e immagini del Diario, estensione prova.9
+
+Le categorie supplementari sono etichette di auto-osservazione richieste dall’utente a partire da riferimenti grafici. Non sono criteri diagnostici, non hanno sensibilità o specificità dimostrate e non costituiscono un questionario validato. Non generano diagnosi, giorni fertili o modifiche delle formule. Un’icona di Cosma rappresenta un modo di registrare come ci si sente; non dimostra una causa né un legame con una fase del ciclo. Le espressioni sono state mantenute descrittive (per esempio Umore basso, Pensieri ripetitivi), senza assegnare una patologia. S00: scelta di interfaccia e richiesta dell’utente, non fonte clinica.

@@ -1,6 +1,8 @@
+import {EXTRA_SYMPTOMS,EXTRA_MOODS,MUCUS,INTIMACY,ACTIVITY,CONTEXT,picks,intimacyPicks} from './diary-catalog.js';
 // Evoluzione delle funzioni iso, addD, diff, avgCycle e predict della v0.2.
 // Le date civili si contano in UTC per evitare errori nei cambi di ora legale.
 export const SINTOMI = [
+  ...EXTRA_SYMPTOMS,
   "Crampi",
   "Mal di testa",
   "Gonfiore",
@@ -12,6 +14,7 @@ export const SINTOMI = [
   "Voglia di dolci",
 ];
 export const UMORI = [
+  ...EXTRA_MOODS,
   "Felice",
   "Calma",
   "Neutro",
@@ -73,7 +76,7 @@ export function initial() {
       dolore: true,
       note: true,
       temp: false,
-      mucus: false, lh: false, pregnancy: false, weight: false, sleep: false, pms:false,
+      mucus: false, lh: false, pregnancy: false, weight: false, sleep: false, pms:false, rapporti:false, activity:true, context:true, digestion:true,
     },
     dismissed: {},
     cosmaPresence: 'discreta', cosmaSeen: {}, cosmaTour: -1, cosmaTourResume:0, cosmaTourDone: false,
@@ -130,9 +133,10 @@ export function normalize(raw, { legacy = false } = {}) {
       umore:
         { Neutra: "Neutro", Ansiosa: "Ansia" }[oldMood] ||
         (UMORI.includes(oldMood) ? oldMood : ""),
-      sint: Array.isArray(l.sint)
-        ? [...new Set(l.sint.filter((x) => SINTOMI.includes(x)))]
-        : [],
+      sint: picks(l.sint,SINTOMI,'Va tutto bene'),
+      rapporti:intimacyPicks(l.rapporti),
+      activity:picks(l.activity,ACTIVITY,'Nessuna attività'),
+      context:picks(l.context,CONTEXT),
       dolore: Number.isFinite(+l.dolore)
         ? Math.max(0, Math.min(10, Math.round(+l.dolore)))
         : 0,
@@ -148,7 +152,7 @@ export function normalize(raw, { legacy = false } = {}) {
           : null,
       tempDisturbed: !!l.tempDisturbed, pmsRecorded:!!l.pmsRecorded,
       pms:Object.fromEntries(['mood','irritability','anxiety','fatigue','sleep','interference'].map(k=>[k,Math.max(0,Math.min(3,Math.round(+l.pms?.[k]||0)))])),
-      mucus: ['Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante'].includes(l.mucus)?l.mucus:'',
+      mucus: MUCUS.includes(l.mucus)?l.mucus:'',
       lh: ['Non eseguito','Negativo','Positivo','Non interpretabile'].includes(l.lh)?l.lh:'',
       pregnancy: ['Non eseguito','Negativo','Positivo','Non interpretabile'].includes(l.pregnancy)?l.pregnancy:'',
       weight: l.weight!==''&&l.weight!=null&&Number.isFinite(+l.weight)&&+l.weight>0&&+l.weight<=500?+l.weight:null,
