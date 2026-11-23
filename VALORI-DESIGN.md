@@ -1,5 +1,15 @@
 # Estensioni dello stile approvato
 
+## v1.1 fase 1, sfondo piatto di Oggi
+
+| Contesto grafico | Chiaro | Scuro |
+|---|---|---|
+| Mestruazioni effettivamente registrate | #fff1f5 | #241622 |
+| Tinta quotidiana, senza fase dedotta | #f4f3ff | #171525 |
+| Dati assenti o fascia stimata passata | #fdf4ff | #17101f |
+
+I testi primari, secondari e i link conservano i colori approvati: contrasto almeno 4,5:1 su tutte le tinte, verificato dai test. Le superfici delle schede e la navigazione non cambiano. Nessun gradiente aggiunto, nessuna impostazione salvata e nessun cambiamento ai calcoli. I colori sono una convenzione grafica, non una classificazione clinica.
+
 I valori approvati sono conservati senza modifiche in `docs/stile-approvato/`. Di seguito soltanto gli elementi aggiunti per le altre schermate.
 
 | Elemento | Valori aggiunti |

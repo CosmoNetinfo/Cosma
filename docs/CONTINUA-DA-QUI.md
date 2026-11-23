@@ -1,5 +1,11 @@
 # Continuare Cosma da un altro computer
 
+## Aggiornamento v1.1, fase 1
+
+Nuovo tag di prova: **v1.0.0-prova.4**. Aggiunte soltanto tinte piatte su Oggi, senza classificare fasi ormonali: rosato per date di mestruazioni realmente registrate, lilla/azzurro tenue negli altri giorni e neutro con dati assenti o fascia descrittiva superata. Contrasto verificato in chiaro/scuro, 57 test Node e controlli dell’interfaccia aggiornati. La compilazione del tag verifica nuovamente anche l’avvio Android prima di distribuire l’APK; l’esito effettivo si consulta nella Release. Non cambiano chiave, secrets, privacy, calcoli, immagini, importazione o tour.
+
+Prima di proseguire leggi **docs/AVANZAMENTO-v1.1.md** e **docs/BRIEF-COSMA-v1.1-DELTA.md**. La prossima fase è la striscia della settimana su Oggi. Non rifare le parti già completate. Il riepilogo della prova.3 sotto rimane come riferimento verificato della base.
+
 Il codice aggiornato è nel repository [CosmoNetinfo/Cosma](https://github.com/CosmoNetinfo/Cosma). Non serve recuperare una cartella con percorso V: dal vecchio PC: da un altro computer si può scaricare o clonare il repository e lavorare su quello. Il repository è il riferimento per il codice; lo spazio Cosma in ChatGPT raccoglie il riepilogo e i collegamenti. Una chat nuova deve leggere questi riferimenti per recuperare il contesto.
 
 ## Stato verificato il 23 novembre 2026

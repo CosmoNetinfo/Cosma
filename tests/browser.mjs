@@ -22,7 +22,19 @@ try{
  await page.locator('[data-action=new-period]').click();await page.locator('#start').fill('2026-11-11');await page.locator('dialog button[type=submit]').click();await page.locator('.cycle-ring').waitFor();
  for(const date of ['2026-10-12','2026-09-13','2026-08-16','2026-07-19','2026-06-22','2026-05-27']){await page.locator('[data-action=new-period]').click();await page.locator('#start').fill(date);await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);}
 
- await page.locator('#header [data-action=settings]').click();await page.locator('#header h1').filter({hasText:'Impostazioni'}).waitFor();
+ // Fase 1: usa registrazioni effettive, senza calcolare nuove fasi.
+ assert.equal(await page.locator('html').getAttribute('data-home-tone'),'quotidiano');
+ await page.locator('[data-action=new-period]').click();await page.locator('dialog #start').fill(D.today());await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
+ await page.locator('#status').evaluate(e=>e.textContent='');
+ for(const theme of ['light','dark']){
+  await page.emulateMedia({colorScheme:theme});assert.equal(await page.locator('html').getAttribute('data-home-tone'),'mestruazioni');
+  const expected=theme==='light'?'rgb(255, 241, 245)':'rgb(36, 22, 34)';await page.waitForFunction(bg=>getComputedStyle(document.body).backgroundColor===bg,expected);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),expected);
+  await page.screenshot({path:`docs/schermate/fase1-rosato-${theme}.png`,fullPage:true});
+ }
+ await page.emulateMedia({colorScheme:'light'});await page.locator('.cycle-start-link').click();await page.locator('dialog [data-action=delete-period]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
+ assert.equal(await page.locator('html').getAttribute('data-home-tone'),'quotidiano');
+ results.push('Fase 1: rosato soltanto per date registrate, tema automatico chiaro/scuro e ritorno alla tinta quotidiana dopo eliminazione');
+ await page.locator('#header [data-action=settings]').click();await page.locator('#header h1').filter({hasText:'Impostazioni'}).waitFor();assert.equal(await page.locator('html').getAttribute('data-home-tone'),null);
  assert.equal(await page.locator('#cosma-stage img').getAttribute('src'),'avatar.png');
  await page.locator('main [data-action=privacy]').click();await page.locator('dialog [name=allowScreenshots]').check();await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);assert.match(await page.locator('main').innerText(),/Screenshot consentiti/);
  await page.locator('main [data-action=periods]').click();assert.equal(await page.locator('main [data-action=edit-period]').count(),7);
@@ -31,7 +43,7 @@ try{
  assert.equal(await page.locator('.ring-label strong').innerText(),String(D.diff('2026-11-13',D.today())+1));assert.equal(await page.locator('.estimated-date').innerText(),'9 dic–15 dic');
  await page.reload();await page.locator('.cycle-start-link').waitFor();assert.match(await page.locator('.cycle-start-link').innerText(),/13 nov/);
  await page.locator('.cycle-start-link').click();await page.locator('dialog [data-action=delete-period]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
- assert.equal(await page.locator('.ring-label strong').innerText(),String(D.diff('2026-10-12',D.today())+1));assert.equal(await page.locator('.estimated-date').innerText(),'7 nov–10 nov');
+ assert.equal(await page.locator('.ring-label strong').innerText(),String(D.diff('2026-10-12',D.today())+1));assert.equal(await page.locator('.estimated-date').innerText(),'7 nov–10 nov');assert.equal(await page.locator('html').getAttribute('data-home-tone'),'neutro');
  await page.locator('[data-action=new-period]').click();await page.locator('dialog #start').fill('2026-11-11');await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
  await page.locator('#header [data-action=settings]').click();await page.locator('main [data-action=cosma-tour]').click();await page.waitForFunction(()=>document.querySelector('#cosma-stage')?.dataset.tour==='0');await page.locator('#status').evaluate(e=>e.textContent='');
  for(const theme of ['light','dark']){await page.emulateMedia({colorScheme:theme});await page.screenshot({path:`docs/schermate/cosma-fumetto-${theme}.png`,fullPage:true});}

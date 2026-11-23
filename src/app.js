@@ -1,5 +1,6 @@
 import {createImportFlow} from './import-ui.js';
 import {createCosma} from './cosma-ui.js';
+import {homeTone,homePalettes} from './home-appearance.js';
 import {exportPortable,exportCSV} from './import-v2.js';
 import * as Platform from "./platform.js";
 import * as D from "./domain.js";
@@ -110,6 +111,12 @@ function toast(text) {
 function applyTheme() {
   document.documentElement.dataset.theme =
     S?.theme === "auto" ? "" : S?.theme || "";
+  const root=document.documentElement;
+  if(S?.onboarded&&!locked&&tab==='oggi'){
+    const tone=homeTone(S),dark=S.theme==='dark'||S.theme==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.homeTone=tone;
+    root.style.setProperty('--home-background',homePalettes[dark?'dark':'light'][tone]);
+  }else{delete root.dataset.homeTone;root.style.removeProperty('--home-background');}
   document.title="Cosma";
   Platform.setAppearance(S?.theme||"auto").catch(()=>{});
 }

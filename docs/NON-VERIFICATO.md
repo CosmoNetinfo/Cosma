@@ -1,5 +1,9 @@
 # Limiti e verifiche mancanti
 
+## Delta v1.1, fase 1
+
+La prova.4 aggiunge soltanto tinte piatte su Oggi. Non certificano una fase ormonale o fertilità e non sono una misura clinica: leggono esclusivamente registrazioni e fascia descrittiva già disponibili. Contrasto del testo verificato con test nei due temi; resa e cambio tema sul telefono fisico restano da provare. Settimana, pannello rapido, nuovi gesti, organizzazione dei consigli, onboarding a passi e verifica F-Droid sono fasi successive, non funzioni dichiarate della prova.4. Nessun export reale o nuova fonte clinica è stato validato in questa fase. Firma, secrets, dati, protezioni e calcoli restano quelli della prova.3.
+
 Consegna preparata il 23 novembre 2026. Il dettaglio delle fonti consultate il 22 novembre è in FONTI.md.
 
 ## Mascotte e importazione: nuovo pacchetto

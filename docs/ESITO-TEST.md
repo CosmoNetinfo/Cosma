@@ -1,5 +1,10 @@
 # Verifiche della versione con assistente e importazione
 
+## v1.1 fase 1
+
+57 test Node superati, più controlli dell’interfaccia aggiornati: tinte reali in tema chiaro/scuro automatico, registrazione/eliminazione di una data, neutralità dopo la fascia descrittiva e nessuna tinta di Oggi nelle altre pagine. Le quattro nuove prove non cambiano le formule. Trenta file dei calcoli, della protezione, dei plugin, del workflow, delle fonti e delle immagini risultano identici a prova.3: FASE1-INVARIANTI.json. L’esito della compilazione e dei test nativi della prova.4 è disponibile nel workflow del tag. I risultati sotto descrivono anche la base prova.3.
+
+
 **Release prova.3 completata**: [workflow riuscito](https://github.com/CosmoNetinfo/Cosma/actions/runs/45140763437), versionCode 10010. Firma definitiva identica a prova.2, INTERNET assente, allowBackup=false e nove immagini identiche anche nell’APK scaricato. Ricevuta in VERIFICA-APK-PROVA3.json. Il progetto estratto dallo ZIP è stato installato separatamente con npm ci e ha superato 53 test e android:sync.
 
 23 novembre 2026. Node locale 26.13.1; workflow Node 24 LTS, JDK 21, SDK 36. Nessun telefono fisico collegato.
