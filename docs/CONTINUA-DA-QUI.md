@@ -2,7 +2,9 @@
 
 ## Aggiornamento v1.1, fase 2
 
-Nuovo tag di prova: **v1.0.0-prova.5**. In Oggi compare la striscia di oggi e dei prossimi sei giorni: pieno per mestruazioni registrate, tratteggiato per la fascia descrittiva dell’inizio. Un tocco apre il Calendario nel giorno e mese corretti; le date future restano di sola consultazione. Nessuna localizzazione di fertilità o nuova formula. La Home vuota e le tinte della fase 1 sono conservate. Verifiche locali: 62 test Node e controlli dell’interfaccia aggiornati; l’esito Android e firma si consulta nella Release del tag.
+Nuovo tag di prova: **v1.0.0-prova.6**. In Oggi compare la striscia di oggi e dei prossimi sei giorni: pieno per mestruazioni registrate, tratteggiato per la fascia descrittiva dell’inizio. Un tocco apre il Calendario nel giorno e mese corretti; le date future restano di sola consultazione. Nessuna localizzazione di fertilità o nuova formula. La Home vuota e le tinte della fase 1 sono conservate. Verifiche locali: 62 test Node e controlli dell’interfaccia aggiornati; l’esito Android e firma si consulta nella Release del tag.
+
+La prova.5 è un riferimento intermedio: dopo un errore intermittente, la ripetizione del test Android è riuscita. Nella prova.6 è stato corretto solo il selettore della finestra nel test nativo, conservando tutti i controlli e lo stesso codice applicativo della fase 2. Non ricreare né spostare i tag esistenti.
 
 La prossima fase comprende **pulsanti di azione rapida e pannello di registrazione**, riusando il diario esistente. Leggi docs/AVANZAMENTO-v1.1.md per distinguere ciò che è già pronto da ciò che manca. I riepiloghi sotto sono riferimenti storici delle consegne precedenti.
 

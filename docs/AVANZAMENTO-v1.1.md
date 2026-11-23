@@ -10,7 +10,7 @@ Il colore non identifica fase follicolare, ovulazione, fase luteale o fertilità
 
 Verifiche locali: 57 test Node, compresi quattro controlli nuovi sulle tinte, sui limiti della loro interpretazione e sul contrasto del testo almeno 4,5:1. Il test dell’interfaccia controlla anche cambio del tema di sistema, aggiunta/eliminazione di una data e ritorno allo sfondo ordinario fuori da Oggi. Il workflow del tag esegue nuovamente test e prova nativa prima di firmare l’APK. Sul telefono restano da verificare resa dei colori, leggibilità e aggiornamento sopra prova.3.
 
-## Fase 2, tag v1.0.0-prova.5
+## Fase 2, tag v1.0.0-prova.6
 
 Aggiunta la striscia di oggi e dei prossimi sei giorni sotto l’anello di Oggi. Cerchio pieno: mestruazioni registrate; tratteggio: fascia descrittiva dell’inizio, ripresa dal calendario esistente. Tutti i giorni della fascia visibili nella settimana vengono indicati, senza scegliere una data centrale. Se minimo e massimo coincidono rimane un simbolo tratteggiato, con descrizione esplicita “non una data certa”: non si inventa una variabilità ulteriore e non si trasforma il dato in certezza.
 
@@ -19,6 +19,8 @@ Toccando una data si apre il Calendario nel mese e nel giorno scelti. Da oggi si
 Nessun giorno fertile personale viene localizzato, neppure attivando la modalità fertilità o inserendo LH, muco e temperatura: la convenzione biologica −5/0 rimane soltanto nelle spiegazioni già esistenti. Non cambiano le formule, le registrazioni o la fascia stimata; le stime passate non vengono spostate.
 
 Verifiche: 62 test Node, inclusi cinque controlli nuovi sulla settimana, sui cambi di mese/anno, bisestile e ora legale, sugli stati registrati/stimati e sull’assenza di deduzioni fertili. Il controllo dell’interfaccia verifica sette pulsanti, apertura del Calendario e del diario di oggi, impossibilità di registrare nel futuro e dimensioni minime in chiaro/scuro a 360/390/430 px. Il workflow del tag ripete i controlli e la prova Android prima della firma. Su telefono rimangono da verificare scorrimento, TalkBack e aggiornamento sopra prova.4.
+
+La funzione è nel commit della prova.5. Un successivo commit di manutenzione, prova.6, seleziona esplicitamente il dialogo Android nel test di eliminazione: la prima esecuzione della prova.5 aveva incontrato un errore intermittente di focus, poi superato alla ripetizione. Il codice dell’app resta identico fra prova.5 e prova.6; nessun test di sicurezza è rimosso.
 
 ## Inventario e prossime fasi
 
@@ -34,4 +36,4 @@ Verifiche: 62 test Node, inclusi cinque controlli nuovi sulla settimana, sui cam
 | 9. Linguaggio inclusivo | Gran parte dei testi già neutra | Verifica dei soli testi aggiunti e delle forme non necessarie |
 | 10. F-Droid | Elenco dipendenze e licenze tecniche | Verifica specifica della compatibilità; licenza del progetto da decidere con Dany |
 
-Le fasi successive alla settimana non fanno parte della prova.5. Il prossimo passo comprende azioni rapide e pannello di registrazione. Rimangono da ottenere export reali delle altre app, pose aggiuntive e prove su telefono; non vengono presentati come già verificati. Nessuna formula clinica è stata aggiunta nelle prime due fasi.
+Le fasi successive alla settimana non fanno parte della prova.6. Il prossimo passo comprende azioni rapide e pannello di registrazione. Rimangono da ottenere export reali delle altre app, pose aggiuntive e prove su telefono; non vengono presentati come già verificati. Nessuna formula clinica è stata aggiunta nelle prime due fasi.

@@ -2,7 +2,9 @@
 
 ## v1.1 fase 2
 
-62 test Node superati, più controlli della settimana nell’interfaccia: sette date e sette pulsanti da almeno 48 px, registrazioni distinte dalla fascia stimata, apertura del mese/giorno nel Calendario, diario di oggi e date future di sola consultazione. Casi di cambio mese/anno, bisestile e ora legale, dati pochi, fascia passata ed estremi coincidenti. Nessuna formula nuova e nessuna localizzazione fertile. Il rapporto FASE2-INVARIANTI.json confronta 31 file protetti con prova.4, incluse le tinte della fase 1. I risultati nativi e la firma della prova.5 si consultano nella Release del tag. I rapporti delle versioni precedenti restano come documentazione storica.
+La prova.5 ha superato i due test Android alla seconda esecuzione, dopo un errore intermittente di selezione della finestra di conferma. La prova.6 conserva lo stesso codice applicativo e corregge soltanto il test: `inRoot(isDialog())` seleziona esplicitamente l’AlertDialog creato da Capacitor prima di premere OK. Nessun controllo è rimosso o indebolito. Riferimenti tecnici: [Android, selezione della finestra nei test](https://developer.android.com/training/testing/espresso/recipes) e `BridgeWebChromeClient.onJsConfirm` nella dipendenza Capacitor locale. Il nuovo tag ripete tutti i controlli prima della firma.
+
+62 test Node superati, più controlli della settimana nell’interfaccia: sette date e sette pulsanti da almeno 48 px, registrazioni distinte dalla fascia stimata, apertura del mese/giorno nel Calendario, diario di oggi e date future di sola consultazione. Casi di cambio mese/anno, bisestile e ora legale, dati pochi, fascia passata ed estremi coincidenti. Nessuna formula nuova e nessuna localizzazione fertile. Il rapporto FASE2-INVARIANTI.json confronta 31 file protetti con prova.4, incluse le tinte della fase 1. I risultati nativi e la firma della prova.6 si consultano nella Release del tag. I rapporti delle versioni precedenti restano come documentazione storica.
 
 
 ## v1.1 fase 1

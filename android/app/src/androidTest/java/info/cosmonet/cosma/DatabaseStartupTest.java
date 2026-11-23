@@ -25,7 +25,11 @@ public class DatabaseStartupTest {
         RuntimeException last=null;
         while(SystemClock.elapsedRealtime()<end){
             try{
-                androidx.test.espresso.Espresso.onView(androidx.test.espresso.matcher.ViewMatchers.withId(android.R.id.button1)).perform(androidx.test.espresso.action.ViewActions.click());
+                // Il confirm WebView apre un AlertDialog: la finestra dell'attività
+                // perde il focus. Selezionare il dialogo prima di cercare il pulsante.
+                androidx.test.espresso.Espresso.onView(androidx.test.espresso.matcher.ViewMatchers.withId(android.R.id.button1))
+                    .inRoot(androidx.test.espresso.matcher.RootMatchers.isDialog())
+                    .perform(androidx.test.espresso.action.ViewActions.click());
                 return;
             }catch(RuntimeException e){last=e;SystemClock.sleep(100);}
         }
