@@ -18,3 +18,17 @@ I valori approvati sono conservati senza modifiche in `docs/stile-approvato/`. D
 | Android | Insets della WebView/SystemBars; barra inferiore 56 px più padding e area gestuale. Il contenuto ha almeno 24 px liberi dopo l’ultimo elemento prima della barra quando si arriva a fine scorrimento |
 
 Schermate reali del codice in `docs/schermate/`; sono acquisizioni dell’interfaccia con dati fittizi, non fotografie di un telefono. La mascotte rimane un PNG originale da 64 px nell’intestazione Oggi, nel primo avvio e negli stati vuoti; nessuna sovrapposizione con l’anello.
+# Aggiunte per le sezioni 13 e 14 del nuovo brief
+
+Queste aggiunte prevalgono sul precedente ruolo dell’immagine da 64 px; gli altri token approvati restano validi.
+
+| Elemento | Valori |
+|---|---|
+| Cosma su Oggi | Figura intera, altezza 128 px, proporzioni originali; spazio riservato sopra la navigazione; margini laterali e inferiori 24 px |
+| Altre schede | Volto 48 × 48 px, area toccabile 48 px, spazio riservato |
+| Fumetto | Fondo surface, testo text, bordo 1 px border della palette approvata; raggi 24/24/4/24 px verso Cosma, padding 12 px; corpo 16/24 px, comandi secondari 14/24 px; nessuna ombra |
+| Risposte | Massimo tre, raggio 999 px, altezza 48 px, spazio 8 px, tinte neutre; conferma prima del salvataggio |
+| Tour | Contatore 14 px, contorno 2 px accent e offset 4 px; area scorrevole fino al 40% della vista |
+| Movimento | Comparsa 250 ms, nessun ciclo continuo; assente con prefers-reduced-motion |
+| Scorrimento | Contenuto separato dall’assistente con flex e altezza dinamica; assistente nascosta durante la scrittura per liberare spazio alla tastiera |
+| Importazione | Modali e campi condivisi; tabella scorrevole internamente, valori escaped, errori in italiano |

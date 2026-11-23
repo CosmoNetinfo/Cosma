@@ -1,0 +1,10 @@
+{
+  "avviso": "Fixture sintetica: non è lo schema Flo",
+  "giornate_di_prova": [
+    {
+      "data_esempio": "2026-01-01",
+      "umore_esempio": "valore_A",
+      "nota_esempio": "Giornata di prova"
+    }
+  ]
+}

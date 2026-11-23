@@ -1,3 +1,6 @@
+import {createImportFlow} from './import-ui.js';
+import {createCosma} from './cosma-ui.js';
+import {exportPortable,exportCSV} from './import-v2.js';
 import * as Platform from "./platform.js";
 import * as D from "./domain.js";
 import * as Store from "./storage.js";
@@ -56,6 +59,31 @@ const row = (action, i, title, sub = "", extra = "") =>
     "row-button",
     extra,
   );
+const poseFor = (page) => ({oggi:'mascotte.png',cal:'mascotte.png',diario:'cosma-conforto.png',salute:'cosma-conforto.png',settings:'cosma-saluta.png',backup:'mascotte.png',security:'cosma-conforto.png',notify:'cosma-saluta.png',visits:'cosma-conforto.png',meds:'mascotte.png',learn:'cosma-saluta.png',pms:'cosma-conforto.png',feedback:'cosma-saluta.png'})[page]||'mascotte.png';
+const cosmaImage = (pose,cls='header-mascot') => `<img class="${cls}" src="${pose}" alt="Cosma a figura intera" width="72" height="72">`;
+const cosmaGuide = pose => button('cosma-help',cosmaImage(pose),'cosma-guide','aria-label="Un aiuto da Cosma" title="Un aiuto da Cosma"');
+function cosmaHelp(){
+ const text={
+  oggi:'Il giorno del ciclo parte dall’ultimo inizio registrato. Puoi correggerlo sotto l’anello oppure aggiungere una nuova mestruazione. Le date aggiornano calendario, statistiche e stima descrittiva.',
+  cal:'Tocca una data per leggere o compilare il diario. In Gestisci i cicli puoi correggere o eliminare un inizio registrato.',
+  diario:'Registra soltanto ciò che vuoi e premi Salva il diario. Puoi scegliere le categorie nelle Impostazioni.',
+  salute:'Qui trovi visite, farmaci, segnali e statistiche. Le Impostazioni sono sempre accessibili dall’ingranaggio in alto.',
+  settings:'Da qui puoi gestire le date del ciclo, consentire gli screenshot, scegliere il tema e proteggere o copiare i tuoi dati.',
+  periods:'Modifica o elimina l’inizio desiderato. I calcoli ripartono dall’ultimo inizio rimasto; le voci del diario non vengono cancellate.',
+  backup:'Scegli una password per il backup e conservala separatamente. Il ripristino richiede una conferma prima di sostituire i dati.',
+  security:'Puoi proteggere l’accesso con PIN e associare la biometria disponibile sul telefono. Il PIN resta un’alternativa.',
+  notify:'Puoi scegliere i promemoria e provarne uno. Il testo delle notifiche rimane generico; gli orari dipendono anche dalle autorizzazioni Android.',
+  visits:'Annota una visita con la sua data e, se vuoi, un promemoria. Puoi sempre modificare o eliminare la registrazione.',
+  meds:'Registra le indicazioni che hai già ricevuto e un eventuale orario personale. Puoi modificare ogni elemento.',
+  stats:'I grafici descrivono i cicli e i sintomi che hai registrato. Correggendo le date vengono aggiornati anche questi dati.',
+  temp:'Qui puoi rileggere le misure e i segnali grezzi. Questa versione non ricava una data certa di ovulazione.',
+  pms:'La scala quotidiana è personale: registra come stai e osserva i dati nel tempo, senza attribuire automaticamente una causa al ciclo.',
+  feedback:'Puoi scrivere e copiare il tuo feedback. L’app non lo invia automaticamente.',
+  learn:'Apri una scheda quando vuoi. Le fonti e il metodo sono consultabili anche senza connessione.'
+ };
+ modal('Cosma ti accompagna',`<p>${esc(text[tab]||'Un giorno alla volta: scegli ciò che vuoi registrare.')}</p>`);
+}
+let foreignFlow,cosma;
 let S = null,
   tab = "oggi",
   sel = D.today(),
@@ -85,9 +113,9 @@ function applyTheme() {
   document.title="Cosma";
   Platform.setAppearance(S?.theme||"auto").catch(()=>{});
 }
-async function commit(next) {
+async function commit(next,{importing=false}={}) {
   const clean = D.normalize(next);
-  await Store.persist(clean);
+  if(importing)await Store.persistImport(S,clean);else await Store.persist(clean);
   S = clean;
   applyTheme();
   await Platform.secureScreen(clean.secureScreen);
@@ -133,21 +161,25 @@ function go(next) {
   tab = next;
   render();
   window.scrollTo(0, 0);
+  app.scrollTop=0;
   app.focus({ preventScroll: true });
 }
 function modal(title, body) {
   $("#dialog-content").innerHTML =
-    `<div class="dialog-head"><h2 id="dialog-title">${title}</h2>${button("close", "×", "", 'aria-label="Chiudi"')}</div>${body}`;
+    `<div class="dialog-head">${cosmaImage("avatar.png","dialog-mascot")}<h2 id="dialog-title">${title}</h2>${button("close", "×", "", 'aria-label="Chiudi"')}</div>${body}`;
+  document.body.classList.add("dialog-visible");
   if (!dialog.open) dialog.showModal();
 }
 function closeModal() {
+  foreignFlow?.reset();
+  document.body.classList.remove("dialog-visible");
   dialog.close();
   $("#dialog-content").replaceChildren();
   restoreCandidate = null;
   restoreText=null;
 }
-function noData(title, text, pose = "cosma-dorme.png") {
-  return `<div class="empty"><img class="pose-empty" src="${pose}" alt="Cosma"><h2>${title}</h2><p>${text}</p></div>`;
+function noData(title, text) {
+  return `<div class="empty"><h2>${title}</h2><p>${text}</p></div>`;
 }
 function setupNav() {
   nav.innerHTML = [
@@ -167,10 +199,12 @@ function setupNav() {
     .join("");
 }
 function render() {
+  cosma?.clear();
   applyTheme();
   document.body.classList.toggle("no-nav", !S?.onboarded || locked);
   nav.hidden = !S?.onboarded || locked;
   if (locked) {
+    header.classList.remove("subpage-header");
     header.innerHTML = "";
     app.innerHTML = lockView();
     return;
@@ -179,6 +213,7 @@ function render() {
     return;
   }
   if (!S.onboarded) {
+    header.classList.remove("subpage-header");
     header.innerHTML = "";
     app.innerHTML = onboarding();
     return;
@@ -199,7 +234,7 @@ function render() {
     periods: ["I tuoi cicli", "Date, correzioni ed esclusioni"],
     visits: ["Visite ed esami", "I tuoi appuntamenti"],
     meds: ["Farmaci e integratori", "Le tue abitudini quotidiane"],
-    settings: ["Preferenze", "Scegli cosa tenere in vista"],
+    settings: ["Impostazioni", "Il tuo ciclo e le tue preferenze"],
     backup: ["Backup e dati", "Una copia che resta tua"],
     security: ["Blocco app", "Proteggi il tuo spazio"],
     pms:["Sintomi quotidiani","Le tue registrazioni nel tempo"], feedback:["La tua prova","Cinque domande, senza invio"],
@@ -208,8 +243,12 @@ function render() {
     notify: ["Promemoria", "Avvisi discreti, sul tuo dispositivo"],
   };
   const [title, sub] = titles[tab] || titles.oggi;
-  header.innerHTML = `${!["oggi", "cal", "diario", "salute"].includes(tab) ? button("back", icon("back"), "icon-button", 'aria-label="Torna a Salute"') : ""}<div><h1>${title}</h1><p>${sub}</p></div>${button(Store.isProtected() ? "lock" : "security", icon("lock"), "icon-button", `aria-label="${Store.isProtected() ? "Blocca subito" : "Configura blocco app"}"`)}`;
-  if(tab==="oggi")header.innerHTML=`<div><h1>Oggi</h1><p>${S.periods.length?sub:"Un giorno alla volta."}</p></div><img class="header-mascot" src="${S.periods.length?"avatar.png":"cosma-saluta.png"}" alt="Cosma">`;
+  const secondary=!["oggi","cal","diario","salute"].includes(tab);
+  const settings=button("settings",icon("settings"),"icon-button",'aria-label="Impostazioni" title="Impostazioni"');
+  const pose=tab==='oggi'&&!S.periods.length?'cosma-saluta.png':poseFor(tab);
+  const heading=`<div class="screen-heading"><h1>${title}</h1><p>${tab==='oggi'&&!S.periods.length?'Un giorno alla volta.':sub}</p></div>`;
+  header.classList.toggle('subpage-header',secondary);
+  header.innerHTML=secondary?`<div class="header-toolbar">${button("back",icon("back"),"icon-button",'aria-label="Indietro"')}${settings}</div><div class="header-brand">${heading}</div>`:`${heading}${settings}`;
   setupNav();
   app.innerHTML = (
     {
@@ -229,19 +268,21 @@ function render() {
       notify: vNotifications, pms:vPms, feedback:vFeedback,
     }[tab] || vOggi
   )();
+  app.scrollTop=0;
+  cosma?.paint(tab);
 }
 function onboarding() {
-  return `<div class="welcome"><div class="brand">Cosma<span>✧</span></div><img class="pose" src="cosma-saluta.png" alt="Cosma ti saluta"><h1>Ciao, sono Cosma.</h1><p class="lead">Uno spazio per conoscere il tuo ciclo, con i tuoi tempi.</p><div class="privacy-card">${icon("shield")}<div><b>Il tuo ciclo, solo tuo.</b><p>Dati nella memoria privata del telefono. Nessun account, nessuna pubblicità. Anche offline.</p></div></div><form data-form="onboarding">${field("start", "Primo giorno dell’ultima mestruazione", "date", "", 'max="' + D.today() + '" required')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Inizia con Cosma")}</div></form>${button("skip-onboarding", "Non ricordo la data, la aggiungo dopo", "skip")}${medical}</div>`;
+  return `<div class="welcome"><div class="brand">Cosma<span>✧</span></div><img class="pose" src="cosma-saluta-intera.png" alt="Cosma ti saluta"><h1>Ciao, sono Cosma.</h1><p class="lead">Uno spazio per conoscere il tuo ciclo, con i tuoi tempi.</p><div class="privacy-card">${icon("shield")}<div><b>Il tuo ciclo, solo tuo.</b><p>Dati nella memoria privata del telefono. Nessun account, nessuna pubblicità. Anche offline.</p></div></div><form data-form="onboarding">${field("start", "Primo giorno dell’ultima mestruazione", "date", "", 'max="' + D.today() + '" required')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Inizia con Cosma")}</div></form>${button("skip-onboarding", "Non ricordo la data, la aggiungo dopo", "skip")}${button("import-app","Importa da un’altra app","text-button")}${medical}</div>`;
 }
 function lockView() {
-  return `<div class="lock-screen"><img src="cosma-dorme.png" alt="Cosma riposa"><h1>Il tuo spazio è protetto.</h1><p class="muted">Inserisci il tuo PIN o la password.</p><form data-form="unlock">${field("password", "PIN o password", "password", "", 'required autocomplete="current-password"')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Sblocca Cosma")}</div></form>${biometricEnabled?button("biometric-unlock","Sblocca con impronta","secondary"):""}${button("forgot", "Ho dimenticato il PIN", "text-button")}</div>`;
+  return `<div class="lock-screen"><img src="cosma-abbraccio.png" alt="Cosma ti accompagna"><h1>Il tuo spazio è protetto.</h1><p class="muted">Inserisci il tuo PIN o la password.</p><form data-form="unlock">${field("password", "PIN o password", "password", "", 'required autocomplete="current-password"')}<p class="field-error" role="alert"></p><div class="form-actions">${submit("Sblocca Cosma")}</div></form>${biometricEnabled?button("biometric-unlock","Sblocca con impronta","secondary"):""}${button("forgot", "Ho dimenticato il PIN", "text-button")}</div>`;
 }
 
 
 function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=Math.min(r.day-1,count-1),angle=(index/count*360-90)*Math.PI/180,x=96+84*Math.cos(angle),y=96+84*Math.sin(angle);return `<div class="cycle-ring" role="img" aria-label="Giorno ${r.day} dal primo giorno registrato. L’anello non identifica una fase ormonale."><svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="arc"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ring)" stroke-width="8"/><path d="M96 12 A84 84 0 ${index/count>.5?1:0} 1 ${x} ${y}" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/></svg><div class="ring-label" aria-hidden="true"><strong>${r.day}</strong><span>Giorno del ciclo</span></div></div>`;}
 
 
-function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal">${ring(a)}<section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${primary('new-period','Inizio mestruazioni')}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
+function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","Modifica inizio ciclo · "+D.fmt(a.record.ls,true),"cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${primary('new-period','Inizio mestruazioni')}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
 
 function vCal() {
   const [y, m] = month.split("-").map(Number),
@@ -300,7 +341,7 @@ function vDiario() {
   if (!draft) draft = D.clone(S.log[sel] || blankLog());
   const l = draft,
     c = S.categories;
-  return `<div class="day-picker">${button("prev-day", icon("back"), "icon-button", 'aria-label="Giorno precedente"')}<div>${field("diary-date", "Data del diario", "date", sel, `max="${D.today()}"`)}</div>${button("next-day", icon("arrow"), "icon-button", `aria-label="Giorno successivo" ${sel >= D.today() ? "disabled" : ""}`)}</div><form data-form="diary">${c.flusso ? `<fieldset class="form-group"><legend>Flusso</legend>${chips("flusso", D.FLUSSI, l.flusso)}</fieldset>` : ""}${c.umore ? `<fieldset class="form-group"><legend>Umore</legend>${chips("umore", D.UMORI, l.umore)}</fieldset>` : ""}${c.sint ? `<fieldset class="form-group"><legend>Sintomi</legend>${chips("sint", D.SINTOMI, l.sint, true)}</fieldset>` : ""}${c.dolore ? `<div class="form-group"><div class="split"><label for="dolore">Dolore</label><output class="pain-value" id="pain-output" for="dolore">${l.dolore}/10</output></div><input id="dolore" name="dolore" type="range" min="0" max="10" value="${l.dolore}"><div class="split muted small"><span>Nessuno</span><span>Molto intenso</span></div></div>` : ""}${c.note ? `<label for="note">Note facoltative</label><textarea id="note" name="note" maxlength="10000" rows="3">${esc(l.note)}</textarea>` : ""}${c.temp ? field("temp", "Temperatura basale (°C), facoltativa", "number", l.temp ?? "", 'min="34" max="42" step="0.01" inputmode="decimal"') + check("tempDisturbed", "Misura disturbata (febbre, sonno o altro)", l.tempDisturbed) : ""}${c.mucus?select('mucus','Muco cervicale osservato',[['','Non registrato'],'Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante'],l.mucus||''):''}${c.lh?select('lh','Test LH: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.lh||''):''}${c.pregnancy?select('pregnancy','Test di gravidanza: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.pregnancy||''):''}${c.weight?field('weight','Peso (kg), facoltativo','number',l.weight??'','min="1" max="500" step="0.1"'):''}${c.sleep?field('sleep','Sonno (ore), facoltativo','number',l.sleep??'','min="0" max="24" step="0.25"'):''}${c.pms?`<fieldset class="form-group"><legend>Sintomi quotidiani · scala personale</legend><p class="hint">0: non presente; 1: lieve; 2: moderato; 3: intenso. Non è un questionario DRSP validato.</p>${Object.entries({mood:'Umore basso',irritability:'Irritabilità',anxiety:'Tensione',fatigue:'Stanchezza',sleep:'Sonno',interference:'Impatto sulle attività'}).map(([k,t])=>select('pms-'+k,t,[['0','0 · Non presente'],['1','1 · Lieve'],['2','2 · Moderato'],['3','3 · Intenso']],String(l.pms?.[k]||0))).join('')}</fieldset>`:''}<p class="hint">Salva le modifiche prima di cambiare schermata o mettere l’app in secondo piano.</p>${formEnd("Salva il diario")}${S.log[sel] ? button("delete-log", "Elimina questa registrazione", "danger") : ""}${button("settings", "Personalizza le categorie", "text-button")}`;
+  return `<div class="day-picker">${button("prev-day", icon("back"), "icon-button", 'aria-label="Giorno precedente"')}<div>${field("diary-date", "Data del diario", "date", sel, `max="${D.today()}"`)}</div>${button("next-day", icon("arrow"), "icon-button", `aria-label="Giorno successivo" ${sel >= D.today() ? "disabled" : ""}`)}</div><form data-form="diary">${c.flusso ? `<fieldset class="form-group"><legend>Flusso</legend>${chips("flusso", D.FLUSSI, l.flusso)}</fieldset>` : ""}${c.umore ? `<fieldset class="form-group"><legend>Umore</legend>${chips("umore", D.UMORI, l.umore)}</fieldset>` : ""}${c.sint ? `<fieldset class="form-group"><legend>Sintomi</legend>${chips("sint", D.SINTOMI, l.sint, true)}</fieldset>` : ""}${c.dolore ? `<div class="form-group"><div class="split"><label for="dolore">Dolore</label><output class="pain-value" id="pain-output" for="dolore">${l.dolore}/10</output></div><input id="dolore" name="dolore" type="range" min="0" max="10" value="${l.dolore}"><div class="split muted small"><span>Nessuno</span><span>Molto intenso</span></div></div>` : ""}${c.note ? `<label for="note">Note facoltative</label><textarea id="note" name="note" maxlength="10000" rows="3">${esc(l.note)}</textarea>` : ""}${c.temp ? field("temp", "Temperatura basale (°C), facoltativa", "number", l.temp ?? "", 'min="34" max="42" step="0.01" inputmode="decimal"') + check("tempDisturbed", "Misura disturbata (febbre, sonno o altro)", l.tempDisturbed) : ""}${c.mucus?select('mucus','Muco cervicale osservato',[['','Non registrato'],'Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante'],l.mucus||''):''}${c.lh?select('lh','Test LH: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.lh||''):''}${c.pregnancy?select('pregnancy','Test di gravidanza: risultato registrato',[['','Non registrato'],'Non eseguito','Negativo','Positivo','Non interpretabile'],l.pregnancy||''):''}${c.weight?field('weight','Peso (kg), facoltativo','number',l.weight??'','min="1" max="500" step="0.1"'):''}${c.sleep?field('sleep','Sonno (ore), facoltativo','number',l.sleep??'','min="0" max="24" step="0.25"'):''}${c.pms?`<fieldset class="form-group"><legend>Sintomi quotidiani · scala personale</legend><p class="hint">0: non presente; 1: lieve; 2: moderato; 3: intenso. Non è un questionario DRSP validato.</p>${Object.entries({mood:'Umore basso',irritability:'Irritabilità',anxiety:'Tensione',fatigue:'Stanchezza',sleep:'Sonno',interference:'Impatto sulle attività'}).map(([k,t])=>select('pms-'+k,t,[['0','0 · Non presente'],['1','1 · Lieve'],['2','2 · Moderato'],['3','3 · Intenso']],String(l.pms?.[k]||0))).join('')}</fieldset>`:''}${S.log[sel]?.source?'<p class="hint">Importato da '+esc(S.log[sel].source)+'.</p>':''}<p class="hint">Salva le modifiche prima di cambiare schermata o mettere l’app in secondo piano.</p>${formEnd("Salva il diario")}${S.log[sel] ? button("delete-log", "Elimina questa registrazione", "danger") : ""}${button("settings", "Personalizza le categorie", "text-button")}`;
 }
 
 function vSalute(){const notices=D.healthNotices(S);return `<div class="plain-list">${row('visits','cal','Visite ed esami',S.visits.length+' registrazioni')}${row('meds','pill','Farmaci e integratori',S.meds.length+' elementi')}${row('method','health','Metodo contraccettivo',S.method)}${row('stats','chart','Statistiche','Durate e sintomi registrati')}${row('temp','chart','I tuoi segnali','Temperatura, muco e test facoltativi')}${row('pms','diary','Sintomi quotidiani','Registrazione personale, senza diagnosi')}${row('periods','cal','Gestisci i cicli','Date, fine ed esclusioni')}${row('notify','bell','Promemoria','Notifiche locali Android')}${row('settings','settings','Impostazioni','Aspetto e categorie')}${row('security','lock','Blocco app',Store.isProtected()?'PIN attivo':'Configura PIN e impronta')}${row('backup','download','Backup e dati',S.lastBackup?'Ultimo backup '+D.fmt(S.lastBackup):'Nessun backup manuale registrato')}${row('science','diary','Fonti e metodo','Dati, formule e limiti scientifici')}${row('learn','star','Conoscere il ciclo','Schede informative con fonti')}${row('feedback','diary','Feedback per chi prova','Cinque domande, senza invio')}</div>${notices.length?card('<h2>Da portare a un colloquio</h2>'+notices.map(n=>'<p class="hint">'+esc(n.text)+'</p>'+button('article-source','Criterio e fonte '+n.source,'text-button',`data-sources="${n.source}"`)).join('')):''}`;}
@@ -350,7 +391,7 @@ function vPeriods() {
             .sort((a, b) => b.start.localeCompare(a.start))
             .map((p) => {
               const interval = a.intervals.find((x) => x.id === p.id);
-              return `<div class="list-entry"><b>${D.fmt(p.start, true)}</b><p>${p.end ? "Fine: " + D.fmt(p.end, true) : "Fine non registrata"}${interval ? " · Ciclo di " + interval.days + " giorni" : ""}</p>${p.exclude || interval?.reason ? `<p>${esc(interval?.reason || "Escluso da te")}</p>` : ""}<div class="actions">${button("edit-period", "Modifica", "", `data-id="${esc(p.id)}"`)}${button("delete-period", "Elimina", "danger", `data-id="${esc(p.id)}"`)}</div></div>`;
+              return `<div class="list-entry"><b>${D.fmt(p.start, true)}</b><p>${p.end ? "Fine: " + D.fmt(p.end, true) : "Fine non registrata"}${interval ? " · Ciclo di " + interval.days + " giorni" : ""}</p>${p.source?'<p class="hint">Importato da '+esc(p.source)+'.</p>':''}${p.exclude || interval?.reason ? `<p>${esc(interval?.reason || "Escluso da te")}</p>` : ""}<div class="actions">${button("edit-period", "Modifica", "", `data-id="${esc(p.id)}"`)}${button("delete-period", "Elimina", "danger", `data-id="${esc(p.id)}"`)}</div></div>`;
             })
             .join(""),
         )
@@ -409,7 +450,8 @@ function vSettings() {
     note: "Note",
     pms:"Scala personale dei sintomi quotidiani", temp: "Temperatura basale", mucus:"Muco cervicale", lh:"Test LH", pregnancy:"Test di gravidanza", weight:"Peso", sleep:"Sonno",
   };
-  return `<form data-form="settings">${select(
+  const last=D.analysis(S).record;
+  return `<div class="settings-shortcuts">${row("periods","cal","Inizi del ciclo",last?"Ultimo inizio: "+D.fmt(last.ls,true):"Aggiungi, modifica o elimina le date")}${row("privacy","shield","Screenshot e privacy",S.secureScreen?"Screenshot bloccati":"Screenshot consentiti")}${row("notify","bell","Promemoria","Orari e autorizzazioni")}${row("security","lock","Blocco app",Store.isProtected()?"PIN attivo":"PIN e biometria")}${row("import-app","download","Importa da un’altra app","CSV o JSON, con anteprima")}${row("backup","download","Backup e ripristino","Una copia cifrata dei tuoi dati")}${row("science","diary","Fonti e metodo","Calcoli, fonti e limiti")}</div>${button("cosma-tour","Rifai il tour con Cosma","text-button")}${!S.cosmaTourDone?button("cosma-tour-resume","Riprendi il tour","text-button"):""}<h2 class="block-title">Cosma e aspetto</h2><form data-form="settings">${select("cosmaPresence","La presenza di Cosma",[["presente","Presente · fino a 3 messaggi al giorno"],["discreta","Discreta · fino a 1 messaggio al giorno"],["silenziosa","Silenziosa · solo quando la tocchi"]],S.cosmaPresence)}${select(
     "theme",
     "Aspetto",
     [
@@ -418,7 +460,7 @@ function vSettings() {
       ["dark", "Scuro"],
     ],
     S.theme,
-  )}${check("secureScreen","Nascondi il contenuto nelle app recenti e impedisci gli screenshot",S.secureScreen)}${select("ageGroup","Fascia per i riferimenti del ciclo",[["non-indicata","Preferisco non indicarla"],["adolescente","Adolescenza"],["18-25","18–25 anni"],["26-41","26–41 anni"],["42-45","42–45 anni"],["oltre45","Oltre 45 anni"]],S.ageGroup)}<h2 class="block-title">Categorie del diario</h2>${Object.entries(
+  )}${select("ageGroup","Fascia per i riferimenti del ciclo",[["non-indicata","Preferisco non indicarla"],["adolescente","Adolescenza"],["18-25","18–25 anni"],["26-41","26–41 anni"],["42-45","42–45 anni"],["oltre45","Oltre 45 anni"]],S.ageGroup)}<h2 class="block-title">Categorie del diario</h2>${Object.entries(
     labels,
   )
     .map(([k, t]) => check(k, t, S.categories[k]))
@@ -434,7 +476,7 @@ function vFeedback(){return `<p class="hint">Nessun invio automatico. Puoi copia
 function vSecurity(){return `<div class="card"><h2>${Store.isProtected()?'Il PIN è attivo':'Proteggi l’accesso'}</h2><p class="hint">I dati sono cifrati nella memoria privata del telefono. Il PIN aggiunge la protezione dell’accesso. Cosma si blocca quando passa in secondo piano e dopo 5 minuti senza attività.</p><p class="hint">Se perdi il PIN, puoi ripartire da un backup cifrato con la sua password. Non possiamo recuperare il PIN per te.</p>${!Store.isProtected()?`<form data-form="enable-pin">${field('password','Nuovo PIN o password, almeno 8 caratteri','password','','required minlength="8" autocomplete="new-password"')}${field('repeat','Ripeti PIN o password','password','','required minlength="8" autocomplete="new-password"')}${formEnd('Attiva il PIN')}`:`${primary('lock','Blocca subito')}<form data-form="biometric">${field('password','PIN attuale per associare l’impronta','password','','required autocomplete="current-password"')}${formEnd(biometricEnabled?'Riassocia l’impronta':'Attiva lo sblocco biometrico',true)}${biometricEnabled?button('remove-biometric','Disattiva la biometria','text-button'):''}<form data-form="disable-pin">${field('password-disable','PIN attuale per disattivare il blocco','password','','required autocomplete="current-password"')}${formEnd('Disattiva il PIN',true)}`}</div><p class="hint">Se la biometria sicura non è disponibile, il PIN funziona comunque. La chiave biometrica non viene esportata nel backup.</p>`;}
 
 
-function vBackup(){const due=!S.lastBackup||D.diff(S.lastBackup,D.today())>=28;return `<div class="card"><h2>Una copia che scegli tu</h2><p class="hint">Disinstallare Cosma elimina i dati. Il backup automatico di Android è disattivato: conserva un file cifrato in una cartella sicura.</p>${due?'<p class="hint">È il momento di fare un backup. Se abiliti le notifiche, ti ricordiamo di farlo ogni quattro settimane.</p>':'<p class="hint">Ultimo file salvato: '+D.fmt(S.lastBackup,true)+'.</p>'}${primary('export-backup','Salva backup cifrato')}${button('share-backup','Condividi backup cifrato','text-button')}${button('import-backup','Ripristina un backup cifrato','text-button')}${button('report','Riepilogo per una visita · PDF','text-button')}</div>${button('wipe','Cancella tutti i dati','danger')}<p class="hint">Se scegli un servizio cloud dal selettore file o dalla condivisione Android, sarà una tua scelta esplicita. Cosma non invia il backup da sola.</p>`;}
+function vBackup(){const due=!S.lastBackup||D.diff(S.lastBackup,D.today())>=28;return `<div class="card"><h2>Una copia che scegli tu</h2><p class="hint">Disinstallare Cosma elimina i dati. Il backup automatico di Android è disattivato: conserva un file cifrato in una cartella sicura.</p>${due?'<p class="hint">È il momento di fare un backup. Se abiliti le notifiche, ti ricordiamo di farlo ogni quattro settimane.</p>':'<p class="hint">Ultimo file salvato: '+D.fmt(S.lastBackup,true)+'.</p>'}${primary('export-backup','Salva backup cifrato')}${button('share-backup','Condividi backup cifrato','text-button')}${button('import-backup','Ripristina un backup cifrato','text-button')}${button('import-app','Importa da un’altra app','text-button')}${Store.canUndoImport()?button('undo-import','Annulla ultima importazione','text-button'):''}${button('export-json','Esporta dati in JSON','text-button')}${button('export-csv','Esporta dati in CSV','text-button')}${button('report','Riepilogo per una visita · PDF','text-button')}</div>${button('wipe','Cancella tutti i dati','danger')}<p class="hint">Se scegli un servizio cloud dal selettore file o dalla condivisione Android, sarà una tua scelta esplicita. Cosma non invia il backup da sola.</p>`;}
 
 function vLearn(){return button('science','Fonti e metodo','secondary')+'<p class="hint">Informazioni generali con fonti consultabili offline. Nessuna revisione clinica indipendente; non una valutazione personale.</p>'+articles.map(a=>`<details class="article"><summary>${esc(a.title)}</summary><p>${esc(a.text)}</p>${button('article-source','Fonti: '+a.sources.join(', '),'text-button',`data-sources="${a.sources.join(',')}"`)}</details>`).join('');}
 function tempChart() {
@@ -468,7 +510,7 @@ function tempChart() {
 
 function vTemp(){
  const records=Object.entries(S.log).filter(([,l])=>l.mucus||l.lh||l.pregnancy||l.temp!=null).sort(([a],[b])=>b.localeCompare(a)).slice(0,90);
- return `${card('<h2>Temperatura: misure registrate</h2>'+tempChart())}${primary('record-temp','Registra una temperatura')}${flat('<h2>Lettura dei segnali</h2><p class="hint">Intervallo non stimabile. Questa versione mostra i dati grezzi e non interpreta automaticamente la combinazione di temperatura, muco e test LH.</p><p class="hint">Eventuali “segnali compatibili con un’ovulazione già avvenuta” richiedono un metodo documentato: nessuna data certa, nessuna conferma clinica. NICE NG257 §1.18.9 sconsiglia di usare i grafici BBT per confermare l’ovulazione; LH è un segnale indiretto (ASRM 2026).</p>'+button('science','Metodo, limiti e fonti','text-button'))}<h2 class="block-title">Dati grezzi del diario</h2>${records.length?flat(records.map(([d,l])=>`<div class="list-entry"><b>${D.fmt(d,true)}</b><p>${[l.temp!=null?'Temperatura '+l.temp.toFixed(2)+' °C'+(l.tempDisturbed?' · disturbata':''):'',l.mucus?'Muco: '+esc(l.mucus):'',l.lh?'LH: '+esc(l.lh):'',l.pregnancy?'Test gravidanza: '+esc(l.pregnancy):''].filter(Boolean).join('<br>')}</p></div>`).join('')):'<p class="hint">Nessun segnale registrato. Le categorie sono facoltative, attivabili da Preferenze.</p>'}${button('settings','Scegli i dati da registrare','secondary')}<p class="hint">Import da dispositivi indossabili e interpretazione numerica retrospettiva non disponibili in questa versione di prova.</p>`;
+ return `${card('<h2>Temperatura: misure registrate</h2>'+tempChart())}${primary('record-temp','Registra una temperatura')}${flat('<h2>Lettura dei segnali</h2><p class="hint">Intervallo non stimabile. Questa versione mostra i dati grezzi e non interpreta automaticamente la combinazione di temperatura, muco e test LH.</p><p class="hint">Eventuali “segnali compatibili con un’ovulazione già avvenuta” richiedono un metodo documentato: nessuna data certa, nessuna conferma clinica. NICE NG257 §1.18.9 sconsiglia di usare i grafici BBT per confermare l’ovulazione; LH è un segnale indiretto (ASRM 2026).</p>'+button('science','Metodo, limiti e fonti','text-button'))}<h2 class="block-title">Dati grezzi del diario</h2>${records.length?flat(records.map(([d,l])=>`<div class="list-entry"><b>${D.fmt(d,true)}</b><p>${[l.temp!=null?'Temperatura '+l.temp.toFixed(2)+' °C'+(l.tempDisturbed?' · disturbata':''):'',l.mucus?'Muco: '+esc(l.mucus):'',l.lh?'LH: '+esc(l.lh):'',l.pregnancy?'Test gravidanza: '+esc(l.pregnancy):''].filter(Boolean).join('<br>')}</p></div>`).join('')):'<p class="hint">Nessun segnale registrato. Le categorie sono facoltative, attivabili da Impostazioni.</p>'}${button('settings','Scegli i dati da registrare','secondary')}<p class="hint">Import da dispositivi indossabili e interpretazione numerica retrospettiva non disponibili in questa versione di prova.</p>`;
 }
 
 
@@ -477,8 +519,8 @@ function vNotifications(){const rs=reminders(S);return `<div class="card"><h2>Pr
 function periodModal(id = "", date = D.today()) {
   const p = S.periods.find((p) => p.id === id) || { start: date };
   modal(
-    id ? "Modifica ciclo" : "Registra mestruazioni",
-    `<form data-form="period" data-id="${esc(id)}">${field("start", "Primo giorno", "date", p.start, `max="${D.today()}" required`)}${field("end", "Ultimo giorno (facoltativo)", "date", p.end || "", `max="${D.today()}"`)}${check("exclude", "Escludi questo ciclo dalle statistiche e dalle previsioni", p.exclude)}<p class="hint">La registrazione rimane visibile anche se esclusa. La data di fine può essere aggiunta più tardi.</p>${formEnd("Salva il ciclo")}`,
+    id ? "Modifica inizio ciclo" : "Registra mestruazioni",
+    `<form data-form="period" data-id="${esc(id)}">${field("start", "Primo giorno", "date", p.start, `max="${D.today()}" required`)}${field("end", "Ultimo giorno (facoltativo)", "date", p.end || "", `max="${D.today()}"`)}${check("exclude", "Escludi questo ciclo dalle statistiche e dalle previsioni", p.exclude)}<p class="hint">La registrazione rimane visibile anche se esclusa. La data di fine può essere aggiunta più tardi.</p>${formEnd("Salva il ciclo")}${id?button("delete-period","Elimina questo inizio ciclo","danger delete-cycle",`data-id="${esc(id)}"`):""}`,
   );
 }
 function visitModal(id = "") {
@@ -540,12 +582,14 @@ function download(content, name, type) {
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 function lockNow() {
+  cosma?.clear();
   if (!Store.isProtected() || locked || !S) return;
   S = null;
   draft = null;
   dirty = false;
   locked = true;
   Store.forgetKey();
+  Platform.secureScreen(true).catch(()=>{});
   closeModal();
   document.querySelector(".report")?.remove();
   $("#status").textContent = "";
@@ -555,16 +599,19 @@ function enablePinCheck(password, repeat) {
   if (password !== repeat) throw Error("Le due password o PIN non coincidono.");
 }
 function removeConfirm(collection, id, label) {
-  if (!confirm(`Eliminare ${label}? Questa operazione non si può annullare.`))
+  if (!confirm(`Eliminare ${label}? Questa operazione non si può annullare.${collection==="periods"?" Le voci del diario restano salvate. I calcoli saranno aggiornati dagli inizi rimasti.":""}`))
     return;
   return run(async () => {
     const n = D.clone(S);
     n[collection] = n[collection].filter((x) => x.id !== id);
     await commit(n);
+    if(dialog.open)closeModal();
     render();
     toast("Elemento eliminato.");
   });
 }
+cosma=createCosma({state:()=>S,page:()=>tab,locked:()=>locked,typing:()=>dirty||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName),modalOpen:()=>dialog.open,commit,run,go,modal,close:closeModal,esc,button});
+foreignFlow=createImportFlow({getState:()=>S,commit,commitImport:n=>commit(n,{importing:true}),modal,closeModal,render,toast,button,select,field,formEnd,esc,fmt:D.fmt,pickFile:()=>Platform.pickBackup(),testMode:__COSMA_TEST__});
 const routes = ["pms","feedback",
   "salute",
   "stats",
@@ -588,7 +635,7 @@ document.addEventListener("click", (e) => {
     return;
   }
   if (locked) {
-    if(act==="biometric-unlock"){run(async()=>{const secret=await Platform.loadBiometricPin();S=await Store.unlock(secret);locked=false;idle=Date.now();render();});return;}
+    if(act==="biometric-unlock"){run(async()=>{const secret=await Platform.loadBiometricPin();S=await Store.unlock(secret);locked=false;idle=Date.now();await Platform.secureScreen(S.secureScreen);render();});return;}
     if (act === "forgot")
       modal(
         "PIN dimenticato",
@@ -603,6 +650,18 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (act) {
+    case 'foreign-table':run(()=>foreignFlow.chooseTable(Number(b.dataset.index)));break;
+    case 'undo-import':run(async()=>{if(!confirm('Tornare alla copia precedente all’importazione? Anche le modifiche successive saranno rimosse.'))return;const n=await Store.undoImport();await commit(n);closeModal();render();toast('Importazione annullata. Copia precedente ripristinata.');});break;
+    case 'export-json':case 'export-csv':run(async()=>{if(!confirm('Il file esportato non è cifrato e contiene dati sanitari. Vuoi salvarlo?'))return;await Platform.saveBackup(act==='export-json'?JSON.stringify(exportPortable(S),null,2):exportCSV(S),'cosma-dati-'+D.today()+(act==='export-json'?'.json':'.csv'));});break;
+    case 'cosma-toggle':case 'cosma-expand':case 'cosma-dismiss':case 'cosma-answer':case 'cosma-tour':case 'cosma-tour-resume':case 'cosma-tour-next':case 'cosma-tour-pause':case 'cosma-less':case 'cosma-silent':run(()=>cosma.action(act,b));break;
+    case 'import-app':foreignFlow.open();break;
+    case 'choose-foreign-file':run(()=>foreignFlow.choose());break;
+    case 'map-foreign-import':foreignFlow.mapping();break;
+    case 'confirm-foreign-import':run(()=>foreignFlow.apply());break;
+    case 'cosma-help':cosmaHelp();break;
+    case 'privacy':
+      modal('Screenshot e privacy',`<form data-form="privacy">${check('allowScreenshots','Consenti screenshot e anteprima nelle app recenti',!S.secureScreen)}<p class="hint">Attivalo per acquisire una schermata. Le immagini e le anteprime possono contenere i tuoi dati. La schermata di sblocco resta protetta.</p>${formEnd('Salva privacy')}`);
+      break;
     case 'agenda':go('notify');break;
     case 'choose-backup':run(async()=>{const text=await Platform.pickBackup();if(text!==null){restoreText=text;$('#chosen-backup').textContent='File selezionato sul telefono.';}});break;
     case 'share-backup':backupModal(false,false,true);break;
@@ -619,6 +678,7 @@ document.addEventListener("click", (e) => {
       run(async () => {
         const n = D.clone(S);
         n.onboarded = true;
+        if(!n.cosmaTourDone)n.cosmaTour=0;
         await commit(n);
         render();
       });
@@ -637,7 +697,7 @@ document.addEventListener("click", (e) => {
         (p) =>
           !p.end &&
           D.diff(p.start, D.today()) >= 0 &&
-          D.diff(p.start, D.today()) < 15,
+          p.start===D.analysis(S).record?.ls,
       );
       if (p) {
         periodModal(p.id);
@@ -886,6 +946,7 @@ document.addEventListener("submit", (e) => {
           throw Error("Scegli una data valida, fino a oggi.");
         n.periods.push({ id: D.uid(), start: date, exclude: false });
         n.onboarded = true;
+        if(!n.cosmaTourDone)n.cosmaTour=0;
         await commit(n);
         render();
         break;
@@ -896,6 +957,7 @@ document.addEventListener("submit", (e) => {
         try {
           S = await Store.unlock(value("password"));
           locked = false;
+          await Platform.secureScreen(S.secureScreen);
           unlockFailures = 0;
           idle = Date.now();
           render();
@@ -978,10 +1040,18 @@ document.addEventListener("submit", (e) => {
         toast("Elemento salvato.");
         break;
       }
+      case "foreign-file":await foreignFlow.readTestFile(f.get('file'));break;
+      case "foreign-map":foreignFlow.preview(f);break;
+      case 'foreign-values':foreignFlow.valuesPreview(f);break;
+      case 'foreign-portable':foreignFlow.preview(f);break;
+      case "privacy": {
+        const n=D.clone(S);n.secureScreen=!on('allowScreenshots');await commit(n);closeModal();render();toast(n.secureScreen?'Screenshot bloccati.':'Screenshot consentiti. Puoi acquisire la schermata.');break;
+      }
       case "settings": {
         const n = D.clone(S);
+        n.cosmaPresence=value('cosmaPresence');
         n.theme = value("theme");
-        n.secureScreen=on("secureScreen");n.ageGroup=value("ageGroup");
+        n.ageGroup=value("ageGroup");
         n.cycleLen = +value("cycleLen");
         n.periodLen = +value("periodLen");
         for (const k of Object.keys(n.categories)) n.categories[k] = on(k);
@@ -1150,4 +1220,4 @@ try{
  const result=await Store.boot();locked=!!result.locked;S=result.state||null;biometricEnabled=await Platform.hasBiometric();render();
  if(S){await Platform.secureScreen(S.secureScreen);syncNotifications(S).catch(()=>toast('Controlla i permessi per aggiornare i promemoria.'));}
  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>applyTheme());
-}catch(e){header.innerHTML='<h1>Cosma</h1>';app.innerHTML=`<div class="warning"><h2>Non riesco ad aprire l’archivio</h2><p>${esc(e.message)}</p><p class="hint">Non cancellare i dati se non hai un backup. Chiudi e riapri Cosma dopo aver controllato lo spazio disponibile.</p></div>`;}
+}catch(e){header.classList.remove('subpage-header');header.innerHTML=cosmaImage('cosma-conforto.png')+'<div><h1>Cosma</h1></div>';app.innerHTML=`<div class="warning"><h2>Non riesco ad aprire l’archivio</h2><p>${esc(e.message)}</p><p class="hint">Non cancellare i dati se non hai un backup. Chiudi e riapri Cosma dopo aver controllato lo spazio disponibile.</p></div>`;}

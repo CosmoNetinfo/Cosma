@@ -23,5 +23,25 @@
     "immagine": "cosma-conforto.png",
     "sha256_originale_e_consegna": "bc1448a1eed269001d8b156c72247549b806ae47e502c58a32d34ea73215d0ad",
     "identica": true
+  },
+  {
+    "immagine": "cosma-in-piedi.png",
+    "sha256_originale_e_consegna": "affb3ad5f96ce30dea8c8ba42223bbdb591699f9a5a6edfbbb91b98564969fa3",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-saluta-intera.png",
+    "sha256_originale_e_consegna": "209f50ca28fbd44a54761a6cf942b55f55d499be48e1eb3ea435ab0b3e45f54a",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-abbraccio.png",
+    "sha256_originale_e_consegna": "24b4c93da24645fcfebf3f1785fe19da5bad97b2e0ee52d6ccee854fcf4dcb35",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-dorme-intera.png",
+    "sha256_originale_e_consegna": "22f925442647786460a57b478dbde6a3bec9f79a3d0792a15e50ec6dc3989a0f",
+    "identica": true
   }
 ]

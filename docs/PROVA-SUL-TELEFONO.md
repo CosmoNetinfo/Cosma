@@ -62,3 +62,17 @@ Esito complessivo: __________
 Problemi osservati, passaggi per riprodurli e impostazioni: __________
 
 Per il feedback usa Salute → Feedback per chi prova. Non inviare dati sanitari reali che non vuoi condividere.
+# Prove aggiunte: assistente, date e importazione
+
+Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento sopra Cosma, senza disinstallare: la firma deve restare identica.
+
+- [ ] Apri l’ingranaggio, modifica l’ultimo inizio e controlla giorno nell’anello, calendario, statistiche, date della stima e promemoria; riapri. Elimina l’ultimo inizio e verifica che i calcoli usino quello precedente e il diario resti.
+- [ ] Consenti gli screenshot, acquisisci la schermata, chiudi/riapri. Blocca con PIN: la schermata di sblocco deve restare protetta. Sblocca: torna la preferenza scelta. Disattiva di nuovo gli screenshot se desideri.
+- [ ] Verifica Cosma intera su Oggi e il volto nelle altre schede, senza coprire dati o pulsanti, anche con tastiera aperta. Prova tema scuro, Riduci animazioni e TalkBack.
+- [ ] Salta il tour, riprendilo, completa gli otto passi e rifallo dalle Impostazioni. Controlla Presente/Discreta/Silenziosa, pausa notturna e mancati interventi mentre scrivi.
+- [ ] Scegli una risposta rapida: annulla la conferma e verifica che non sia salvata; ripeti confermando e verifica l’umore nel diario.
+- [ ] Importa ogni fixture sintetica seguendo la mappatura; controlla date italiane, provenienza, anomalie, campi ignorati, doppioni e valori. Non importare previsioni o dati sessuali.
+- [ ] Annulla l’anteprima: nessun dato cambia. Conferma Unisci: ritrova i dati tuoi e quelli nuovi. Chiudi, riapri e scegli Annulla importazione: ritrova la copia precedente. Ripeti con PIN e dopo un aggiornamento APK.
+- [ ] Prova Sostituisci tutto soltanto con dati finti; verifica conferma ulteriore e recupero della copia precedente. Un secondo import deve sostituire la copia del primo.
+- [ ] Esporta JSON e CSV, importali su un’installazione di prova separata e confronta cicli, diario, visite e farmaci. Verifica anche backup cifrato e ripristino con password corretta/errata.
+- [ ] Verifica i selettori Android con un file locale e con un file molto grande; dopo l’import elimina dal Download solo i file di prova che non servono più.

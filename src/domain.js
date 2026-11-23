@@ -76,6 +76,7 @@ export function initial() {
       mucus: false, lh: false, pregnancy: false, weight: false, sleep: false, pms:false,
     },
     dismissed: {},
+    cosmaPresence: 'discreta', cosmaSeen: {}, cosmaTour: -1, cosmaTourResume:0, cosmaTourDone: false,
   };
 }
 const str = (v, max = 300) => (typeof v === "string" ? v.slice(0, max) : "");
@@ -112,6 +113,7 @@ export function normalize(raw, { legacy = false } = {}) {
         start: p.start,
         ...(p.end ? { end: p.end } : {}),
         exclude: !!p.exclude,
+        ...(p.source ? {source: str(p.source,80)} : {}),
       };
     })
     .sort((a, b) => a.start.localeCompare(b.start));
@@ -135,6 +137,7 @@ export function normalize(raw, { legacy = false } = {}) {
         ? Math.max(0, Math.min(10, Math.round(+l.dolore)))
         : 0,
       note: str(l.note, 10000),
+      ...(l.source ? {source: str(l.source,80)} : {}),
       temp:
         l.temp !== "" &&
         l.temp != null &&
@@ -225,6 +228,11 @@ export function normalize(raw, { legacy = false } = {}) {
   s.createdAt=validDate(raw.createdAt)&&raw.createdAt<=date?raw.createdAt:date;
   s.lastBackup=validDate(raw.lastBackup)&&raw.lastBackup<=date?raw.lastBackup:null;
   s.secureScreen=raw.secureScreen!==false;
+  if(['presente','discreta','silenziosa'].includes(raw.cosmaPresence))s.cosmaPresence=raw.cosmaPresence;
+  s.cosmaTour=Number.isInteger(raw.cosmaTour)&&raw.cosmaTour>=0&&raw.cosmaTour<8?raw.cosmaTour:-1;
+  s.cosmaTourDone=raw.cosmaTourDone===true;
+  s.cosmaTourResume=Number.isInteger(raw.cosmaTourResume)&&raw.cosmaTourResume>=0&&raw.cosmaTourResume<8?raw.cosmaTourResume:0;
+  for(const [k,v] of Object.entries(raw.cosmaSeen||{}).slice(-100))if(validDate(v)&&v<=date)s.cosmaSeen[str(k,80)]=v;
   if(['non-indicata','adolescente','18-25','26-41','42-45','oltre45'].includes(raw.ageGroup))s.ageGroup=raw.ageGroup;
   s.onboarded = legacy || raw.onboarded === true || s.periods.length > 0;
   return s;

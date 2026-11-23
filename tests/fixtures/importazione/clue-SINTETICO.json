@@ -1,0 +1,14 @@
+{
+  "avviso": "Fixture sintetica: non è lo schema Clue",
+  "registrazioni_di_prova": [
+    {
+      "data_esempio": "2026-01-01",
+      "fine_esempio": "2026-01-04"
+    }
+  ],
+  "impostazioni_esempio": [
+    {
+      "tema": "chiaro"
+    }
+  ]
+}

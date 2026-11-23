@@ -1,3 +1,4 @@
+const gear = Array.from({length:32},(_,i)=>{const r=[8,10,10,8][i%4],a=(i*11.25-90)*Math.PI/180;return `${i?'L':'M'}${(12+r*Math.cos(a)).toFixed(2)} ${(12+r*Math.sin(a)).toFixed(2)}`;}).join(' ')+'Z';
 const paths = {
   home: '<path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/>',
   cal: '<rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h.01M12 15h.01m4 0h.01"/>',
@@ -17,7 +18,7 @@ const paths = {
     '<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/>',
   check: '<path d="m5 12 4 4L19 6"/>',
   settings:
-    '<circle cx="12" cy="12" r="4"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/>',
+    `<path d="${gear}"/><circle cx="12" cy="12" r="3"/>`,
   download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
   bell: '<path d="M5 17h14l-2-4V8A5 5 0 0 0 7 8v5Zm5 3h4"/>',
 };

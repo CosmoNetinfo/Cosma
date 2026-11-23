@@ -1,8 +1,12 @@
 # Cosma — Fonti e metodo, versione Android 1.0 di prova
 
+Aggiornamento 23 novembre 2026: per la mascotte si usa il catalogo locale `messaggi-cosma.md`; nessuna diagnosi, terapia, percentuale personale o nuova formula clinica. La raccomandazione NICE è **1.18.9**, non 1.18.8: il testo è stato riconfermato nell’indice del PDF ufficiale. In questa consultazione l’apertura diretta NICE/PMC ha restituito 403 o una verifica anti-bot; non viene dichiarata una nuova lettura integrale. Per FIGO è disponibile anche la copia dell’articolo nel [repository universitario dell’autore](https://escholarship.org/content/qt8p25g622/qt8p25g622.pdf). Le verifiche dettagliate sotto si riferiscono alla ricerca del 22 novembre.
+
 Consultazione: **22 novembre 2026**. “Verificato” indica quale materiale è stato effettivamente controllato, non una revisione clinica indipendente. Ricerca mirata, non revisione sistematica. Nessuna fonte qui elencata valida clinicamente Cosma. Il dossier fornito dall'utente è stato trattato come una lista di candidati, non come evidenza già verificata.
 
 ## Fonti principali e funzione nell’app
+
+Fonti tecniche per l’importazione, consultate il 23 novembre: [Clue](https://support.helloclue.com/hc/en-us/articles/17320910724125-How-do-I-get-a-copy-of-my-Clue-data), [Flo](https://help.flo.health/hc/en-us/articles/360054973811-How-do-I-get-a-copy-of-my-data), [Natural Cycles](https://help.naturalcycles.com/hc/en-us/articles/360006693938-How-to-download-your-Natural-Cycles-data), [Drip](https://dripapp.org/faq.html). Confermano contenitori e istruzioni, non la compatibilità universale degli schemi: nessun export personale reale provato. Dettagli e limiti in `docs/IMPORTAZIONE.md`. Non sono fonti cliniche per formule o soglie.
 
 ### S01 — Limiti dei grafici della temperatura
 

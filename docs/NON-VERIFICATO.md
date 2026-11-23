@@ -2,6 +2,15 @@
 
 Consegna preparata il 23 novembre 2026. Il dettaglio delle fonti consultate il 22 novembre è in FONTI.md.
 
+## Mascotte e importazione: nuovo pacchetto
+
+- Nessuna validazione clinica del motore di messaggi. Le regole d’interfaccia e di frequenza sono scelte di prodotto testate, non raccomandazioni mediche. I messaggi di salute rimandano ai criteri già documentati e non formulano diagnosi.
+- Nessun export personale reale Clue/Flo/Natural Cycles/Drip provato. Contenitori verificati su documentazione ufficiale, mapping testato su fixture sintetiche. JSON arbitrari, elenchi di stringhe e strutture oltre i limiti richiedono una conversione locale. TXT libero Flo, ZIP con/senza password e PDF non vengono interpretati: estrarre prima gli archivi, richiedere JSON/CSV.
+- Nessuna deduzione degli inizi dai giorni di flusso. L’importazione di solo diario non basta ad alimentare le statistiche degli inizi; serve registrarli esplicitamente. I campi sconosciuti non permettono di garantire la distinzione fra registrazioni e previsioni senza il controllo dell’utente.
+- La copia di annullamento è locale e singola: non recupera dati dopo disinstallazione o Cancella tutto e viene sostituita dal prossimo import. L’annullamento rimuove anche le modifiche successive. Testati errore di scrittura, riapertura, cifratura PIN e recupero; la durata su anni d’uso non è stata provata.
+- TalkBack reale, dimensione del carattere Android elevata, tastiere di più produttori, selettori file reali e migrazione fra telefoni richiedono ancora prove fisiche. Il contenuto scorre in uno spazio separato dall’assistente: nessun elemento viene deliberatamente coperto dal personaggio.
+- Nessun Health Connect, OCR, AI online o nuove pose generate. Le immagini restano identiche; sono usate alle dimensioni di visualizzazione necessarie, senza produrre altri file ridimensionati.
+
 ## Android e distribuzione
 
 - Nessun telefono reale collegato. Notifiche con app chiusa, riavvio, Doze, arresto forzato, spazio privato e impostazioni dei produttori non sono stati provati sul dispositivo.
