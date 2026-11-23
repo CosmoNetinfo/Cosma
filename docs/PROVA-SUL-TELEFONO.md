@@ -84,3 +84,11 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] In ogni pagina Cosma è intera; toccala e scegli Cambia posa, controllando tutte e quattro le immagini.
 - [ ] Cambiare posa non modifica diario o date; tornando dopo la chiusura completa la scelta temporanea può azzerarsi.
 - [ ] Prova fumetti, modalità Silenziosa, tastiera e tour completo; nessun controllo coperto.
+
+## Diario e leggibilità, prova.8
+
+- [ ] Cerca un sintomo, selezionalo dalle scorciatoie, cancella la ricerca: la selezione compare anche nella categoria Sintomi.
+- [ ] Registra flusso, umore, due sintomi, una nota e dati facoltativi attivati nelle Impostazioni; salva con una ricerca attiva e riapri. Nessun dato nascosto deve sparire.
+- [ ] Prova caratteri e dimensioni schermo Android grandi, orientamento e tastiera: scritte, icone e pulsanti non si coprono.
+- [ ] Correggi il primo giorno di un ciclo e verifica il giorno del ciclo e gli estremi della fascia nel calendario; la fine del flusso non deve spostare l’inizio usato per la stima.
+- [ ] Il numero è dentro l’anello, “Giorno del ciclo” fuori e distante dal bordo.

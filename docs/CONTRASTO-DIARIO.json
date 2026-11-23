@@ -1,0 +1,170 @@
+[
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#f5f3f6",
+    "rapporto": 14.47
+  },
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#eae7ec",
+    "rapporto": 13.03
+  },
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#fff0f4",
+    "rapporto": 14.46
+  },
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#fff5e9",
+    "rapporto": 14.82
+  },
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#f7ecf7",
+    "rapporto": 13.91
+  },
+  {
+    "tema": "chiaro",
+    "uso": "testo",
+    "testo": "#3b0a45",
+    "fondo": "#ffffff",
+    "rapporto": 15.97
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#f5f3f6",
+    "rapporto": 5.5
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#eae7ec",
+    "rapporto": 4.95
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#fff0f4",
+    "rapporto": 5.49
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#fff5e9",
+    "rapporto": 5.63
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#f7ecf7",
+    "rapporto": 5.28
+  },
+  {
+    "tema": "chiaro",
+    "uso": "secondario",
+    "testo": "#74597c",
+    "fondo": "#ffffff",
+    "rapporto": 6.06
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#19151e",
+    "rapporto": 16.16
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#322b38",
+    "rapporto": 12.26
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#3a2634",
+    "rapporto": 12.52
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#382e25",
+    "rapporto": 11.89
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#32263b",
+    "rapporto": 12.78
+  },
+  {
+    "tema": "scuro",
+    "uso": "testo",
+    "testo": "#f8f0fc",
+    "fondo": "#241a2c",
+    "rapporto": 14.98
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#19151e",
+    "rapporto": 8.06
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#322b38",
+    "rapporto": 6.11
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#3a2634",
+    "rapporto": 6.24
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#382e25",
+    "rapporto": 5.93
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#32263b",
+    "rapporto": 6.37
+  },
+  {
+    "tema": "scuro",
+    "uso": "secondario",
+    "testo": "#b9a7c6",
+    "fondo": "#241a2c",
+    "rapporto": 7.47
+  }
+]

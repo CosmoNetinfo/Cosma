@@ -1,0 +1,167 @@
+[
+  {
+    "file": "src/domain.js",
+    "sha256_git": "6e052e106ec53d8d1f73935029d8a96460ea078140cc77ffe9ca639b7ac57b45",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/storage.js",
+    "sha256_git": "682428813b2010ee28b1c3064df3fbc1a6f685ed306656d310e7637b2ccc123c",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/database.js",
+    "sha256_git": "d13f86955a92a5617310ffcacccb8ee1807eda7c23fa2b23b206cd2d98c261e5",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/native-vault.js",
+    "sha256_git": "b53886c4fd7c0448d6187c89b4fe739d144427e903b60e743646ba92dc416af1",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/crypto.js",
+    "sha256_git": "d47712767da7908de2b4a69dfeb45f9fec94bffbb0dc00f7ba689e4fe8735934",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/platform.js",
+    "sha256_git": "a48a7c55f5a6eae63678834f371f10fa6b57573dcc84a0aa7ad83680978fc582",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/notifications.js",
+    "sha256_git": "28f8959facb972f9f2c85794a64beca1ec1c020086bb9027f042c5b0aab3bde7",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-messages.js",
+    "sha256_git": "e782ad8465a5c1ab81624a843a237658a9f13a9986242ea05722b7f1a20e6d13",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/import-data.js",
+    "sha256_git": "5ef4896f3270ec0472981bdebff3e39ad41839a0ffaced5839896394d205bdb1",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/import-v2.js",
+    "sha256_git": "1d69ff8d6d357d18e9ab9bd96ecbea8be7a3eee1e9ff5a0d5fb9964b83a2ec51",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/import-ui.js",
+    "sha256_git": "0c632cbf507dbfccee65b750b301fc9338d96178c1efbdac5b5254a94c3fee2c",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "FONTI.md",
+    "sha256_git": "da8c5f62da449b4de2ab9245ba626dee820cf2f270cd9524102c8af61000ab98",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "messaggi-cosma.md",
+    "sha256_git": "7443399579e5f096624ce9baf0ab7f7b61ee1a105923c942ebdff74e1fefbe39",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "capacitor.config.ts",
+    "sha256_git": "638921cd6fb9731f4c68661e45e9e1b1f4a90d1016be6c580bf6c9753ff59e9f",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "package.json",
+    "sha256_git": "16631d205520ae144588b8cb6486105632d4195e3b6e6eb3405823353ea2f1b2",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "package-lock.json",
+    "sha256_git": "b0d1f3bca840ef66faca9cf1ed554190e4ecea096277f9a527634301d3274e3f",
+    "identico_a_prova7": true
+  },
+  {
+    "file": ".github/workflows/android.yml",
+    "sha256_git": "b1cfcc7fa7c85962a7d37499172c4886fe97454bfbf07a32e1ddd152787b4de2",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "android/app/build.gradle",
+    "sha256_git": "589abf51c0e86d0adbeb2fe67ef5952bc697a34af0981114bed488745624012d",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "android/app/src/main/AndroidManifest.xml",
+    "sha256_git": "2790a1c86072a325ec9ce77a1ea909af1badc4e35e69b5651d37962006089b8b",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "android/app/src/main/java/info/cosmonet/cosma/CosmaDevicePlugin.java",
+    "sha256_git": "d34c345b9da130c36159454349590e47214d3efd562d49dcdeb0f5fb923532e5",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/avatar.png",
+    "sha256_git": "c7011de30f18dd10307929bc7dd135d92829e0a557357113eeae1da78db31204",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/mascotte.png",
+    "sha256_git": "a92b4e988fe87085e0f625d0c36d302a475811b185a3bd6e598c955453b84a3e",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-saluta.png",
+    "sha256_git": "52977345bd7b1f9718053f738e44322d41449180d4126ff44c021e640cc56d87",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-dorme.png",
+    "sha256_git": "3839ad39eb82138878e482105ad21aca65b905e3626a3fa96fe44cbcbfaa276f",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-conforto.png",
+    "sha256_git": "bc1448a1eed269001d8b156c72247549b806ae47e502c58a32d34ea73215d0ad",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-in-piedi.png",
+    "sha256_git": "affb3ad5f96ce30dea8c8ba42223bbdb591699f9a5a6edfbbb91b98564969fa3",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-saluta-intera.png",
+    "sha256_git": "209f50ca28fbd44a54761a6cf942b55f55d499be48e1eb3ea435ab0b3e45f54a",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-abbraccio.png",
+    "sha256_git": "24b4c93da24645fcfebf3f1785fe19da5bad97b2e0ee52d6ccee854fcf4dcb35",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-dorme-intera.png",
+    "sha256_git": "22f925442647786460a57b478dbde6a3bec9f79a3d0792a15e50ec6dc3989a0f",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/home-appearance.js",
+    "sha256_git": "b3ce8d2da8392a61e6c96e3aa9ebfb717ad80cbaa12d92eb6aff83de0c4628cd",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/home-week.js",
+    "sha256_git": "fc6d6c8fc122b10ff44769e4807e743f24118bcabf450a14048236eddb3edab1",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-ui.js",
+    "sha256_git": "d75ffbb9c49fa20fdba473daaa5470e77e4f264e2722dd221e458050f7489097",
+    "identico_a_prova7": true
+  },
+  {
+    "file": "src/cosma-pose.js",
+    "sha256_git": "30bea6e78283b626779af15cf089843dec98bb7638cd71acd8e77bd7eb4df9e0",
+    "identico_a_prova7": true
+  }
+]

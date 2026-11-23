@@ -52,3 +52,7 @@ Queste aggiunte prevalgono sul precedente ruolo dell’immagine da 64 px; gli al
 ## Revisione prova.7
 
 Home: distanza fra blocchi 16 px; anello visivo 160 px, numero 76 px peso 300; scheda ciclo raggio 28 px, schede 24 px; contenuto 24 px dai lati, settimana 12 px per mantenere sette comandi da almeno 48 px. Mascotte originale intera da 112–128 px nella Home, 48 × 72 px accanto ai titoli delle altre pagine. Fumetti nel flusso della pagina; tour con area dedicata. Nessuna modifica ai colori scientificamente neutri della fase 1, al carattere di sistema o al contrasto. Un’ombra tenue nella stima: 0 4px 16px #3b0a4506. Nessun gradiente sullo sfondo.
+
+## Diario e leggibilità, prova.8
+
+Prevale sulla revisione precedente: numero da solo nell’anello da 176 px; didascalia esterna a 16 px e interlinea 24 px, separata di 8 px. Testi dei collegamenti 16 px; titoli delle righe 16 px/600, descrizioni 14 px con interlinea 22 px. Diario: margini 12 px, fondo #f5f3f6 (scuro #19151e), ricerca #eae7ec (scuro #322b38), schede senza bordo con raggio 22 px e padding 16–20 px. Pulsanti: flusso #fff0f4, umore #fff5e9, sintomi #f7ecf7; equivalenti scuri #3a2634, #382e25, #32263b. Testi primari e secondari conservano i colori approvati. Icone illustrate SVG create nel codice, mai modifiche alle immagini della mascotte. I pulsanti restano almeno 48 px; le righe possono andare a capo.

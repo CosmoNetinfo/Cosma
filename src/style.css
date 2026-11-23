@@ -1273,3 +1273,139 @@ main>.cosma-stage{margin:0 0 24px;max-height:none;overflow:visible}
 .shell{overflow:hidden}
 .no-nav .shell{overflow:visible}
 .home-minimal .cycle-start-link{border-radius:0 0 28px 28px}
+
+/* Revisione grafica comune: dimensioni comode, righe indipendenti e superfici coerenti. */
+body{line-height:1.5}
+h1{line-height:36px;letter-spacing:0}
+h2,h3{letter-spacing:0;line-height:1.5}
+button{line-height:1.5;white-space:normal;overflow-wrap:break-word}
+#header p{line-height:22px}
+.row-text b{font-size:16px;line-height:24px;font-weight:600}
+.row-text small{font-size:14px;line-height:22px;margin-top:4px}
+.row-button{gap:12px;padding:16px 0;align-items:center}
+.row-button>.icon,.tile-icon{flex-shrink:0}
+.plain-list,.settings-shortcuts{margin:0 0 24px;padding:0 16px;border:1px solid var(--border);border-radius:24px;background:var(--surface)}
+.tile-icon{width:32px;height:40px;color:var(--accent);border-radius:12px;background:var(--tint)}
+.tile-icon .icon{width:20px;height:20px}
+.form-group{padding:16px;margin:24px 0;background:var(--surface);border:1px solid var(--border);border-radius:24px}
+.form-group legend{font-size:16px;line-height:24px;padding:0 8px;font-weight:600}
+.chips{gap:10px}
+.chips button{font-size:16px;line-height:24px;padding:10px 14px;min-height:48px}
+.chips button[aria-pressed=true]:before{content:"\2713";display:inline-block;margin-right:8px}
+label,.field-label{font-size:16px;line-height:24px}
+.hint,.secondary-text,.muted{font-size:14px;line-height:22px}
+.method-link,.text-button{font-size:16px;line-height:24px}
+.card{padding:20px}.card p+p{margin-top:12px}
+.article summary{font-weight:600;line-height:24px;padding:12px 0}
+.article p{line-height:26px;margin:12px 0 20px}
+.dialog-head{display:grid;grid-template-columns:48px minmax(0,1fr) 48px;align-items:start;gap:8px;margin-bottom:24px}
+.dialog-head h2{font-size:22px;line-height:30px;margin:0;padding:6px 0;overflow-wrap:break-word}
+.dialog-head>button{margin:0}
+dialog p{line-height:26px}
+.cosma-bubble p{font-size:16px;line-height:26px;overflow-wrap:break-word}
+.cosma-answers button,.tour-controls button{line-height:24px;min-height:48px}
+.cosma-bubble .text-button{font-size:16px;line-height:24px}
+.home-minimal{gap:20px}
+.home-minimal .cycle-summary{grid-template-columns:minmax(0,1fr) 72px;padding:16px 12px 0;gap:12px 8px}
+.home-minimal .cycle-ring{width:192px;max-width:100%}
+.ring-label{gap:4px}
+.ring-label strong{line-height:80px}
+.ring-label span{line-height:21px;color:var(--text)}
+.home-minimal .cycle-start-link{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding:12px 8px;text-align:left;font-size:14px;line-height:22px;color:var(--muted)}
+.cycle-start-link strong{font-size:16px;line-height:24px;color:var(--text);font-weight:600}
+.home-minimal .prediction{padding:20px}
+.home-minimal .prediction h2{font-size:16px;line-height:24px;font-weight:600;color:var(--text)}
+.home-minimal .method-link{font-size:16px;line-height:24px}
+.home-minimal .home-week{padding:12px 0}
+.home-minimal .home-week h2{font-size:16px;line-height:24px;margin-bottom:8px}
+.home-minimal .home-week-label{font-size:14px;line-height:22px}
+.home-minimal .home-week-number{font-size:16px;font-weight:500}
+.home-minimal .home-week-day{min-height:64px;gap:6px}
+.home-minimal .home-week-legend{font-size:14px;line-height:22px;margin-top:8px}
+nav button{font-size:13px;line-height:20px;min-height:64px;padding:8px 0}
+@media(max-width:374px){.home-minimal .cycle-summary{grid-template-columns:minmax(0,1fr) 56px;column-gap:4px;padding-left:8px;padding-right:8px}.home-minimal .cosma-home .cosma-figure img{max-width:56px;height:112px}}
+
+.shell{padding-bottom:calc(88px + var(--safe-bottom))}
+
+/* Il numero è l’unico contenuto dell’anello. La didascalia ha una riga propria. */
+.cycle-indicator{grid-column:1;grid-row:1;min-width:0;justify-self:center;max-width:100%}
+.home-minimal .cycle-ring{width:176px}
+.cycle-caption{font-size:16px;line-height:24px;font-weight:500;text-align:center;margin-top:8px;color:var(--text)}
+.home-minimal .cosma-figure{align-self:center}
+.ring-label{gap:0}
+
+/* Diario: categorie leggibili e ricerca locale, secondo il riferimento fornito. */
+.diary-page{--choice-bg:var(--tint);--choice-ink:var(--accent);padding-bottom:16px}
+.diary-date-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:16px;margin-bottom:20px}
+.diary-date-card .day-picker{gap:8px;margin:0;grid-template-columns:48px minmax(0,1fr) 48px}
+.diary-date-card label{font-size:14px;line-height:22px;margin:0 0 8px}
+.diary-date-card input{padding:8px;min-width:0}
+.diary-date-card>p{margin-top:12px}
+.diary-search-label{font-size:14px;line-height:22px;margin:0 0 8px}
+#diary-search{border-radius:999px;min-height:56px;padding:14px 20px;margin-bottom:24px;background:var(--surface)}
+.diary-section{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:20px;margin:0 0 24px;min-width:0}
+.diary-section h2{font-size:16px;line-height:24px;margin:0 0 8px}
+.diary-section>.hint{margin:0 0 16px}
+.diary-categories{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 12px}
+.diary-categories h2{font-size:18px;line-height:28px}
+.diary-categories .text-button{padding:8px 0;flex-shrink:0;font-size:14px}
+.diary-choices{display:flex;flex-wrap:wrap;gap:10px 8px;margin-top:16px}
+.diary-choice{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:6px 12px 6px 6px;border:2px solid transparent;border-radius:999px;background:var(--choice-bg);color:var(--text);font-size:16px;line-height:24px;min-height:48px;text-align:left}
+.diary-glyph{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;color:var(--choice-ink);background:var(--surface)}
+.diary-glyph svg{width:28px;height:28px;display:block}
+.diary-choice-label{min-width:0;overflow-wrap:break-word}
+.diary-choice[aria-pressed=true]{border-color:var(--accent);font-weight:600;background:var(--tint)}
+.diary-choice[aria-pressed=true] .diary-glyph{background:var(--accent);color:var(--surface)}
+.quick-symptoms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 4px;margin-top:16px}
+.quick-symptoms .diary-choice{flex-direction:column;justify-content:flex-start;gap:8px;padding:8px 0;border-radius:16px;min-height:96px;background:transparent;text-align:center;font-size:14px;line-height:21px}
+.quick-symptoms .diary-glyph{width:48px;height:48px;background:var(--tint)}
+.quick-symptoms .diary-glyph svg{width:32px;height:32px}
+.diary-section label{margin:12px 0 8px}
+.diary-note label{font-size:14px}
+.diary-note textarea{line-height:26px;padding:14px}
+.diary-dolore label{margin:0;font-size:14px}
+.diary-dolore .pain-value{font-size:24px;line-height:32px;padding:0;width:auto;height:auto}
+.diary-page .form-actions{margin:24px 0}
+.diary-page [hidden]{display:none!important}
+.diary-save-hint{margin-top:24px}
+@media(max-width:374px){.diary-section{padding:16px}.diary-date-card{padding:12px}.diary-choice{font-size:15px}.quick-symptoms .diary-choice{font-size:14px}.quick-symptoms{gap:8px 0}}
+
+/* Aspetto del Diario ricostruito sul riferimento: fondo neutro, schede piene,
+   piccoli simboli illustrati e toni di categoria. Le pose Cosma restano originali. */
+:root{--diary-bg:#f5f3f6;--diary-search:#eae7ec;--diary-flow:#fff0f4;--diary-mood:#fff5e9;--diary-symptom:#f7ecf7}
+:root[data-theme=dark]{--diary-bg:#19151e;--diary-search:#322b38;--diary-flow:#3a2634;--diary-mood:#382e25;--diary-symptom:#32263b}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--diary-bg:#19151e;--diary-search:#322b38;--diary-flow:#3a2634;--diary-mood:#382e25;--diary-symptom:#32263b}}
+body[data-page=diario]{background:var(--diary-bg)}
+body[data-page=diario] main{padding-left:12px;padding-right:12px}
+body[data-page=diario] #header{padding:calc(12px + var(--safe-top)) 16px 12px;min-height:88px}
+body[data-page=diario] #header h1{font-size:24px;line-height:32px}
+body[data-page=diario] #header p{display:none}
+.diary-date-card{border:0;background:none;border-radius:0;padding:0 4px;margin-bottom:16px}
+.diary-date-card .day-picker{align-items:center;grid-template-columns:48px minmax(0,1fr) 48px}
+.diary-date-card label{font-size:20px;line-height:28px;font-weight:600;text-align:center;margin:0}
+.diary-date-card input{background:none;border:0;text-align:center;font-size:14px;line-height:22px;min-height:32px;padding:0 4px;color:var(--muted)}
+.diary-search-box{position:relative;margin:0 0 24px}
+.diary-search-box>svg{position:absolute;left:20px;top:16px;width:24px;height:24px;fill:none;stroke:var(--muted);stroke-width:1.8;pointer-events:none}
+#diary-search{margin:0;border:0;padding-left:56px;background:var(--diary-search)}
+.diary-section{padding:20px;border:0;border-radius:22px;margin-bottom:20px}
+.diary-section h2{font-size:17px;line-height:26px;font-weight:650}
+.diary-categories{padding:0 4px;margin:16px 0 12px}
+.diary-flusso{--choice-bg:var(--diary-flow)}
+.diary-umore{--choice-bg:var(--diary-mood)}
+.diary-sint{--choice-bg:var(--diary-symptom)}
+.diary-choice{font-size:15px;line-height:23px;gap:8px;padding-right:12px}
+.diary-choice-label{line-height:1.5}
+.diary-glyph{background:transparent;width:32px;height:32px}
+.diary-glyph svg{width:34px;height:34px}
+.diary-choice[aria-pressed=true] .diary-glyph{background:transparent}
+.quick-symptoms .diary-glyph{width:56px;height:56px;background:var(--diary-symptom)}
+.quick-symptoms .diary-glyph svg{width:44px;height:44px}
+.quick-symptoms .diary-choice{font-size:14px;line-height:21px;padding:8px 0;min-height:112px}
+.quick-symptoms .diary-choice[aria-pressed=true]{background:var(--diary-symptom)}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:374px){.diary-section{padding:16px}.diary-choice{font-size:15px}.quick-symptoms .diary-choice{font-size:13px}.quick-symptoms .diary-glyph{width:52px;height:52px}}
+
+body[data-page=diario] .diary-date-card input{background:transparent;border:0;box-shadow:none;padding:0 4px;min-height:32px}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+.quick-symptoms .diary-choice[aria-pressed=true]{border-color:transparent;background:transparent}
+.quick-symptoms .diary-choice[aria-pressed=true] .diary-glyph{border:2px solid var(--accent);background:var(--diary-symptom)}

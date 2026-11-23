@@ -106,7 +106,10 @@ public class DatabaseStartupTest {
             assertEquals("Prova nativa senza dati reali",js(scenario,"document.querySelector('#note').value"));
             js(scenario,"document.querySelector('#header [data-action=\"settings\"]').click()");
             awaitBody(scenario,"Screenshot e privacy");
-            assertEquals("avatar.png",js(scenario,"document.querySelector('#cosma-stage img').getAttribute('src')"));
+            String pose=js(scenario,"document.querySelector('#cosma-stage img').getAttribute('src')");
+            assertTrue("Posa originale a figura intera",java.util.Arrays.asList("cosma-in-piedi.png","cosma-saluta-intera.png","cosma-abbraccio.png","cosma-dorme-intera.png").contains(pose));
+            assertEquals("Cosma a figura intera",js(scenario,"document.querySelector('#cosma-stage img').alt"));
+            assertEquals("true",js(scenario,"document.querySelector('#cosma-stage img').complete && document.querySelector('#cosma-stage img').naturalWidth>0"));
             awaitSecure(scenario,true);
             js(scenario,"document.querySelector('main [data-action=\"privacy\"]').click()");
             awaitBody(scenario,"Consenti screenshot e anteprima");

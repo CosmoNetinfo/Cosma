@@ -4,6 +4,7 @@
   "controlli": [
     "Fase 2: sette date, pieno soltanto per registrazioni, apertura del Calendario e del diario di oggi, nessuna registrazione futura",
     "Fase 1: rosato soltanto per date registrate, tema automatico chiaro/scuro e ritorno alla tinta quotidiana dopo eliminazione",
+    "Calendario: correggere il primo giorno sposta esattamente gli estremi della fascia; nessuna formula nuova",
     "Tour di otto passi, saltabile e ripetibile, con fumetto chiaro/scuro e aree evidenziate",
     "Impostazioni dalla Home, consenso screenshot, aiuto Cosma, modifica/cancellazione inizio e ricalcolo immediato con riapertura",
     "Oggi light, 360px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
@@ -14,6 +15,8 @@
     "Oggi dark, 430px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
     "Schermi bassi 360 × 640/740: scheda intera e pulsante raggiungibile scorrendo, senza coperture",
     "Cosma intera su ogni pagina, posa contestuale e cambio manuale dal menu senza registrare dati",
+    "Nuovo Diario: ricerca locale, scorciatoie sincronizzate, selezioni multiple e valori conservati dopo riapertura",
+    "Ricerca del Diario: nascondere un gruppo non elimina i valori facoltativi al salvataggio, verificati dopo riapertura",
     "Diario salvato e ritrovato dopo riapertura",
     "Undici schermate secondarie: chiaro/scuro a 360 e 430px, senza scorrimento orizzontale o testi sotto 12px",
     "Visita e farmaco di prova aggiunti e ritrovati nei rispettivi elenchi",
