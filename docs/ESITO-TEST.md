@@ -17,4 +17,10 @@
 
 L’ambiente SDK segnala una differenza tra versioni del formato XML degli strumenti; la compilazione è comunque terminata. I plugin segnalano deprecazioni Gradle/Android: sono avvisi, non errori nascosti. L’assenza della chiave impedisce intenzionalmente di produrre un APK release firmato: la compilazione finale di prova è stata eseguita fornendo una chiave temporanea esterna.
 
-Non è stato eseguito GitHub Actions con i segreti del repository, non è stata pubblicata una Release e non è stato verificato un aggiornamento sul telefono. Vedi NON-VERIFICATO.md e PROVA-SUL-TELEFONO.md. I test matematici e il controllo del contrasto non equivalgono a validazione medica, collaudo completo di accessibilità o revisione indipendente della sicurezza.
+## Aggiornamento: compilazione su GitHub
+
+Il 23 novembre 2026 è stata completata con successo la [compilazione GitHub Actions](https://github.com/CosmoNetinfo/Cosma/actions/runs/45124315508), commit `9b07f42`. I 19 test, installazione pulita, sincronizzazione Android, compilazione release, firma con chiave definitiva e controllo dell’assenza di INTERNET sono riusciti. L’APK è stato caricato come artifact `Cosma-Android-2`.
+
+La precedente firma di sola prova rimane documentata come verifica locale storica. La firma usata su GitHub è quella definitiva documentata in FIRMA-DEFINITIVA.md. Il primo tentativo remoto si era fermato nell’installazione dell’SDK, prima della compilazione: il workflow ora evita il pacchetto `tools` ritirato.
+
+Le versioni numerate vengono pubblicate nella [pagina Releases](https://github.com/CosmoNetinfo/Cosma/releases). Non è stato verificato un aggiornamento sul telefono. Vedi NON-VERIFICATO.md e PROVA-SUL-TELEFONO.md. I test matematici e il controllo del contrasto non equivalgono a validazione medica, collaudo completo di accessibilità o revisione indipendente della sicurezza.
