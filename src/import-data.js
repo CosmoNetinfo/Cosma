@@ -85,7 +85,7 @@ export function previewImport(state,table,options,asOf=today()){
   }else{
    const note=noteColumn==='all'?row.values.map((value,i)=>i!==dateColumn&&value?table.columns[i]+': '+value:'').filter(Boolean).join('\n'):row.values[noteColumn]?.trim();
    if(!note){skip(row.line,'Nessuna annotazione oltre alla data.');continue;}
-   const text='Importato da altra app\n'+note;
+   const text='Importato da '+(options.source||'altra app')+'\n'+note;
    if(text.length>10000){skip(row.line,'Annotazione troppo lunga: massimo 10000 caratteri.');continue;}
    candidates.push({line:row.line,date,text});
   }

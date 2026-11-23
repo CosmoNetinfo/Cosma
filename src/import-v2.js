@@ -62,6 +62,7 @@ export function previewImport(state,table,o,asOf=today()){
   // Per le annotazioni libere non copiare di nascosto campi intimi o previsioni.
   const safeTable={...table,rows:rows.map(r=>({...r,values:r.values.map((v,i)=>unsafe.test(table.columns[i])?'':v)}))};
   const filtered=clone(base);if(o.kind==='cycles'&&conflict==='incoming'){const starts=new Set(rows.map(r=>importDate(r.values[dc],o.dateFormat)));filtered.periods=filtered.periods.filter(p=>!starts.has(p.start));}
+  if(o.kind==='notes'&&conflict==='incoming')for(const row of rows){const date=importDate(row.values[dc],o.dateFormat);if(filtered.log[date])filtered.log[date].note='';}
   plan=previewBasic(filtered,safeTable,o,asOf);
   for(const item of plan.items)item.source=source;
  }
@@ -79,6 +80,7 @@ export function mergeImport(state,plan){
  let n=clone(state);if(plan.mode==='replace'){n.periods=[];n.log={};n.visits=[];n.meds=[];}
  if(plan.kind==='daily'){for(const x of plan.items)n.log[x.date]={...(n.log[x.date]||{}),...x.data,source:plan.source};n.onboarded=true;return normalize(n);}
  if(plan.kind==='cycles'&&plan.conflict==='incoming')n.periods=n.periods.filter(p=>!plan.items.some(x=>x.start===p.start));
+ if(plan.kind==='notes'&&plan.conflict==='incoming')for(const x of plan.items)if(n.log[x.date])n.log[x.date].note='';
  n=mergeBasic(n,plan);if(plan.kind==='notes')for(const x of plan.items)n.log[x.date].source=plan.source;return normalize(n);
 }
 export function exportPortable(s){return{formato:'cosma-portabile',versione:1,registrazioni:[...s.periods.map(p=>({tipo:'ciclo',data:p.start,fine:p.end||'',escluso:p.exclude,provenienza:p.source||'Cosma'})),...Object.entries(s.log).map(([data,l])=>({tipo:'diario',data,...clone(l),provenienza:l.source||'Cosma'})),...s.visits.map(v=>({tipo:'visita',data:v.date,...clone(v),provenienza:'Cosma'})),...s.meds.map(m=>({tipo:'farmaco',...clone(m),provenienza:'Cosma'}))]};}
@@ -87,20 +89,20 @@ function portablePlan(state,raw,{source,mode,conflict,asOf}){
  const n=clone(state),plan={kind:'portable',items:[],skipped:[],warnings:[],duplicates:0,source,mode,conflict,ignored:[]};
  for(const [i,r] of raw.registrazioni.entries()){
   if(r?.tipo==='farmaco'){
-   if(n.meds.some(m=>m.name===r.name&&m.time===r.time)){plan.duplicates++;continue;}
+   if(n.meds.some(m=>m.name===r.name&&m.time===r.time)){if(conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Farmaco già presente.'});continue;}n.meds=n.meds.filter(m=>m.name!==r.name||m.time!==r.time);}
    n.meds.push({...r,id:uid()});plan.items.push({text:r.name});continue;
   }
   if(r?.tipo==='visita'){
    if(!validDate(r.data)){plan.skipped.push({line:i+1,reason:'Data visita non valida.'});continue;}
-   if(n.visits.some(v=>v.title===r.title&&v.date===r.data&&v.time===r.time)){plan.duplicates++;continue;}
+   if(n.visits.some(v=>v.title===r.title&&v.date===r.data&&v.time===r.time)){if(conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Visita già presente.'});continue;}n.visits=n.visits.filter(v=>v.title!==r.title||v.date!==r.data||v.time!==r.time);}
    n.visits.push({...r,id:uid(),date:r.data});plan.items.push({date:r.data,text:r.title});continue;
   }
   if(!validDate(r?.data)||r.data>asOf){plan.skipped.push({line:i+1,reason:'Data non valida o futura.'});continue;}
   if(r.tipo==='ciclo'){
-   if(n.periods.some(p=>p.start===r.data)){if(conflict==='existing'){plan.duplicates++;continue;}n.periods=n.periods.filter(p=>p.start!==r.data);}
+   if(n.periods.some(p=>p.start===r.data)){if(conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Inizio già presente.'});continue;}n.periods=n.periods.filter(p=>p.start!==r.data);}
    n.periods.push({id:uid(),start:r.data,...(r.fine?{end:r.fine}:{}),exclude:r.escluso===true,source:r.provenienza||source});
   }else if(r.tipo==='diario'){
-   if(n.log[r.data]&&conflict==='existing'){plan.duplicates++;continue;}n.log[r.data]={...r,source:r.provenienza||source};
+   if(n.log[r.data]&&conflict==='existing'){plan.duplicates++;plan.skipped.push({line:i+1,reason:'Giorno già presente.'});continue;}n.log[r.data]={...r,source:r.provenienza||source};
   }else{plan.skipped.push({line:i+1,reason:'Tipo non supportato.'});continue;}
   plan.items.push({date:r.data});
  }

@@ -43,3 +43,8 @@ test('Portabilità di visite e farmaci, nessuna attivazione automatica delle not
  const s=initial();s.visits=[{id:'v',title:'Controllo fittizio',date:'2027-01-01',time:'10:00',notes:'Nota',remind:true}];s.meds=[{id:'m',name:'Nome fittizio',time:'21:00',instructions:'Test',remind:true}];
  for(const text of [JSON.stringify(exportPortable(s)),exportCSV(s)]){const n=mergeImport(initial(),previewImport(initial(),parseExport(text),opts));assert.equal(n.visits[0].title,s.visits[0].title);assert.equal(n.meds[0].name,s.meds[0].name);assert.equal(n.notifications,false);}
 });
+test('Annotazioni: provenienza nel testo, Tieni importati sostituisce solo le note, doppioni Cosma conteggiati',()=>{
+ const s=initial();s.log['2026-01-01']={note:'Prima',umore:'Calma'};const t=parseExport('date,note\n2026-01-01,Dopo');
+ const plan=previewImport(s,t,{...opts,kind:'notes',noteColumn:'1',conflict:'incoming',source:'Flo'});const n=mergeImport(s,plan);assert.equal(n.log['2026-01-01'].note,'Importato da Flo\nDopo');assert.equal(n.log['2026-01-01'].umore,'Calma');
+ const dup=previewImport(n,parseExport(JSON.stringify(exportPortable(n))),opts);assert.equal(dup.duplicates,1);assert.equal(dup.skipped.length,1);
+});
