@@ -2,6 +2,7 @@
   "tipo": "Test interfaccia in Chromium con archivio sostitutivo, non prova Android nativa",
   "esito": "superato",
   "controlli": [
+    "Fase 2: sette date, pieno soltanto per registrazioni, apertura del Calendario e del diario di oggi, nessuna registrazione futura",
     "Fase 1: rosato soltanto per date registrate, tema automatico chiaro/scuro e ritorno alla tinta quotidiana dopo eliminazione",
     "Tour di otto passi, saltabile e ripetibile, con fumetto chiaro/scuro e aree evidenziate",
     "Impostazioni dalla Home, consenso screenshot, aiuto Cosma, modifica/cancellazione inizio e ricalcolo immediato con riapertura",

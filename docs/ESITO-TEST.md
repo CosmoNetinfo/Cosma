@@ -1,5 +1,10 @@
 # Verifiche della versione con assistente e importazione
 
+## v1.1 fase 2
+
+62 test Node superati, più controlli della settimana nell’interfaccia: sette date e sette pulsanti da almeno 48 px, registrazioni distinte dalla fascia stimata, apertura del mese/giorno nel Calendario, diario di oggi e date future di sola consultazione. Casi di cambio mese/anno, bisestile e ora legale, dati pochi, fascia passata ed estremi coincidenti. Nessuna formula nuova e nessuna localizzazione fertile. Il rapporto FASE2-INVARIANTI.json confronta 31 file protetti con prova.4, incluse le tinte della fase 1. I risultati nativi e la firma della prova.5 si consultano nella Release del tag. I rapporti delle versioni precedenti restano come documentazione storica.
+
+
 ## v1.1 fase 1
 
 57 test Node superati, più controlli dell’interfaccia aggiornati: tinte reali in tema chiaro/scuro automatico, registrazione/eliminazione di una data, neutralità dopo la fascia descrittiva e nessuna tinta di Oggi nelle altre pagine. Le quattro nuove prove non cambiano le formule. Trenta file dei calcoli, della protezione, dei plugin, del workflow, delle fonti e delle immagini risultano identici a prova.3: FASE1-INVARIANTI.json. L’esito della compilazione e dei test nativi della prova.4 è disponibile nel workflow del tag. I risultati sotto descrivono anche la base prova.3.

@@ -18,18 +18,24 @@ try{
  const context=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true,reducedMotion:'reduce'});const page=await context.newPage();
  page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
  await page.goto(origin);await page.locator('[data-form=onboarding]').waitFor();await page.screenshot({path:'docs/schermate/onboarding.png',fullPage:true});
- await page.locator('[data-action=skip-onboarding]').click();await page.locator('[data-action=cosma-tour-pause]').click();await page.locator('.empty-home').waitFor();await page.screenshot({path:'docs/schermate/oggi-vuoto.png',fullPage:true});
+ await page.locator('[data-action=skip-onboarding]').click();await page.locator('[data-action=cosma-tour-pause]').click();await page.locator('.empty-home').waitFor();assert.equal(await page.locator('.home-week').count(),0);await page.screenshot({path:'docs/schermate/oggi-vuoto.png',fullPage:true});
  await page.locator('[data-action=new-period]').click();await page.locator('#start').fill('2026-11-11');await page.locator('dialog button[type=submit]').click();await page.locator('.cycle-ring').waitFor();
  for(const date of ['2026-10-12','2026-09-13','2026-08-16','2026-07-19','2026-06-22','2026-05-27']){await page.locator('[data-action=new-period]').click();await page.locator('#start').fill(date);await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);}
 
  // Fase 1: usa registrazioni effettive, senza calcolare nuove fasi.
  assert.equal(await page.locator('html').getAttribute('data-home-tone'),'quotidiano');
  await page.locator('[data-action=new-period]').click();await page.locator('dialog #start').fill(D.today());await page.locator('dialog button[type=submit]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
+ assert.equal(await page.locator('.home-week-day').count(),7);assert.equal(await page.locator('.home-week-day.registered').count(),1);assert.equal(await page.locator('.home-week-day.estimated').count(),0);
+ assert.equal(await page.locator('.home-week-day').first().getAttribute('data-date'),D.today());
+ assert.equal(await page.locator('.home-week-day').last().getAttribute('data-date'),D.addD(D.today(),6));
+ await page.locator('.home-week-day').last().focus();await page.keyboard.press('Enter');await page.locator('#header h1').filter({hasText:'Calendario'}).waitFor();assert.match(await page.locator('.selected-day').innerText(),/fino a oggi/);assert.equal(await page.locator('.selected-day [data-action=new-period]').count(),0);
+ await page.locator('[data-tab=oggi]').click();await page.locator('.home-week-day').first().click();await page.locator('.selected-day [data-action=selected-diary]').click();await page.locator('[data-form=diary]').waitFor();assert.equal(await page.locator('#diary-date').inputValue(),D.today());await page.locator('[data-tab=oggi]').click();
+ results.push('Fase 2: sette date, pieno soltanto per registrazioni, apertura del Calendario e del diario di oggi, nessuna registrazione futura');
  await page.locator('#status').evaluate(e=>e.textContent='');
  for(const theme of ['light','dark']){
   await page.emulateMedia({colorScheme:theme});assert.equal(await page.locator('html').getAttribute('data-home-tone'),'mestruazioni');
   const expected=theme==='light'?'rgb(255, 241, 245)':'rgb(36, 22, 34)';await page.waitForFunction(bg=>getComputedStyle(document.body).backgroundColor===bg,expected);assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),expected);
-  await page.screenshot({path:`docs/schermate/fase1-rosato-${theme}.png`,fullPage:true});
+  await page.screenshot({path:`docs/schermate/fase2-settimana-${theme}.png`,fullPage:true});
  }
  await page.emulateMedia({colorScheme:'light'});await page.locator('.cycle-start-link').click();await page.locator('dialog [data-action=delete-period]').click();await page.waitForFunction(()=>!document.querySelector('dialog').open);
  assert.equal(await page.locator('html').getAttribute('data-home-tone'),'quotidiano');
@@ -53,6 +59,7 @@ try{
  for(const theme of ['light','dark'])for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});await page.emulateMedia({colorScheme:theme});await page.locator('main').evaluate(e=>e.scrollTop=0);await page.screenshot({path:`docs/schermate/oggi-${theme}-${width}.png`,fullPage:true});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Nessuno scorrimento orizzontale Home');assert.ok(await page.evaluate(()=>{const a=document.querySelector('main').getBoundingClientRect(),c=document.querySelector('#cosma-stage').getBoundingClientRect(),n=document.querySelector('nav').getBoundingClientRect();return a.bottom<=c.top&&c.bottom<=n.top-24;}),'Spazio separato per Cosma, senza sovrapposizioni e con 24px dalla navigazione');
+  assert.ok(await page.locator('.home-week-day').evaluateAll(es=>es.length===7&&es.every(e=>{const r=e.getBoundingClientRect();return r.width>=48&&r.height>=48;})),'Sette comandi della settimana da almeno 48px');
   const small=await page.locator('main *').evaluateAll(es=>es.filter(e=>e.textContent.trim()&&e.children.length===0&&getComputedStyle(e).display!=='none'&&parseFloat(getComputedStyle(e).fontSize)<12).map(e=>e.outerHTML));assert.deepEqual(small,[]);results.push(`Oggi ${theme}, ${width}px: nessun testo sotto 12px e nessuno scorrimento orizzontale`);
  }
  await page.setViewportSize({width:390,height:844});await page.emulateMedia({colorScheme:'light'});

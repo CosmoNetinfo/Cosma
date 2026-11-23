@@ -1,5 +1,11 @@
 # Estensioni dello stile approvato
 
+## v1.1 fase 2, settimana su Oggi
+
+Sette comandi di almeno 48 × 72 px, con cerchio da 32 px e numero da 14 px. Etichette e legenda 12/18 px, distanza 8 px. Pieno nel colore del testo per le registrazioni, bordo tratteggiato da 2 px nel colore di accento per la fascia stimata. Oggi è indicato per nome e con aria-current=date, senza usare il pieno per un giorno privo di mestruazioni registrate. Ogni pulsante ha data completa, descrizione dello stato e destinazione accessibili. Nessun colore nuovo, gradiente o ombra.
+
+Griglia minima 336 px, sette colonne da almeno 48 px; margini estesi di 12 px per lato come nel calendario esistente. L’eventuale scorrimento resta interno alla striscia e non allarga la pagina. La sezione si trova fra l’anello e la scheda della stima; il contenuto scorre senza essere coperto da Cosma.
+
 ## v1.1 fase 1, sfondo piatto di Oggi
 
 | Contesto grafico | Chiaro | Scuro |

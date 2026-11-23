@@ -1,5 +1,9 @@
 # Limiti e verifiche mancanti
 
+## Delta v1.1, fase 2
+
+La prova.5 aggiunge la settimana su Oggi usando le stesse registrazioni e la stessa fascia descrittiva del calendario. Non prevede la durata del prossimo sanguinamento e non individua giorni fertili. I giorni futuri non accettano registrazioni anticipate. Verificati con dati fittizi cambi di data, stati della fascia, navigazione e dimensioni dei pulsanti nei due temi; scorrimento e lettura TalkBack su telefono fisico richiedono ancora prova. Con nessun ciclo la Home vuota resta invariata. Azioni rapide, nuove interazioni con Cosma, gesto nel calendario, consigli, onboarding a passi e verifica F-Droid restano fasi successive. Le limitazioni della fase 1 e della base restano valide; nessuna nuova fonte clinica o esportazione reale è stata validata.
+
 ## Delta v1.1, fase 1
 
 La prova.4 aggiunge soltanto tinte piatte su Oggi. Non certificano una fase ormonale o fertilità e non sono una misura clinica: leggono esclusivamente registrazioni e fascia descrittiva già disponibili. Contrasto del testo verificato con test nei due temi; resa e cambio tema sul telefono fisico restano da provare. Settimana, pannello rapido, nuovi gesti, organizzazione dei consigli, onboarding a passi e verifica F-Droid sono fasi successive, non funzioni dichiarate della prova.4. Nessun export reale o nuova fonte clinica è stato validato in questa fase. Firma, secrets, dati, protezioni e calcoli restano quelli della prova.3.

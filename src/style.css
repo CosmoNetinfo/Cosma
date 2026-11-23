@@ -1220,3 +1220,20 @@ body[data-busy=true] button{pointer-events:none;cursor:wait}
 
 /* v1.1, fase 1: unicamente una tinta piatta di presentazione su Oggi. */
 :root[data-home-tone]{--bg:var(--home-background)}
+
+/* v1.1, fase 2: sette date con comandi da 48 px, coerenti col calendario. */
+.home-week{min-width:0}.home-week h2{margin:0 0 8px}
+.home-week-scroll{margin:0 -12px;overflow-x:auto}
+.home-week-grid{display:grid;grid-template-columns:repeat(7,minmax(48px,1fr));min-width:336px}
+.home-week-day{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:48px;min-height:72px;padding:4px 0;border:0;border-radius:16px;background:none}
+.home-week-label{font-size:12px;line-height:18px;color:var(--muted)}
+.home-week-number{display:grid;place-items:center;width:32px;height:32px;border-radius:999px;border:2px solid transparent;font-size:14px;line-height:24px;font-variant-numeric:tabular-nums}
+.home-week-day.registered .home-week-number{background:var(--text);color:var(--bg)}
+.home-week-day.estimated .home-week-number{border:2px dashed var(--accent)}
+.home-week-day[aria-current=date] .home-week-label{color:var(--accent);font-weight:600}
+.home-week-day:focus-visible{outline-offset:-3px}
+.home-week-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;color:var(--muted);font-size:12px;line-height:18px}
+.home-week-legend span{display:flex;align-items:center;gap:8px}
+.home-week-legend i{width:12px;height:12px;border-radius:999px;display:inline-block}
+.home-week-legend i.registered{background:var(--text)}
+.home-week-legend i.estimated{border:2px dashed var(--accent)}

@@ -1,6 +1,7 @@
 import {createImportFlow} from './import-ui.js';
 import {createCosma} from './cosma-ui.js';
 import {homeTone,homePalettes} from './home-appearance.js';
+import {homeWeekHTML} from './home-week.js';
 import {exportPortable,exportCSV} from './import-v2.js';
 import * as Platform from "./platform.js";
 import * as D from "./domain.js";
@@ -293,7 +294,7 @@ function lockView() {
 function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=Math.min(r.day-1,count-1),angle=(index/count*360-90)*Math.PI/180,x=96+84*Math.cos(angle),y=96+84*Math.sin(angle);return `<div class="cycle-ring" role="img" aria-label="Giorno ${r.day} dal primo giorno registrato. L’anello non identifica una fase ormonale."><svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="arc"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#c026d3"/></linearGradient></defs><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ring)" stroke-width="8"/><path d="M96 12 A84 84 0 ${index/count>.5?1:0} 1 ${x} ${y}" fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/></svg><div class="ring-label" aria-hidden="true"><strong>${r.day}</strong><span>Giorno del ciclo</span></div></div>`;}
 
 
-function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","Modifica inizio ciclo · "+D.fmt(a.record.ls,true),"cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${primary('new-period','Inizio mestruazioni')}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
+function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","Modifica inizio ciclo · "+D.fmt(a.record.ls,true),"cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div>${homeWeekHTML(S,{button,esc})}<section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${primary('new-period','Inizio mestruazioni')}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
 
 function vCal() {
   const [y, m] = month.split("-").map(Number),
@@ -661,6 +662,11 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (act) {
+    case 'week-day':
+      if(D.validDate(b.dataset.date)&&canLeave()){
+        sel=b.dataset.date;month=sel.slice(0,7)+'-01';go('cal');
+      }
+      break;
     case 'foreign-table':run(()=>foreignFlow.chooseTable(Number(b.dataset.index)));break;
     case 'undo-import':run(async()=>{if(!confirm('Tornare alla copia precedente all’importazione? Anche le modifiche successive saranno rimosse.'))return;const n=await Store.undoImport();await commit(n);closeModal();render();toast('Importazione annullata. Copia precedente ripristinata.');});break;
     case 'export-json':case 'export-csv':run(async()=>{if(!confirm('Il file esportato non è cifrato e contiene dati sanitari. Vuoi salvarlo?'))return;await Platform.saveBackup(act==='export-json'?JSON.stringify(exportPortable(S),null,2):exportCSV(S),'cosma-dati-'+D.today()+(act==='export-json'?'.json':'.csv'));});break;

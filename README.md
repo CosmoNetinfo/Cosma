@@ -1,6 +1,6 @@
 # Cosma · Android 1.0 di prova
 
-**Versione pronta da provare: [scarica l’APK 1.0.0-prova.4](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.4/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
+**Versione pronta da provare: [scarica l’APK 1.0.0-prova.5](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.5/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
 
 Cosma è un diario del ciclo in italiano, senza account e senza servizi esterni. **Questo repository è già configurato con una chiave di firma definitiva e i quattro secrets Android. Non ricreare la chiave.** GitHub Actions costruisce e firma l’APK automaticamente: i file prodotti sono nella pagina [Actions](https://github.com/CosmoNetinfo/Cosma/actions), le versioni numerate nella pagina [Releases](https://github.com/CosmoNetinfo/Cosma/releases).
 
@@ -16,9 +16,13 @@ I risultati delle verifiche locali sono in [docs/ESITO-TEST.md](docs/ESITO-TEST.
 
 La sezione 12 del brief prevale sulle precedenti: niente PWA, iPhone, GitHub Pages, esportazione nel calendario o migrazione da vecchi archivi browser. L’interfaccia deriva dalla v0.2 e conserva le immagini originali di Cosma. Lo stile minimalista approvato è esteso a Calendario, Diario, Salute, Preferenze, PIN, backup e primo avvio.
 
+## v1.1, seconda fase
+
+La prova.5 aggiunge su Oggi i sette giorni da oggi in avanti: cerchio pieno per mestruazioni registrate, tratteggio per la fascia stimata dell’inizio. Tocca una data per aprirla nel Calendario; da oggi puoi poi aprire il diario, mentre i giorni futuri restano consultabili. Nessuna data di ovulazione o finestra fertile viene ricavata. Formule, protezioni e firma restano invariate. Le prossime aggiunte sono azioni rapide e pannello di registrazione; [qui trovi lo stato completo delle fasi](docs/AVANZAMENTO-v1.1.md).
+
 ## v1.1, prima fase
 
-La prova.4 aggiunge solo sfondi piatti e delicati su Oggi, con contrasto verificato nei due temi. Il rosato accompagna date di mestruazioni realmente registrate; gli altri giorni hanno una tinta lilla/azzurra, neutra con dati assenti o fascia descrittiva passata. Il colore non identifica una fase ormonale e non modifica i calcoli. [Stato delle fasi e parti ancora mancanti](docs/AVANZAMENTO-v1.1.md). La prossima fase è la striscia della settimana.
+La prova.4 aggiunge solo sfondi piatti e delicati su Oggi, con contrasto verificato nei due temi. Il rosato accompagna date di mestruazioni realmente registrate; gli altri giorni hanno una tinta lilla/azzurra, neutra con dati assenti o fascia descrittiva passata. Il colore non identifica una fase ormonale e non modifica i calcoli. [Stato delle fasi e parti ancora mancanti](docs/AVANZAMENTO-v1.1.md). La striscia della settimana è stata aggiunta nella fase 2.
 
 ## Cosa puoi provare
 
