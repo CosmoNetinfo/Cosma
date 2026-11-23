@@ -1,98 +1,144 @@
-# Cosma · Android 1.0 di prova
+# Cosma · Android 1.1 di prova
 
-## Funzioni del delta completate, prova.11
+Diario del ciclo in italiano, con dati sul telefono e assistente locale Cosma. La versione **1.1.0-prova.1** raccoglie tutte le aggiunte del brief v1.1 e la revisione grafica richiesta. È una versione da provare, senza validazione clinica indipendente.
 
-Completati consigli, primo avvio e verifica F-Droid. Le 29 letture hanno fonti locali e filtri per argomento, comprese schede generali sulle fasi; non identificano la fase personale. Le fonti del primo giorno includono anche ISSalute, verificata alla fonte. Il primo avvio ha sei passi, progressione, Indietro, Salta sempre accessibile e conclusione È tutto pronto. Se si importa durante il primo avvio, i dati si conservano subito e il percorso conclusivo riprende anche dopo riapertura. Il tour precedente rimane saltabile e ripetibile.
+**[Scarica l’APK](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.1/Cosma.apk)** · **[Scarica il pacchetto completo](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.1/Cosma-Android-1.1.0-prova.1-completo.zip)** · [Release e verifiche della compilazione](https://github.com/CosmoNetinfo/Cosma/releases/tag/v1.1.0-prova.1).
 
-Nel calendario sono espliciti primo giorno usato e intervallo descrittivo; una fascia passata non viene spostata. Le parole sono fuori dall’anello e la dimensione del numero si adatta ai conteggi lunghi. Chiave, secrets, cifratura, permessi e formule sono conservati.
+## Installare o aggiornare, passo per passo
 
-92 test Node e controlli dell’interfaccia locali superati, inclusi percorsi di primo avvio completi con e senza importazione, fonti, licenze e conteggi lunghi. La compilazione del tag ripete anche i due test nativi prima di firmare. Rimangono prove su telefono reale e validazioni esterne, non funzioni software promesse ma lasciate vuote.
+1. Sul telefono Android scarica `Cosma.apk` dal collegamento sopra. Lo ZIP completo serve a conservare anche il progetto e le istruzioni: per usare l’app basta l’APK.
+2. Apri il file dalla cartella Download. Se Android lo richiede, autorizza temporaneamente l’installazione da quella applicazione, per esempio il browser, e poi disattiva l’autorizzazione.
+3. Premi **Installa** oppure **Aggiorna**. Se hai già Cosma, installa sopra: **non disinstallare e non cancellare i dati**. La chiave di firma e l’identificativo `info.cosmonet.cosma` sono conservati.
+4. Se la vecchia versione si apre, fai prima un backup cifrato da Impostazioni → Backup e dati. Se non si apre, conserva comunque i dati e installa l’aggiornamento sopra.
+5. Prova inizialmente con dati fittizi e segui [la checklist sul telefono](docs/PROVA-SUL-TELEFONO.md). Android minimo 7.0; occorre una WebView aggiornata.
 
-F-Droid: esame delle dipendenze completato in docs/FDROID.md; dieci componenti diretti MIT, inventario npm e 78 coordinate Android con licenze POM dove disponibili. Nessuna compatibilità certificata né invio: licenza del progetto e delle immagini da definire dal titolare, binari nativi e riproducibilità da verificare sulla loro infrastruttura. La Release GitHub di prova non è bloccata da questo obiettivo facoltativo.
+Se l’installazione rifiuta l’aggiornamento, fermati e annota l’errore: non disinstallare per aggirarlo. L’impronta pubblica della firma è in [FIRMA-DEFINITIVA.md](docs/FIRMA-DEFINITIVA.md). Password del backup e PIN non sono recuperabili.
 
-La prossima consegna è la Release complessiva v1.1.0-prova.1, con APK e unico ZIP completo. I riepiloghi sotto sono lo storico delle fasi.
+## Cosa trovi nell’app
 
+| Pagina | Funzioni |
+| --- | --- |
+| Oggi | Anello con il solo numero, didascalia esterna, Cosma intera, fascia descrittiva, azioni tonde, settimana e letture |
+| Calendario | Mese/Anno, frecce e gesto laterale, giorni registrati distinti dalle stime, primo giorno usato e metodo di calcolo |
+| Diario | Ricerca locale, quattro scorciatoie, categorie in schede, pulsanti pastello illustrati e selezioni multiple |
+| Salute | Dati grezzi, statistiche, visite, farmaci e 29 letture con fonti e argomenti |
+| Impostazioni | Temi, categorie, inizi del ciclo, presenza di Cosma, importazione, backup, PIN/biometria e promemoria |
+| Primo avvio | Sei passi con Indietro, Salta, importazione facoltativa e conclusione; tour di otto passi ripetibile |
 
-## Fase 5–6 e vista annuale, prova.10
+L’ingranaggio apre le Impostazioni. Sotto l’anello puoi correggere l’ultimo primo giorno; in **Impostazioni → Inizi del ciclo** puoi correggere o eliminare qualsiasi inizio, anche passato. Il conteggio e le statistiche si aggiornano da quella data. Eliminare un inizio conserva il diario. La fine del sanguinamento è facoltativa e non viene inventata.
 
-Toccando Cosma si cambia posa e si apre un messaggio contestuale del catalogo locale; dal fumetto, Opzioni apre i controlli della presenza e del tour. I messaggi automatici conservano limiti, pausa notturna e modalità Silenziosa. Quelli richiesti con un tocco non attribuiscono fasi personali né modificano registrazioni.
+I tre comandi di base aprono mestruazioni, sintomi e note/test. Nel pannello dal basso le selezioni si salvano al tocco; le note hanno il loro pulsante Salva. Rapporti e desiderio sono facoltativi, spenti inizialmente e presenti solo dopo attivazione esplicita. Nascondere una categoria o cercare una voce non elimina le registrazioni già presenti.
 
-Il Calendario ha Mese/Anno, dodici mesi consultabili nell’anno e un gesto laterale per cambiare mese o anno, oltre alle frecce. Toccare un mese apre la vista dettagliata. Nella vista annuale ogni mese è un unico comando ampio: i numeri piccoli non sono pulsanti separati. Sono riportate soltanto registrazioni e la fascia del prossimo inizio già calcolata, senza reiterare una previsione per i mesi futuri o localizzare fertilità. La vista di dettaglio continua a ricalcolare dal primo giorno registrato.
+## Cosma e le immagini
 
-81 test Node e verifiche dell’interfaccia locali superati: mesi bisestili e date civili, direzione del gesto, distinzione dallo scorrimento verticale, dodici mesi, apertura e cambio anno, tocco della mascotte. I test dell’interfaccia usano una data iniziale fissa con orologio che avanza, per non dipendere dal giorno di esecuzione; nell’app reale l’orologio non è cambiato. Prove reali di touch, TalkBack e caratteri grandi rimangono nella checklist. Le funzioni scientifiche e la firma sono conservate.
+Tocca Cosma: cambia posa e apre un messaggio del catalogo locale. Non usa servizi di intelligenza artificiale online. Dal fumetto, **Opzioni** apre i controlli; le Impostazioni offrono Presente (massimo tre messaggi automatici al giorno), Discreta (uno, predefinita), Silenziosa (nessuno). Pausa notturna 22–8 e nessun messaggio automatico mentre scrivi. Il tocco volontario può aprire un aiuto anche in modalità Silenziosa. Le risposte che registrano un dato chiedono conferma.
 
-Restano per la Release complessiva: consigli organizzati, primo avvio a passi e verifica F-Droid, seguiti dalle verifiche finali dell’APK.
+Le nove immagini fornite restano identiche byte per byte. Su richiesta successiva dell’utente sono state aggiunte **sette nuove illustrazioni di Cosma per i sintomi**, separate dagli originali: testa, crampi, gonfiore, schiena, sudore, acne e confusione. Sostituiscono le figure umane dei riferimenti; gli altri simboli sono SVG locali nei colori Cosma. Master, prompt e provenienza sono in [NUOVE-POSE.md](docs/NUOVE-POSE.md) e `design/mascotte-sintomi/`. Non sono stati estratti gli asset di Flo.
 
+Pose aggiuntive ancora non disponibili: curiosa, pensierosa, che festeggia, che indica, allegra. I messaggi, con fonti dove affermano fatti di salute, sono in [messaggi-cosma.md](messaggi-cosma.md).
 
-## Fase 3–4 e icone richieste, prova.9
+## Stime e rigore scientifico
 
-Completati i tre pulsanti tondi su Oggi e il pannello dal basso: le selezioni di flusso, umore e sintomi si salvano al tocco; le note hanno il loro comando di salvataggio. Il Diario ha categorie e pulsanti illustrati sul modello dei riferimenti forniti. Le figure umane sono sostituite da sette nuove varianti di Cosma, generate su richiesta esplicita dell’utente, conservando intatte le nove immagini originali. Master e prompt sono in design/mascotte-sintomi; icone a 160/320 px in src/; provenienza e hash in docs/POSE-SINTOMI.json.
+La prossima mestruazione è una **proiezione descrittiva**: primo giorno effettivamente registrato più minimo/massimo degli ultimi sei intervalli completi non esclusi, solo con almeno tre intervalli disponibili. Non è un intervallo di confidenza, non ha una percentuale di affidabilità nota e può non contenere il prossimo inizio. Con pochi dati il limite è esplicito; una fascia passata non viene spostata automaticamente. **Come l’ho calcolato?** mostra dati utilizzati e fonti.
 
-Aggiunte registrazioni facoltative di attività e contesto, nuove etichette di sintomi e umore, perdite vaginali e rapporti/desiderio. Questi ultimi sono spenti all’inizio, attivabili nelle categorie e assenti dai pulsanti di base: compaiono soltanto dopo la scelta esplicita. L’importazione aperta Cosma richiede un consenso separato per includerli, mentre il backup cifrato conserva l’intero archivio. Nessuna etichetta è una diagnosi o una scala validata. La ricerca non cancella i valori temporaneamente nascosti. Vecchi valori e nuove categorie convivono; JSON/CSV mantengono le registrazioni.
+Nessuna regola fissa meno 14 giorni, nessuna localizzazione automatica della finestra fertile e nessuna conferma clinica dell’ovulazione. Temperatura, muco e LH restano osservazioni facoltative consultabili. La convenzione biologica relativa −5/0 non diventa un calendario personale. Le schede sulle fasi sono informazioni generali, senza attribuire una fase all’utente.
 
-76 test Node e controlli dell’interfaccia locali superati, incluse nuove prove del pannello, consenso, categorie e risoluzioni delle immagini. I calcoli da analysis fino a healthNotices sono identici alla prova.8, verificati in FORMULE-CONSERVATE.json. Le modifiche a domain.js riguardano solo cataloghi e normalizzazione delle registrazioni. Chiave, secrets, plugin, permessi, cifratura e notifiche non sono modificati.
+Le formule della base sono conservate: [confronto automatico](docs/FORMULE-CONSERVATE.json). Fonti e limiti: [FONTI.md](FONTI.md), [NON-VERIFICATO.md](docs/NON-VERIFICATO.md). Cosma non fa diagnosi e non suggerisce terapie o dosaggi.
 
-Prossime parti da completare prima della Release complessiva richiesta: tocco diretto su Cosma, calendario a scorrimento e vista annuale, consigli organizzati, primo avvio a passi e verifica F-Droid. Restano necessarie le prove fisiche descritte nella checklist.
+## Privacy, blocco e promemoria
 
+Nessun account, pubblicità, analisi d’uso o permesso INTERNET. SQLite e chiave Android Keystore conservano l’archivio privato. PIN/password e biometria forte sono facoltativi. `allowBackup=false` e regole di esclusione impediscono i backup automatici previsti da Android; i comportamenti specifici dei produttori richiedono prove fisiche.
 
-## Revisione grafica e nuovo Diario, prova.8
+Per mostrare una schermata: **Impostazioni → Screenshot e privacy → Consenti screenshot**. Il PIN resta protetto e l’opzione iniziale protegge anche l’anteprima delle app recenti.
 
-L’utente ha chiesto una resa più curata, parole fuori dall’anello e un Diario organizzato come le immagini di riferimento Flo. Modifiche: dentro l’anello rimane solo il numero, con “Giorno del ciclo” in una riga esterna; tipografia e spazi comuni sono rivisti; il Diario ha fondo neutro, ricerca locale, quattro scorciatoie illustrate, categorie in schede bianche e pulsanti pastello con icone SVG locali. Le quattro pose di Cosma restano originali e intere. Non sono stati copiati gli asset di Flo. La Home presenta prima stima e azione principale, poi la settimana.
+Il backup manuale è cifrato: scegli una password robusta e conservala separatamente. Disinstallare o cancellare i dati Android elimina l’archivio; senza backup e password non si recupera. Se scegli personalmente un servizio cloud nel selettore file o in Condividi, il file cifrato può essere salvato lì. Nessun invio autonomo.
 
-Ricerca e scorciatoie usano le categorie già presenti; i valori salvati, le date, il formato dei dati e i calcoli sono conservati. Cercare una voce non elimina i valori nascosti al salvataggio. Il calendario usa già il primo giorno registrato come riferimento e ricalcola la fascia descrittiva quando lo si modifica; un nuovo controllo dell’interfaccia verifica gli estremi dopo una correzione. Non vengono inventati giorni futuri di flusso o localizzazioni fertili.
+Le notifiche native hanno solo titolo **Promemoria Cosma** e testo **Apri Cosma per consultare il promemoria.** I dettagli rimangono nell’app. App chiusa, riavvio, risparmio energetico e arresto forzato vanno provati sul telefono; non sono garantiti allarmi puntuali in tutte le condizioni. I promemoria di backup coprono circa un anno e vengono rinnovati all’apertura, con un limite complessivo di 500 allarmi.
 
-Verifiche locali: 69 test Node, controlli dell’interfaccia aggiornati, ricerca e persistenza anche dei campi facoltativi, scritte separate nei percorsi provati, due temi e schermi da 360 a 430 px, compilazione dei test Android riuscita. La prova.7 non ha prodotto un APK: il test nativo aspettava ancora l’immagine del volto. Nella prova.8 quel controllo verifica una delle quattro pose originali, descrizione accessibile e immagine caricata; gli altri controlli nativi restano presenti. Per i risultati effettivi sull’emulatore e la firma consultare la Release v1.0.0-prova.8.
+## Importare dati da un’altra app
 
-Restano a fasi successive: pannelli rapidi dal basso, ulteriori categorie dei riferimenti (rapporti facoltativi, digestione, attività e nuovi sintomi), vista annuale e calendario su più mesi, gesto laterale, organizzazione dei consigli, onboarding a passi e verifica F-Droid. La nuova grafica non certifica la compatibilità su ogni telefono o con ogni impostazione dei caratteri Android.
+Apri **Impostazioni → Importa da un’altra app**. Sono disponibili istruzioni per Clue, Flo, Natural Cycles, Drip e CSV generico, scelta dei campi e anteprima con controlli. I formati JSON/CSV aperti di Cosma sono descritti in [FORMATO-DATI.md](docs/FORMATO-DATI.md).
 
+Controlla le date nell’anteprima e importa soltanto registrazioni, mai previsioni. Nessun file personale reale di quelle app è stato verificato: la compatibilità automatica non è garantita. ZIP e PDF non sono interpretati; estrai prima l’archivio e usa JSON/CSV. [Ricerca e istruzioni sui formati](docs/IMPORTAZIONE.md).
 
-**Versione pronta da provare: [scarica l’APK 1.0.0-prova.11](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.11/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
+Prima dell’importazione è conservata una copia locale protetta. **Annulla importazione** ripristina l’intera copia precedente, comprese eventuali modifiche successive: un nuovo import sostituisce questa singola copia. Fai comunque un backup cifrato su file. I dati intimi richiedono un consenso separato nell’importazione aperta.
 
-Cosma è un diario del ciclo in italiano, senza account e senza servizi esterni. **Questo repository è già configurato con una chiave di firma definitiva e i quattro secrets Android. Non ricreare la chiave.** GitHub Actions costruisce e firma l’APK automaticamente: i file prodotti sono nella pagina [Actions](https://github.com/CosmoNetinfo/Cosma/actions), le versioni numerate nella pagina [Releases](https://github.com/CosmoNetinfo/Cosma/releases).
+## Test e prove ancora necessarie
 
-Aggiornamento con il nuovo pacchetto: sezioni 12, 13 e 14 applicate in quest’ordine. Nella prova.7 Cosma a figura intera sta accanto all’anello di Oggi; nelle altre pagine compare piccola, sempre intera, vicino al titolo. I fumetti scorrono con il contenuto. Nessuna fascia fissa sottrae spazio ai dati, tranne durante il tour guidato. Tocca Cosma per l’aiuto, per ridurla o riaprirla; “Cambia posa” passa fra le quattro immagini originali. La scelta dura solo nella sessione e non registra dati. In **Impostazioni → La presenza di Cosma** scegli Presente (massimo 3 messaggi al giorno), Discreta (1, predefinita) o Silenziosa (0). Pausa fra le 22 e le 8, nessun messaggio mentre scrivi, nessuna AI online. Le risposte rapide chiedono conferma prima di registrare l’umore. Il tour di otto passi è saltabile, riprendibile e ripetibile dalle Impostazioni. Testi e motivazioni sono in [messaggi-cosma.md](messaggi-cosma.md).
+92 test Node superati e controlli dell’interfaccia in due temi, larghezze 360/390/430 px e undici pagine secondarie. Provati primo avvio con importazione e riapertura, pannelli rapidi, persistenza, PIN, backup, correzione degli inizi, calendario annuale, gesti e scritte separate nei percorsi verificati.
 
-L’**ingranaggio in alto** apre le Impostazioni da ogni pagina. Sotto l’anello puoi modificare l’ultimo inizio; **Impostazioni → Inizi del ciclo** permette di modificare o eliminare qualsiasi data. Giorno, statistiche, fascia stimata e promemoria vengono ricalcolati. Il diario resta quando elimini un inizio. Per mostrare una schermata: **Impostazioni → Screenshot e privacy → Consenti screenshot**; il PIN resta protetto.
+Il workflow ripete questi controlli e **due test nativi su emulatore Android API 35 prima di firmare**. L’esito effettivo della versione è nella Release e nei suoi risultati allegati; non considerare pronta una compilazione rossa. La ricevuta dell’APK scaricato verifica firma, hash, versione, permessi e immagini.
 
-Per importare: **Impostazioni → Importa da un’altra app**. [Guida e ricerca sui formati](docs/IMPORTAZIONE.md), [formato aperto JSON/CSV di Cosma](docs/FORMATO-DATI.md). Clue/Flo/Natural Cycles/Drip hanno istruzioni dedicate, selezione degli elenchi e mappatura manuale; **nessun export personale reale di queste app è stato provato**. Le fixture sono sintetiche, non schemi commerciali inventati. Prima di importare viene conservata una copia locale protetta. **Annulla importazione** ripristina l’intera copia precedente, comprese le modifiche successive: resta disponibile in Backup e dati, anche dopo riapertura. Un nuovo import sostituisce questa copia. Fai comunque un backup cifrato su file.
+Rimangono da provare sul telefono: notifiche a app chiusa/riavvio, biometria, selettori file, backup/ripristino, accessibilità e aggiornamento conservando i dati. Non sono state effettuate una certificazione sanitaria, una revisione indipendente della sicurezza o una validazione clinica del modello. [Risultati](docs/ESITO-TEST.md) · [Checklist](docs/PROVA-SUL-TELEFONO.md).
 
-Le quattro immagini di `mascotte-intera/` sono copiate identiche in `src/`: verifica SHA-256 automatica insieme alle cinque immagini precedenti. Le risoluzioni originali bastano alle visualizzazioni da 128 px; non sono state ritoccate o ridisegnate. Pose aggiuntive eventualmente utili, **non disponibili e non inventate**: indica un elemento, pensa, festeggia. Per ora si usano solo in piedi, saluto, abbraccio e sonno. Animazione di ingresso breve, disattivata con Riduci animazioni, senza cicli continui.
+## Continuare da un nuovo computer
 
-I risultati delle verifiche locali sono in [docs/ESITO-TEST.md](docs/ESITO-TEST.md); le prove ancora necessarie sul telefono sono in [docs/PROVA-SUL-TELEFONO.md](docs/PROVA-SUL-TELEFONO.md). Le istruzioni per creare la chiave più avanti servono soltanto alla prima configurazione di un nuovo repository: per Cosma è già stata eseguita.
+Il codice completo è su GitHub; non occorre ricreare repository, chiave o secrets. Leggi prima [CONTINUA-DA-QUI.md](docs/CONTINUA-DA-QUI.md). Con Git e Node 24 installati:
 
-La sezione 12 del brief prevale sulle precedenti: niente PWA, iPhone, GitHub Pages, esportazione nel calendario o migrazione da vecchi archivi browser. L’interfaccia deriva dalla v0.2 e conserva le immagini originali di Cosma. Lo stile minimalista approvato è esteso a Calendario, Diario, Salute, Preferenze, PIN, backup e primo avvio.
+```powershell
+git clone https://github.com/CosmoNetinfo/Cosma.git
+Set-Location Cosma
+npm ci
+npm test
+```
 
-## Spazi e pose, prova.7
+Per la compilazione sul servizio GitHub basta caricare una modifica su `main`. Oppure apri **Actions → Costruisci Cosma Android → Run workflow**, scegli `main` e avvia. Quando è verde, apri **Artifacts**, scarica `Cosma-Android-...` ed estrai l’APK. Per una Release, crea e carica un **nuovo** tag `v...`; non riutilizzare tag pubblicati. Il codice Android cresce con il numero di esecuzione del workflow.
 
-Home più compatta: anello con Cosma, settimana, stima e pulsante principale. Il numero resta a 76 px, le aree di tocco almeno 48 px. Le schede hanno superfici definite e bordi leggeri. Nelle altre pagine la posa varia con il contesto e con i messaggi esistenti; di notte resta il sonno. Nessuna nuova informazione sanitaria è stata aggiunta. [Limiti e prove ancora necessarie](docs/NON-VERIFICATO.md).
+La [pagina del progetto nel tuo account ChatGPT](https://chatgpt.com/space/page_6b04222afab48191bfb142279f50f342) raccoglie stato e collegamenti: accedi allo stesso account sull’altro dispositivo. GitHub rimane la fonte del codice; gli archivi allegati sono copie datate.
 
-## v1.1, seconda fase
+## Sviluppo locale
 
-La prova.6 aggiunge su Oggi i sette giorni da oggi in avanti: cerchio pieno per mestruazioni registrate, tratteggio per la fascia stimata dell’inizio. Tocca una data per aprirla nel Calendario; da oggi puoi poi aprire il diario, mentre i giorni futuri restano consultabili. Nessuna data di ovulazione o finestra fertile viene ricavata. Formule, protezioni e firma restano invariate. Le prossime aggiunte sono azioni rapide e pannello di registrazione; [qui trovi lo stato completo delle fasi](docs/AVANZAMENTO-v1.1.md).
+Non rigenerare la cartella `android/`. Interfaccia HTML/CSS/JavaScript senza framework pesanti. Node 24, JDK 21 e SDK Android 36 per compilare localmente; per il solo download non serve Android Studio.
 
-## v1.1, prima fase
+```powershell
+npm run android:sync
+Set-Location android
+./gradlew.bat assembleDebug
+```
 
-La prova.4 aggiunge solo sfondi piatti e delicati su Oggi, con contrasto verificato nei due temi. Il rosato accompagna date di mestruazioni realmente registrate; gli altri giorni hanno una tinta lilla/azzurra, neutra con dati assenti o fascia descrittiva passata. Il colore non identifica una fase ormonale e non modifica i calcoli. [Stato delle fasi e parti ancora mancanti](docs/AVANZAMENTO-v1.1.md). La striscia della settimana è stata aggiunta nella fase 2.
+Questo APK locale usa una chiave di debug diversa: non aggiorna l’APK ufficiale. Per testare l’interfaccia su Windows con Chrome:
 
-## Cosa puoi provare
+```powershell
+$env:COSMA_BROWSER='C:/Program Files/Google/Chrome/Application/chrome.exe'
+npm run test:ui
+```
 
-- Aggiungere, correggere, eliminare e scegliere quali cicli escludere dalle statistiche. La fine del sanguinamento è facoltativa e non viene inventata.
-- Consultare Oggi, Calendario e proiezione descrittiva delle prossime mestruazioni; aprire “Come l’ho calcolato?” con i dati effettivamente utilizzati.
-- Compilare il diario: flusso, umore, sintomi, dolore e note; attivare facoltativamente temperatura, muco, LH, test di gravidanza, peso, sonno e scala personale dei sintomi quotidiani.
-- Leggere statistiche e dati grezzi, annotare visite e farmaci, impostare promemoria e un orario personale per il metodo contraccettivo. L’app non consiglia terapie o dosaggi.
-- Usare PIN/password, biometria forte se disponibile, tema automatico/chiaro/scuro, schermata protetta nelle app recenti.
-- Salvare o condividere un backup cifrato, ripristinarlo dopo conferma, scegliere le date di un riepilogo PDF tramite la stampa Android.
-- Leggere fonti offline e copiare cinque domande per dare un feedback, senza invio automatico.
+I test browser usano un archivio sostitutivo con dati fittizi: non sono una versione web da distribuire e non dimostrano il comportamento della memoria Android. `scripts/fonti.mjs` rigenera le fonti offline; `scripts/licenze.mjs` l’inventario legale. Le schermate sono in `docs/schermate/` e [PANORAMICA.html](docs/PANORAMICA.html).
 
-## Prima di usare dati reali
+| Percorso | Contenuto |
+| --- | --- |
+| `src/app.js`, `style.css` | Schermate e interazioni |
+| `src/domain.js` | Date, dati e formule conservate |
+| `src/diary-view.js`, `quick-entry.js` | Diario e pannelli rapidi |
+| `src/cosma-ui.js`, `cosma-messages.js` | Assistente locale e messaggi |
+| `src/calendar-view.js`, `calendar-gestures.js` | Mese, anno e gesti |
+| `src/onboarding.js`, `education.js` | Primo avvio e letture |
+| `src/database.js`, `storage.js`, `crypto.js` | Archivio e protezioni |
+| `android/`, `.github/workflows/android.yml` | Integrazione nativa e APK firmato |
+| `tests/`, `docs/`, `legal/`, `design/` | Prove, documentazione, licenze e master grafici |
 
-È una **versione di prova, senza validazione clinica indipendente**. La proiezione non ha una probabilità di accuratezza nota. I segnali non certificano un’ovulazione; non viene generata una finestra fertile personale da una regola del calendario. Leggi [FONTI.md](FONTI.md) e [docs/NON-VERIFICATO.md](docs/NON-VERIFICATO.md). Non utilizzare Cosma per decidere giorni “sicuri” o modificare una terapia.
+## Componenti open source e F-Droid
 
-Disinstallare Cosma o cancellarne i dati nelle impostazioni Android elimina l’archivio. **Fai un backup manuale e conserva la sua password separatamente.** La password del backup può essere diversa dal PIN. Non possiamo recuperare né l’una né l’altro.
+| Componente diretto | Versione | Licenza dichiarata |
+| --- | --- | --- |
+| `@aparajita/capacitor-biometric-auth` | 10.0.0 | MIT · open source |
+| `@capacitor-community/sqlite` | 8.1.1 | MIT · open source |
+| `@capacitor/android` | 8.6.2 | MIT · open source |
+| `@capacitor/app` | 8.1.2 | MIT · open source |
+| `@capacitor/core` | 8.6.2 | MIT · open source |
+| `@capacitor/filesystem` | 8.1.5 | MIT · open source |
+| `@capacitor/local-notifications` | 8.3.1 | MIT · open source |
+| `@capacitor/share` | 8.0.3 | MIT · open source |
+| `@capacitor/splash-screen` | 8.0.2 | MIT · open source |
+| `@capacitor/status-bar` | 8.0.4 | MIT · open source |
 
-## Ottenere il tuo primo APK con GitHub
+Dieci dipendenze dirette open source; testi consultabili anche nell’app in **Licenze e componenti**. [Inventario npm](docs/LICENZE-RUNTIME.json), [dipendenze Android](docs/DIPENDENZE-ANDROID-RUNTIME.json), [rapporto F-Droid](docs/FDROID.md).
 
-Il repository indicato è `https://github.com/CosmoNetinfo/Cosma`. Le operazioni seguenti si fanno una volta. Non inviare mai le chiavi in chat e non caricarle nei file pubblici del repository.
+**Non dichiarato pronto per F-Droid e non inviato:** la licenza del progetto e delle immagini è da decidere dal titolare. Non risultano servizi Google proprietari nelle dipendenze risolte; restano verifica completa dei binari nativi, ricompilazione riproducibile e controlli dell’infrastruttura F-Droid. Questa verifica preliminare non è una certificazione. La Release GitHub di prova è indipendente da tale obiettivo facoltativo.
+
+## Appendice: configurare un repository nuovo
+
+**Cosma è già configurato: non eseguire questi passaggi nel repository esistente e non ricreare la sua chiave.** La procedura seguente documenta soltanto la prima configurazione di un progetto nuovo, per un principiante. Non inviare mai le chiavi in chat e non caricarle nei file pubblici del repository.
 
 ### 1. Preparare il computer
 
@@ -187,71 +233,3 @@ git push origin v1.0.0-prova.1
 Il tag avvia una nuova compilazione e pubblica `Cosma.apk` nella sezione **Releases** del repository. Per la successiva usa un nuovo tag, per esempio `v1.0.0-prova.2`. Non spostare un tag già distribuito.
 
 `versionName` deriva dal tag. Per ramo/avvio manuale è `1.0.0-prova.N`. `versionCode` è `10000 + github.run_number`, quindi aumenta a ogni **nuova esecuzione** di questo stesso workflow. Il pulsante per ripetere un’esecuzione già esistente mantiene il numero precedente: per una nuova distribuzione usa un nuovo avvio. Non cancellare/ricreare il workflow o trasferirlo a un nuovo repository senza conservare un contatore superiore all’ultimo APK distribuito.
-
-## Installare sul telefono di chi prova
-
-1. Invia l’APK prodotto dal tuo workflow o il collegamento alla tua Release. Scaricalo sul telefono.
-2. Apri il file. Android può chiedere di consentire a quel browser o gestore file di installare app sconosciute. Concedi l’autorizzazione soltanto all’app che stai usando; puoi revocarla dopo.
-3. Installa Cosma. Non è sul Play Store: Android/Play Protect può mostrare un avviso. Verifica la provenienza; non disattivare indiscriminatamente le protezioni del telefono.
-4. Apri Cosma, aggiungi una data o scegli di farlo dopo. In Salute → Blocco app configura un PIN/password di almeno otto caratteri. L’impronta è facoltativa e richiede biometria forte disponibile sul dispositivo.
-5. In Salute → Promemoria abilita le notifiche. Se vuoi maggiore puntualità, apri “Gestisci gli allarmi esatti” e concedi l’accesso Android. Puoi negarlo: i promemoria possono arrivare in ritardo. Prova l’avviso fra dieci secondi anche mettendo l’app in secondo piano.
-6. In Salute → Backup e dati salva il primo backup cifrato, con password di almeno dieci caratteri, in una cartella che sai ritrovare. Verifica il ripristino con dati fittizi prima della prova reale.
-7. Segui la [checklist sul telefono](docs/PROVA-SUL-TELEFONO.md). Per aggiornare, apri il nuovo APK sopra la vecchia installazione: **non disinstallare prima**. Firma, identificativo e contatore devono restare coerenti.
-
-## Dati, blocco e notifiche
-
-L’APK usa SQLite nella memoria privata dell’app. Prima di arrivare a SQLite, tutto il documento è cifrato con AES-GCM usando una chiave Android Keystore non esportata. Il documento cifrato viene diviso in righe piccole e salvato in una singola transazione, per evitare una riga troppo grande nella lettura Android. SQLCipher è disabilitato: **il documento è cifrato, non l’intero contenitore SQLite**; schema e revisione restano leggibili. Attivando il PIN si aggiunge uno strato AES-GCM derivato con PBKDF2-SHA256, 600.000 iterazioni, sale casuale e nonce casuale. La chiave del PIN rimane in memoria mentre l’app è sbloccata.
-
-Con la biometria, una copia del segreto di accesso è avvolta da una chiave Keystore che richiede biometria forte Android, con finestra di autorizzazione di 15 secondi. Non viene salvata in chiaro né inclusa nei backup. Il PIN resta utilizzabile se l’impronta fallisce. Non promettiamo che ogni telefono conservi le chiavi in hardware. Dopo cinque minuti senza attività e al passaggio in secondo piano, l’app protetta si blocca; selettori file, stampa e prompt biometrici richiedono eccezioni temporanee per completare l’azione scelta.
-
-`FLAG_SECURE` è attivo inizialmente: nasconde il contenuto nelle app recenti e impedisce gli screenshot. Puoi disattivarlo in Preferenze. Il cambio automatico di nome e icona non è implementato: il nome rimane Cosma.
-
-Il manifest finale non richiede Internet. Risorse, caratteri, calcoli e fonti sono locali; nessun CDN, analitica o account. Il nome `https://localhost` nella configurazione Capacitor serve a caricare i file intercettati internamente dalla WebView: non è un server remoto e non invia i dati. I test dell’interfaccia hanno un archivio sostitutivo solo per il browser; il percorso di produzione lo rifiuta e usa SQLite.
-
-Backup automatici Android e trasferimento dispositivo sono esclusi nel manifest e nei file XML. Un produttore può avere comportamenti propri: la checklist ne richiede la verifica. Se scegli tu un servizio cloud nel selettore file o nel menu Condividi, il file cifrato può finire lì. L’app non lo carica autonomamente. Nella cache privata possono restare copie cifrate dei file condivisi, eliminabili cancellando la cache Android.
-
-Tutte le notifiche hanno soltanto titolo **“Promemoria Cosma”** e testo **“Apri Cosma per consultare il promemoria.”** I dettagli sono nell’app. Sono programmati allarmi nativi, non timer JavaScript. Il ricevitore del plugin ripristina gli allarmi dopo il riavvio; questo comportamento deve ancora essere provato sul telefono. Un arresto forzato o lo spazio privato bloccato possono impedirli finché non riapri Cosma. Risparmio energetico e Doze possono ritardarli anche con configurazione corretta.
-
-Per il backup sono programmate tredici scadenze distanti 28 giorni (circa un anno), aggiornate a ogni apertura/salvataggio; oltre tale orizzonte serve riaprire l’app. I promemoria complessivi sono limitati a 500, dando precedenza alle scadenze di backup. Questa versione è destinata a elenchi personali ridotti, non ad agende con migliaia di allarmi.
-
-## Per chi sviluppa
-
-La cartella `android/` è già generata e contiene il plugin locale Java. **Non rigenerarla da zero**, altrimenti perderesti manifest, firma, icone e servizi locali. Se parti da questo ZIP, basta sincronizzarla.
-
-```powershell
-npm ci
-npm test
-npm run android:sync
-```
-
-Per compilare localmente occorrono JDK 21, Android SDK 36 e le relative licenze accettate. Configura `JAVA_HOME` e `ANDROID_HOME`, quindi:
-
-```powershell
-Set-Location android
-./gradlew.bat assembleDebug
-```
-
-Questa produce un APK di sviluppo con chiave di debug, **diversa da quella fissa della distribuzione**. Non usarlo come aggiornamento dell’APK ufficiale e non inserire dati sanitari reali prima delle verifiche native.
-
-Per i test dell’interfaccia su Windows con Chrome:
-
-```powershell
-$env:COSMA_BROWSER='C:/Program Files/Google/Chrome/Application/chrome.exe'
-npm run test:ui
-```
-
-Puoi indicare un altro Chromium installato. I test aprono un server locale temporaneo e usano dati fittizi in un archivio separato; non verificano SQLite, Keystore o notifiche Android. Producono schermate in `docs/schermate/` e un esito JSON. Non viene distribuita una versione browser per l’utente finale.
-
-| Cartella/file | Scopo |
-| --- | --- |
-| `src/app.js`, `style.css`, `index.html` | Schermate e interazioni |
-| `src/domain.js` | Date, validazione, statistiche, proiezione descrittiva |
-| `src/database.js`, `storage.js`, `crypto.js` | Database privato, PIN e backup |
-| `src/platform.js`, `notifications.js` | Collegamenti Android e promemoria |
-| `src/education.js`, `science.js`, `FONTI.md` | Informazioni e riferimenti scientifici offline |
-| `android/.../CosmaDevicePlugin.java` | Keystore, selettore file, stampa, protezione schermo |
-| `tests/`, `scripts/` | Verifiche ripetibili e costruzione |
-| `.github/workflows/android.yml` | APK firmato e Release |
-| `docs/` | Esiti, schermate, design, limiti e checklist |
-
-Aggiornando le fonti esegui `node scripts/fonti.mjs`, poi ricostruisci. Le immagini originali non vengono generate o ritoccate. L’icona adattiva usa il PNG originale su uno sfondo viola. Le licenze dei pacchetti di terzi sono riepilogate in `docs/DIPENDENZE.json`; i diritti della mascotte restano al suo titolare.

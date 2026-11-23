@@ -21,19 +21,23 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class DatabaseStartupTest {
     private void confirmNativeDialog() {
+        android.app.UiAutomation automation=InstrumentationRegistry.getInstrumentation().getUiAutomation();
+        android.accessibilityservice.AccessibilityServiceInfo info=automation.getServiceInfo();
+        info.flags|=android.accessibilityservice.AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
+        automation.setServiceInfo(info);
         long end=SystemClock.elapsedRealtime()+10000;
-        RuntimeException last=null;
         while(SystemClock.elapsedRealtime()<end){
-            try{
-                // Il confirm WebView apre un AlertDialog: la finestra dell'attività
-                // perde il focus. Selezionare il dialogo prima di cercare il pulsante.
-                androidx.test.espresso.Espresso.onView(androidx.test.espresso.matcher.ViewMatchers.withId(android.R.id.button1))
-                    .inRoot(androidx.test.espresso.matcher.RootMatchers.isDialog())
-                    .perform(androidx.test.espresso.action.ViewActions.click());
-                return;
-            }catch(RuntimeException e){last=e;SystemClock.sleep(100);}
+            // Premi il vero pulsante positivo Android tramite accessibilità.
+            // Espresso dipende dal focus della finestra, instabile nell'emulatore.
+            android.view.accessibility.AccessibilityNodeInfo root=automation.getRootInActiveWindow();
+            if(root!=null){
+                for(android.view.accessibility.AccessibilityNodeInfo button:root.findAccessibilityNodeInfosByViewId("android:id/button1")){
+                    if(button.isVisibleToUser() && button.isEnabled() && button.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK))return;
+                }
+            }
+            SystemClock.sleep(100);
         }
-        throw last!=null?last:new IllegalStateException("Conferma Android non comparsa");
+        fail("Pulsante di conferma Android non trovato o non azionabile");
     }
     private void awaitIdle(ActivityScenario<MainActivity> scenario) throws Exception {
         long end=SystemClock.elapsedRealtime()+10000;

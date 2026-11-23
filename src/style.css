@@ -1477,3 +1477,5 @@ dialog.bottom-sheet:before{content:"";display:block;width:40px;height:4px;border
 .calendar-estimate .hint{margin-top:8px}
 
 .ring-label[data-digits="6"] strong{font-size:28px}
+
+.days .day{width:48px;min-width:48px;justify-self:center;border-radius:999px;font-size:16px;font-weight:500;padding:0}

@@ -1,5 +1,14 @@
 # Limiti e verifiche mancanti
 
+## Consegna complessiva v1.1.0-prova.1
+
+Tutte le dieci voci funzionali del delta sono implementate: tinte piatte, settimana, azioni rapide, pannelli di registrazione, tocco su Cosma, gesto calendario, letture con fonti, primo avvio a passi, linguaggio inclusivo e audit dei componenti per F-Droid. Aggiunte richieste successive: Diario illustrato, sette varianti di Cosma separate dagli originali, vista annuale e numero nell’anello senza parole sul bordo. README riscritto per un principiante, con guida dettagliata e configurazione iniziale chiaramente separata dal repository già pronto.
+
+92 test Node e prove browser locali superati. Il workflow del tag ripete due test nativi prima della firma; i risultati effettivi e la verifica dell’APK sono allegati alla Release. Il test della conferma è stato corretto dopo un’attesa del focus fallita sull’emulatore: preme il pulsante Android reale tramite accessibilità, senza modificare l’app o saltare il controllo di eliminazione.
+
+Audit F-Droid completato come valutazione, non pubblicazione: scelta della licenza, ricostruzione dei binari e ammissione esterna restano aperte. Prove su telefono reale, export personali e validazioni indipendenti non sono state eseguite. Lo storico sotto descrive risultati e parti mancanti delle fasi precedenti, non lo stato attuale.
+
+
 ## Funzioni del delta completate, prova.11
 
 Completati consigli, primo avvio e verifica F-Droid. Le 29 letture hanno fonti locali e filtri per argomento, comprese schede generali sulle fasi; non identificano la fase personale. Le fonti del primo giorno includono anche ISSalute, verificata alla fonte. Il primo avvio ha sei passi, progressione, Indietro, Salta sempre accessibile e conclusione È tutto pronto. Se si importa durante il primo avvio, i dati si conservano subito e il percorso conclusivo riprende anche dopo riapertura. Il tour precedente rimane saltabile e ripetibile.
@@ -70,7 +79,7 @@ Consegna preparata il 23 novembre 2026. Il dettaglio delle fonti consultate il 2
 - Nessuna deduzione degli inizi dai giorni di flusso. L’importazione di solo diario non basta ad alimentare le statistiche degli inizi; serve registrarli esplicitamente. I campi sconosciuti non permettono di garantire la distinzione fra registrazioni e previsioni senza il controllo dell’utente.
 - La copia di annullamento è locale e singola: non recupera dati dopo disinstallazione o Cancella tutto e viene sostituita dal prossimo import. L’annullamento rimuove anche le modifiche successive. Testati errore di scrittura, riapertura, cifratura PIN e recupero; la durata su anni d’uso non è stata provata.
 - TalkBack reale, dimensione del carattere Android elevata, tastiere di più produttori, selettori file reali e migrazione fra telefoni richiedono ancora prove fisiche. Il contenuto scorre in uno spazio separato dall’assistente: nessun elemento viene deliberatamente coperto dal personaggio.
-- Nessun Health Connect, OCR, AI online o nuove pose generate. Le immagini restano identiche; sono usate alle dimensioni di visualizzazione necessarie, senza produrre altri file ridimensionati.
+- Nessun Health Connect, OCR o AI online nell’app. Le nove immagini originali restano identiche; sette nuove varianti dei sintomi, autorizzate successivamente, sono documentate con master, prompt e risoluzioni 160/320 px in NUOVE-POSE.md.
 
 ## Android e distribuzione
 

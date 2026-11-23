@@ -1,0 +1,40 @@
+{
+  "base": "v1.0.0-prova.3",
+  "file": [
+    {
+      "file": "src/database.js",
+      "sha256": "8a612b1a0e62142cbfca078689c11dd0363ec3367b0c045fc0e897aff909b6fb",
+      "identico": true
+    },
+    {
+      "file": "src/storage.js",
+      "sha256": "682428813b2010ee28b1c3064df3fbc1a6f685ed306656d310e7637b2ccc123c",
+      "identico": true
+    },
+    {
+      "file": "src/crypto.js",
+      "sha256": "d47712767da7908de2b4a69dfeb45f9fec94bffbb0dc00f7ba689e4fe8735934",
+      "identico": true
+    },
+    {
+      "file": "src/platform.js",
+      "sha256": "2833570cef921ae6533c1a19a445ca34a8140e272aa843ec9624ecdcd32c0128",
+      "identico": true
+    },
+    {
+      "file": "src/notifications.js",
+      "sha256": "f4b69a5309d58237c33e4d60ef2e979fc68aebbd2153c6f64073814174dc8af6",
+      "identico": true
+    },
+    {
+      "file": "android/app/src/main/AndroidManifest.xml",
+      "sha256": "a4ea14c99d82e77a50036b1de78958268756a3183abe0a7c8a5d1357431b7ba9",
+      "identico": true
+    },
+    {
+      "file": ".github/workflows/android.yml",
+      "sha256": "a9d09b2034d58605a6662977e94b0235c8d54abdd96b2115e7f33c9f8cbfafbc",
+      "identico": true
+    }
+  ]
+}

@@ -1,5 +1,14 @@
 # Verifiche della versione con assistente e importazione
 
+## Consegna complessiva v1.1.0-prova.1
+
+Tutte le dieci voci funzionali del delta sono implementate: tinte piatte, settimana, azioni rapide, pannelli di registrazione, tocco su Cosma, gesto calendario, letture con fonti, primo avvio a passi, linguaggio inclusivo e audit dei componenti per F-Droid. Aggiunte richieste successive: Diario illustrato, sette varianti di Cosma separate dagli originali, vista annuale e numero nell’anello senza parole sul bordo. README riscritto per un principiante, con guida dettagliata e configurazione iniziale chiaramente separata dal repository già pronto.
+
+92 test Node e prove browser locali superati. Il workflow del tag ripete due test nativi prima della firma; i risultati effettivi e la verifica dell’APK sono allegati alla Release. Il test della conferma è stato corretto dopo un’attesa del focus fallita sull’emulatore: preme il pulsante Android reale tramite accessibilità, senza modificare l’app o saltare il controllo di eliminazione.
+
+Audit F-Droid completato come valutazione, non pubblicazione: scelta della licenza, ricostruzione dei binari e ammissione esterna restano aperte. Prove su telefono reale, export personali e validazioni indipendenti non sono state eseguite. Lo storico sotto descrive risultati e parti mancanti delle fasi precedenti, non lo stato attuale.
+
+
 ## Funzioni del delta completate, prova.11
 
 Completati consigli, primo avvio e verifica F-Droid. Le 29 letture hanno fonti locali e filtri per argomento, comprese schede generali sulle fasi; non identificano la fase personale. Le fonti del primo giorno includono anche ISSalute, verificata alla fonte. Il primo avvio ha sei passi, progressione, Indietro, Salta sempre accessibile e conclusione È tutto pronto. Se si importa durante il primo avvio, i dati si conservano subito e il percorso conclusivo riprende anche dopo riapertura. Il tour precedente rimane saltabile e ripetibile.
