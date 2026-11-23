@@ -92,3 +92,10 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] Prova caratteri e dimensioni schermo Android grandi, orientamento e tastiera: scritte, icone e pulsanti non si coprono.
 - [ ] Correggi il primo giorno di un ciclo e verifica il giorno del ciclo e gli estremi della fascia nel calendario; la fine del flusso non deve spostare l’inizio usato per la stima.
 - [ ] Il numero è dentro l’anello, “Giorno del ciclo” fuori e distante dal bordo.
+
+## Calendario e assistente, prova.10
+
+- [ ] Tocca Cosma in tutte le schede: cambia posa, risponde dal catalogo e Opzioni apre il menu. In Silenziosa non avvia messaggi da sola.
+- [ ] Nel calendario scorri in orizzontale: cambia il mese; lo scorrimento verticale non deve cambiare data. Le frecce continuano a funzionare.
+- [ ] Passa ad Anno, apri un mese e cambia anno; nessuna previsione aggiuntiva viene prolungata nei mesi futuri.
+- [ ] Con TalkBack apri un mese usando il suo comando completo; verifica la leggibilità con caratteri grandi.

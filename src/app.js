@@ -1,3 +1,5 @@
+import {calendarViewSwitch,yearCalendarHTML} from './calendar-view.js';
+import {installCalendarSwipe} from './calendar-gestures.js';
 import {createQuickEntry} from './quick-entry.js';
 import {INTIMACY,ACTIVITY,CONTEXT,MUCUS,togglePick,toggleIntimacy} from './diary-catalog.js';
 import {diaryChoices,filterDiary} from './diary-view.js';
@@ -88,7 +90,7 @@ function cosmaHelp(){
  };
  modal('Cosma ti accompagna',`<p>${esc(text[tab]||'Un giorno alla volta: scegli ciò che vuoi registrare.')}</p>`);
 }
-let foreignFlow,cosma,quickEntry;
+let foreignFlow,cosma,quickEntry,calendarView='month';
 let S = null,
   tab = "oggi",
   sel = D.today(),
@@ -304,6 +306,7 @@ function homeQuickActions(){return `<section class="home-quick-actions" aria-lab
 function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>Prossime mestruazioni</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button></div>`;}
 
 function vCal() {
+  if(calendarView==='year'){const year=Number(month.slice(0,4));return calendarViewSwitch(calendarView,{button})+`<div class="month">${button('prev-month',icon('back'),'icon-button','aria-label="Anno precedente"')}<h2>${year}</h2>${button('next-month',icon('arrow'),'icon-button','aria-label="Anno successivo"')}</div>`+yearCalendarHTML(S,year,{button,esc})+button('calculation','Come l’ho calcolato?','text-button');}
   const [y, m] = month.split("-").map(Number),
     first = new Date(y, m - 1, 1),
     off = (first.getDay() + 6) % 7,
@@ -340,7 +343,7 @@ function vCal() {
     );
   }).join("");
   const v = D.dayInfo(S, sel);
-  return `<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div><div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.pred ? "Stima mestruazioni" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div><p class="hint">Stima basata sui tuoi cicli passati. Può cambiare, non è una previsione medica.</p>${button("calculation","Come l’ho calcolato?","text-button")}${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
+  return `${calendarViewSwitch(calendarView,{button})}<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div><div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.pred ? "Stima mestruazioni" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div><p class="hint">Stima basata sui tuoi cicli passati. Può cambiare, non è una previsione medica.</p>${button("calculation","Come l’ho calcolato?","text-button")}${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
 }
 function blankLog() {
   return {
@@ -639,6 +642,7 @@ function removeConfirm(collection, id, label) {
   });
 }
 quickEntry=createQuickEntry({state:()=>S,commit,modal,close:closeModal,render,toast,esc,button,fmt:D.fmt});
+installCalendarSwipe(app,{active:()=>tab==='cal'&&!dialog.open&&!busy,move:dir=>app.querySelector('[data-action='+(dir>0?'next-month':'prev-month')+']')?.click()});
 cosma=createCosma({state:()=>S,page:()=>tab,locked:()=>locked,typing:()=>dirty||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName),modalOpen:()=>dialog.open,commit,run,go,modal,close:closeModal,esc,button});
 foreignFlow=createImportFlow({getState:()=>S,commit,commitImport:n=>commit(n,{importing:true}),modal,closeModal,render,toast,button,select,field,formEnd,esc,fmt:D.fmt,pickFile:()=>Platform.pickBackup(),testMode:__COSMA_TEST__});
 const routes = ["pms","feedback",
@@ -679,18 +683,20 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (act) {
+    case 'calendar-view':calendarView=b.dataset.view==='year'?'year':'month';render();break;
+    case 'calendar-month':if(D.validDate(b.dataset.month)){month=b.dataset.month;sel=month.slice(0,7)===D.today().slice(0,7)?D.today():month;calendarView='month';render();}break;
     case 'quick-entry':quickEntry.open(b.dataset.kind);break;
     case 'finish-quick':closeModal();render();break;
     case 'quick-diary':closeModal();sel=D.today();go('diario');break;
     case 'week-day':
       if(D.validDate(b.dataset.date)&&canLeave()){
-        sel=b.dataset.date;month=sel.slice(0,7)+'-01';go('cal');
+        sel=b.dataset.date;month=sel.slice(0,7)+'-01';calendarView='month';go('cal');
       }
       break;
     case 'foreign-table':run(()=>foreignFlow.chooseTable(Number(b.dataset.index)));break;
     case 'undo-import':run(async()=>{if(!confirm('Tornare alla copia precedente all’importazione? Anche le modifiche successive saranno rimosse.'))return;const n=await Store.undoImport();await commit(n);closeModal();render();toast('Importazione annullata. Copia precedente ripristinata.');});break;
     case 'export-json':case 'export-csv':run(async()=>{if(!confirm('Il file esportato non è cifrato e contiene dati sanitari. Vuoi salvarlo?'))return;await Platform.saveBackup(act==='export-json'?JSON.stringify(exportPortable(S),null,2):exportCSV(S),'cosma-dati-'+D.today()+(act==='export-json'?'.json':'.csv'));});break;
-    case 'cosma-toggle':case 'cosma-pose':case 'cosma-expand':case 'cosma-dismiss':case 'cosma-answer':case 'cosma-tour':case 'cosma-tour-resume':case 'cosma-tour-next':case 'cosma-tour-pause':case 'cosma-less':case 'cosma-silent':run(()=>cosma.action(act,b));break;
+    case 'cosma-touch':case 'cosma-toggle':case 'cosma-pose':case 'cosma-expand':case 'cosma-dismiss':case 'cosma-answer':case 'cosma-tour':case 'cosma-tour-resume':case 'cosma-tour-next':case 'cosma-tour-pause':case 'cosma-less':case 'cosma-silent':run(()=>cosma.action(act,b));break;
     case 'import-app':foreignFlow.open();break;
     case 'choose-foreign-file':run(()=>foreignFlow.choose());break;
     case 'map-foreign-import':foreignFlow.mapping();break;
@@ -758,7 +764,7 @@ document.addEventListener("click", (e) => {
     case "prev-month":
     case "next-month": {
       const dt = new Date(month + "T12:00:00");
-      dt.setMonth(dt.getMonth() + (act === "next-month" ? 1 : -1));
+      dt.setMonth(dt.getMonth() + (act === "next-month" ? 1 : -1)*(calendarView==='year'?12:1));
       if (dt.getFullYear() < 1900 || dt.getFullYear() > 2200) return;
       month = D.iso(dt);
       render();

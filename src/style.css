@@ -1430,3 +1430,16 @@ dialog.bottom-sheet:before{content:"";display:block;width:40px;height:4px;border
 .diary-choice{position:relative}
 .diary-choice[aria-pressed=true]:after{content:"\2713";position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--accent);color:var(--surface);border:2px solid var(--surface);font-size:12px;line-height:1}
 .quick-symptoms .diary-choice[aria-pressed=true]:after{top:46px;bottom:auto;right:calc(50% - 28px)}
+
+.calendar-views{display:flex;justify-content:center;width:max-content;max-width:100%;margin:0 auto 20px;padding:4px;background:var(--tint);border-radius:999px}
+.calendar-views button{min-width:88px;min-height:48px;padding:8px 16px;border-radius:999px;font-size:16px}
+.calendar-views button[aria-pressed=true]{background:var(--surface);font-weight:600}
+.calendar-scroll,.calendar-year{touch-action:pan-y}
+.calendar-year{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;margin:20px 0}
+.mini-month{display:block;min-width:0;text-align:left;padding:12px 8px;background:var(--surface);border:1px solid var(--border);border-radius:20px}
+.mini-title{display:block;font-size:16px;font-weight:600;line-height:24px;margin-bottom:8px}
+.mini-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px 0}
+.mini-day,.mini-weekday{display:grid;place-items:center;min-width:0;font-size:12px;line-height:22px;min-height:22px;border:1px solid transparent;border-radius:999px;font-variant-numeric:tabular-nums}
+.mini-weekday{color:var(--muted)}.mini-day.registered{background:var(--text);color:var(--surface)}.mini-day.estimated{border-style:dashed;border-color:var(--accent)}.mini-day.current-day{font-weight:700;text-decoration:underline}
+
+.cosma-bubble-actions{display:flex;justify-content:space-between;gap:12px;margin-top:8px}

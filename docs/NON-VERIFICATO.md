@@ -1,5 +1,16 @@
 # Limiti e verifiche mancanti
 
+## Fase 5–6 e vista annuale, prova.10
+
+Toccando Cosma si cambia posa e si apre un messaggio contestuale del catalogo locale; dal fumetto, Opzioni apre i controlli della presenza e del tour. I messaggi automatici conservano limiti, pausa notturna e modalità Silenziosa. Quelli richiesti con un tocco non attribuiscono fasi personali né modificano registrazioni.
+
+Il Calendario ha Mese/Anno, dodici mesi consultabili nell’anno e un gesto laterale per cambiare mese o anno, oltre alle frecce. Toccare un mese apre la vista dettagliata. Nella vista annuale ogni mese è un unico comando ampio: i numeri piccoli non sono pulsanti separati. Sono riportate soltanto registrazioni e la fascia del prossimo inizio già calcolata, senza reiterare una previsione per i mesi futuri o localizzare fertilità. La vista di dettaglio continua a ricalcolare dal primo giorno registrato.
+
+81 test Node e verifiche dell’interfaccia locali superati: mesi bisestili e date civili, direzione del gesto, distinzione dallo scorrimento verticale, dodici mesi, apertura e cambio anno, tocco della mascotte. I test dell’interfaccia usano una data iniziale fissa con orologio che avanza, per non dipendere dal giorno di esecuzione; nell’app reale l’orologio non è cambiato. Prove reali di touch, TalkBack e caratteri grandi rimangono nella checklist. Le funzioni scientifiche e la firma sono conservate.
+
+Restano per la Release complessiva: consigli organizzati, primo avvio a passi e verifica F-Droid, seguiti dalle verifiche finali dell’APK.
+
+
 ## Fase 3–4 e icone richieste, prova.9
 
 Completati i tre pulsanti tondi su Oggi e il pannello dal basso: le selezioni di flusso, umore e sintomi si salvano al tocco; le note hanno il loro comando di salvataggio. Il Diario ha categorie e pulsanti illustrati sul modello dei riferimenti forniti. Le figure umane sono sostituite da sette nuove varianti di Cosma, generate su richiesta esplicita dell’utente, conservando intatte le nove immagini originali. Master e prompt sono in design/mascotte-sintomi; icone a 160/320 px in src/; provenienza e hash in docs/POSE-SINTOMI.json.

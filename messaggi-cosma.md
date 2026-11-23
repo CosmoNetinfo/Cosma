@@ -38,3 +38,9 @@ Menu: Cosa posso registrare oggi?; Rifai il tour; Parla meno; Silenzio; Mostra C
 La fine del flusso non viene mai dedotta o salvata automaticamente. L’invito confronta solo la durata aperta con la media delle fini realmente registrate. La stima vicina usa il rango dei cicli passati e non è clinicamente validata. Gli avvisi rimandano ai criteri e ai limiti già presenti in Fonti e metodo. La posa di conforto può accompagnare un’autoregistrazione di umore Triste o dolore almeno 7/10: è una scelta grafica, non una soglia diagnostica.
 
 Cosma non fa diagnosi, non suggerisce terapie o dosaggi, non parla di contraccezione e non promette fertilità. Le notifiche Android non ripetono questi testi: restano generiche.
+
+## Registrazione rapida e tocco diretto, delta v1.1
+
+- Messaggio quick: “Tocca ciò che vuoi registrare. Puoi scegliere più sintomi.” Fonte S00, istruzione di interfaccia; azione Apri registrazione rapida.
+- Toccando Cosma cambia una delle quattro pose originali e legge un messaggio contestuale già presente nel catalogo. Su Oggi alterna saluto, guida rapida, spiegazione delle statistiche e aiuto generale; nelle altre schede usa il messaggio della pagina. Non attribuisce una fase ormonale personale.
+- I messaggi richiesti con un tocco sono distinti da quelli proattivi: restano locali e non consumano o aggirano i limiti dei messaggi automatici. Silenziosa permette risposte solo quando la si tocca. L’azione Opzioni apre i controlli già esistenti della presenza e del tour.

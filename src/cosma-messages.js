@@ -2,6 +2,7 @@ import {analysis,diff,today,healthNotices} from './domain.js';
 
 // Catalogo locale: nessun testo generato o richiesto in rete.
 export const messages={
+ quick:{text:'Tocca ciò che vuoi registrare. Puoi scegliere più sintomi.',pose:'cosma-saluta-intera.png',action:'quick-entry',label:'Apri registrazione rapida',source:'S00'},
  hello:{text:'Come stai oggi? Ti va di segnarlo?',pose:'cosma-saluta-intera.png',answers:['Bene','Così così','Non bene'],source:'S00'},
  end:{text:'Il flusso è finito? Se vuoi, puoi registrare la data di fine.',pose:'cosma-in-piedi.png',action:'end-period',label:'Controlla le date',source:'S00'},
  estimate:{text:'La stima è vicina. Si basa sui cicli passati e può cambiare.',pose:'cosma-in-piedi.png',action:'calculation',label:'Come l’ho calcolato?',source:'S00, S07, S16'},
