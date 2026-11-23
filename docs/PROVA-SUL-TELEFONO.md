@@ -76,3 +76,11 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] Prova Sostituisci tutto soltanto con dati finti; verifica conferma ulteriore e recupero della copia precedente. Un secondo import deve sostituire la copia del primo.
 - [ ] Esporta JSON e CSV, importali su un’installazione di prova separata e confronta cicli, diario, visite e farmaci. Verifica anche backup cifrato e ripristino con password corretta/errata.
 - [ ] Verifica i selettori Android con un file locale e con un file molto grande; dopo l’import elimina dal Download solo i file di prova che non servono più.
+
+## Revisione prova.7: spazi e pose
+
+- [ ] Su Oggi, anello e Cosma affiancati, scheda della stima leggibile per intero e pulsante raggiungibile, senza fasce fisse vuote.
+- [ ] Scorrendo con caratteri Android grandi e con schermo basso, ogni comando resta raggiungibile e la navigazione non si sposta.
+- [ ] In ogni pagina Cosma è intera; toccala e scegli Cambia posa, controllando tutte e quattro le immagini.
+- [ ] Cambiare posa non modifica diario o date; tornando dopo la chiusura completa la scelta temporanea può azzerarsi.
+- [ ] Prova fumetti, modalità Silenziosa, tastiera e tour completo; nessun controllo coperto.

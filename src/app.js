@@ -670,7 +670,7 @@ document.addEventListener("click", (e) => {
     case 'foreign-table':run(()=>foreignFlow.chooseTable(Number(b.dataset.index)));break;
     case 'undo-import':run(async()=>{if(!confirm('Tornare alla copia precedente all’importazione? Anche le modifiche successive saranno rimosse.'))return;const n=await Store.undoImport();await commit(n);closeModal();render();toast('Importazione annullata. Copia precedente ripristinata.');});break;
     case 'export-json':case 'export-csv':run(async()=>{if(!confirm('Il file esportato non è cifrato e contiene dati sanitari. Vuoi salvarlo?'))return;await Platform.saveBackup(act==='export-json'?JSON.stringify(exportPortable(S),null,2):exportCSV(S),'cosma-dati-'+D.today()+(act==='export-json'?'.json':'.csv'));});break;
-    case 'cosma-toggle':case 'cosma-expand':case 'cosma-dismiss':case 'cosma-answer':case 'cosma-tour':case 'cosma-tour-resume':case 'cosma-tour-next':case 'cosma-tour-pause':case 'cosma-less':case 'cosma-silent':run(()=>cosma.action(act,b));break;
+    case 'cosma-toggle':case 'cosma-pose':case 'cosma-expand':case 'cosma-dismiss':case 'cosma-answer':case 'cosma-tour':case 'cosma-tour-resume':case 'cosma-tour-next':case 'cosma-tour-pause':case 'cosma-less':case 'cosma-silent':run(()=>cosma.action(act,b));break;
     case 'import-app':foreignFlow.open();break;
     case 'choose-foreign-file':run(()=>foreignFlow.choose());break;
     case 'map-foreign-import':foreignFlow.mapping();break;

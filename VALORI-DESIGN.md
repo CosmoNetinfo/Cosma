@@ -48,3 +48,7 @@ Queste aggiunte prevalgono sul precedente ruolo dell’immagine da 64 px; gli al
 | Movimento | Comparsa 250 ms, nessun ciclo continuo; assente con prefers-reduced-motion |
 | Scorrimento | Contenuto separato dall’assistente con flex e altezza dinamica; assistente nascosta durante la scrittura per liberare spazio alla tastiera |
 | Importazione | Modali e campi condivisi; tabella scorrevole internamente, valori escaped, errori in italiano |
+
+## Revisione prova.7
+
+Home: distanza fra blocchi 16 px; anello visivo 160 px, numero 76 px peso 300; scheda ciclo raggio 28 px, schede 24 px; contenuto 24 px dai lati, settimana 12 px per mantenere sette comandi da almeno 48 px. Mascotte originale intera da 112–128 px nella Home, 48 × 72 px accanto ai titoli delle altre pagine. Fumetti nel flusso della pagina; tour con area dedicata. Nessuna modifica ai colori scientificamente neutri della fase 1, al carattere di sistema o al contrasto. Un’ombra tenue nella stima: 0 4px 16px #3b0a4506. Nessun gradiente sullo sfondo.

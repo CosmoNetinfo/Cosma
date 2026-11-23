@@ -1,5 +1,12 @@
 # Limiti e verifiche mancanti
 
+## Revisione degli spazi e delle pose, prova.7
+
+Richiesta successiva dell’utente: eliminare i tagli, rendere la Home meno spoglia e dare a Cosma più pose in ogni pagina. La prova.7 conserva le funzioni della fase 2 e sostituisce la fascia fissa dell’assistente con una presenza nel contenuto: intera accanto all’anello nella Home, piccola e intera accanto al titolo nelle altre pagine, fumetti nel contenuto scorrevole. Il tour mantiene uno spazio riservato ai suoi controlli. Le quattro immagini restano identiche; “Cambia posa” nel menu cambia l’immagine solo nella sessione. Le pose contestuali non costituiscono diagnosi o nuove deduzioni. Restano frequenza, orari, modalità di presenza e catalogo esistenti.
+
+Verifiche locali: 65 test Node e controlli dell’interfaccia nei due temi a 360/390/430 px, apertura completa della scheda della stima, titolo visibile dopo il tour, sette comandi della settimana interamente nel viewport e cambio posa manuale nel Diario. La prova Android e la firma dell’APK effettivo si consultano nella Release v1.0.0-prova.7. Nessuna prova su telefono reale è stata effettuata. Le azioni rapide e il pannello di registrazione restano il prossimo passo.
+
+
 ## Delta v1.1, fase 2
 
 La prova.6 aggiunge la settimana su Oggi usando le stesse registrazioni e la stessa fascia descrittiva del calendario. Non prevede la durata del prossimo sanguinamento e non individua giorni fertili. I giorni futuri non accettano registrazioni anticipate. Verificati con dati fittizi cambi di data, stati della fascia, navigazione e dimensioni dei pulsanti nei due temi; scorrimento e lettura TalkBack su telefono fisico richiedono ancora prova. Con nessun ciclo la Home vuota resta invariata. Azioni rapide, nuove interazioni con Cosma, gesto nel calendario, consigli, onboarding a passi e verifica F-Droid restano fasi successive. Le limitazioni della fase 1 e della base restano valide; nessuna nuova fonte clinica o esportazione reale è stata validata.

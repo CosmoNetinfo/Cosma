@@ -1,5 +1,12 @@
 # Verifiche della versione con assistente e importazione
 
+## Revisione degli spazi e delle pose, prova.7
+
+Richiesta successiva dell’utente: eliminare i tagli, rendere la Home meno spoglia e dare a Cosma più pose in ogni pagina. La prova.7 conserva le funzioni della fase 2 e sostituisce la fascia fissa dell’assistente con una presenza nel contenuto: intera accanto all’anello nella Home, piccola e intera accanto al titolo nelle altre pagine, fumetti nel contenuto scorrevole. Il tour mantiene uno spazio riservato ai suoi controlli. Le quattro immagini restano identiche; “Cambia posa” nel menu cambia l’immagine solo nella sessione. Le pose contestuali non costituiscono diagnosi o nuove deduzioni. Restano frequenza, orari, modalità di presenza e catalogo esistenti.
+
+Verifiche locali: 65 test Node e controlli dell’interfaccia nei due temi a 360/390/430 px, apertura completa della scheda della stima, titolo visibile dopo il tour, sette comandi della settimana interamente nel viewport e cambio posa manuale nel Diario. La prova Android e la firma dell’APK effettivo si consultano nella Release v1.0.0-prova.7. Nessuna prova su telefono reale è stata effettuata. Le azioni rapide e il pannello di registrazione restano il prossimo passo.
+
+
 ## v1.1 fase 2
 
 La prova.5 ha superato i due test Android alla seconda esecuzione, dopo un errore intermittente di selezione della finestra di conferma. La prova.6 conserva lo stesso codice applicativo e corregge soltanto il test: `inRoot(isDialog())` seleziona esplicitamente l’AlertDialog creato da Capacitor prima di premere OK. Nessun controllo è rimosso o indebolito. Riferimenti tecnici: [Android, selezione della finestra nei test](https://developer.android.com/training/testing/espresso/recipes) e `BridgeWebChromeClient.onJsConfirm` nella dipendenza Capacitor locale. Il nuovo tag ripete tutti i controlli prima della firma.

@@ -1,5 +1,12 @@
 # Continuare Cosma da un altro computer
 
+## Revisione degli spazi e delle pose, prova.7
+
+Richiesta successiva dell’utente: eliminare i tagli, rendere la Home meno spoglia e dare a Cosma più pose in ogni pagina. La prova.7 conserva le funzioni della fase 2 e sostituisce la fascia fissa dell’assistente con una presenza nel contenuto: intera accanto all’anello nella Home, piccola e intera accanto al titolo nelle altre pagine, fumetti nel contenuto scorrevole. Il tour mantiene uno spazio riservato ai suoi controlli. Le quattro immagini restano identiche; “Cambia posa” nel menu cambia l’immagine solo nella sessione. Le pose contestuali non costituiscono diagnosi o nuove deduzioni. Restano frequenza, orari, modalità di presenza e catalogo esistenti.
+
+Verifiche locali: 65 test Node e controlli dell’interfaccia nei due temi a 360/390/430 px, apertura completa della scheda della stima, titolo visibile dopo il tour, sette comandi della settimana interamente nel viewport e cambio posa manuale nel Diario. La prova Android e la firma dell’APK effettivo si consultano nella Release v1.0.0-prova.7. Nessuna prova su telefono reale è stata effettuata. Le azioni rapide e il pannello di registrazione restano il prossimo passo.
+
+
 ## Aggiornamento v1.1, fase 2
 
 Nuovo tag di prova: **v1.0.0-prova.6**. In Oggi compare la striscia di oggi e dei prossimi sei giorni: pieno per mestruazioni registrate, tratteggiato per la fascia descrittiva dell’inizio. Un tocco apre il Calendario nel giorno e mese corretti; le date future restano di sola consultazione. Nessuna localizzazione di fertilità o nuova formula. La Home vuota e le tinte della fase 1 sono conservate. Verifiche locali: 62 test Node e controlli dell’interfaccia aggiornati; l’esito Android e firma si consulta nella Release del tag.

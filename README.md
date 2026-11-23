@@ -1,10 +1,10 @@
 # Cosma · Android 1.0 di prova
 
-**Versione pronta da provare: [scarica l’APK 1.0.0-prova.6](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.6/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
+**Versione pronta da provare: [scarica l’APK 1.0.0-prova.7](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.0.0-prova.7/Cosma.apk).** Installalo sopra Cosma, senza disinstallare e senza cancellare i dati. Per continuare il lavoro da un altro PC leggi [Continua da qui](docs/CONTINUA-DA-QUI.md).
 
 Cosma è un diario del ciclo in italiano, senza account e senza servizi esterni. **Questo repository è già configurato con una chiave di firma definitiva e i quattro secrets Android. Non ricreare la chiave.** GitHub Actions costruisce e firma l’APK automaticamente: i file prodotti sono nella pagina [Actions](https://github.com/CosmoNetinfo/Cosma/actions), le versioni numerate nella pagina [Releases](https://github.com/CosmoNetinfo/Cosma/releases).
 
-Aggiornamento con il nuovo pacchetto: sezioni 12, 13 e 14 applicate in quest’ordine. Cosma a figura intera ha uno spazio riservato sopra la navigazione di Oggi; nelle altre schede compare il volto piccolo. Tocca Cosma per l’aiuto, per ridurla o riaprirla. In **Impostazioni → La presenza di Cosma** scegli Presente (massimo 3 messaggi al giorno), Discreta (1, predefinita) o Silenziosa (0). Pausa fra le 22 e le 8, nessun messaggio mentre scrivi, nessuna AI online. Le risposte rapide chiedono conferma prima di registrare l’umore. Il tour di otto passi è saltabile, riprendibile e ripetibile dalle Impostazioni. Testi e motivazioni sono in [messaggi-cosma.md](messaggi-cosma.md).
+Aggiornamento con il nuovo pacchetto: sezioni 12, 13 e 14 applicate in quest’ordine. Nella prova.7 Cosma a figura intera sta accanto all’anello di Oggi; nelle altre pagine compare piccola, sempre intera, vicino al titolo. I fumetti scorrono con il contenuto. Nessuna fascia fissa sottrae spazio ai dati, tranne durante il tour guidato. Tocca Cosma per l’aiuto, per ridurla o riaprirla; “Cambia posa” passa fra le quattro immagini originali. La scelta dura solo nella sessione e non registra dati. In **Impostazioni → La presenza di Cosma** scegli Presente (massimo 3 messaggi al giorno), Discreta (1, predefinita) o Silenziosa (0). Pausa fra le 22 e le 8, nessun messaggio mentre scrivi, nessuna AI online. Le risposte rapide chiedono conferma prima di registrare l’umore. Il tour di otto passi è saltabile, riprendibile e ripetibile dalle Impostazioni. Testi e motivazioni sono in [messaggi-cosma.md](messaggi-cosma.md).
 
 L’**ingranaggio in alto** apre le Impostazioni da ogni pagina. Sotto l’anello puoi modificare l’ultimo inizio; **Impostazioni → Inizi del ciclo** permette di modificare o eliminare qualsiasi data. Giorno, statistiche, fascia stimata e promemoria vengono ricalcolati. Il diario resta quando elimini un inizio. Per mostrare una schermata: **Impostazioni → Screenshot e privacy → Consenti screenshot**; il PIN resta protetto.
 
@@ -15,6 +15,10 @@ Le quattro immagini di `mascotte-intera/` sono copiate identiche in `src/`: veri
 I risultati delle verifiche locali sono in [docs/ESITO-TEST.md](docs/ESITO-TEST.md); le prove ancora necessarie sul telefono sono in [docs/PROVA-SUL-TELEFONO.md](docs/PROVA-SUL-TELEFONO.md). Le istruzioni per creare la chiave più avanti servono soltanto alla prima configurazione di un nuovo repository: per Cosma è già stata eseguita.
 
 La sezione 12 del brief prevale sulle precedenti: niente PWA, iPhone, GitHub Pages, esportazione nel calendario o migrazione da vecchi archivi browser. L’interfaccia deriva dalla v0.2 e conserva le immagini originali di Cosma. Lo stile minimalista approvato è esteso a Calendario, Diario, Salute, Preferenze, PIN, backup e primo avvio.
+
+## Spazi e pose, prova.7
+
+Home più compatta: anello con Cosma, settimana, stima e pulsante principale. Il numero resta a 76 px, le aree di tocco almeno 48 px. Le schede hanno superfici definite e bordi leggeri. Nelle altre pagine la posa varia con il contesto e con i messaggi esistenti; di notte resta il sonno. Nessuna nuova informazione sanitaria è stata aggiunta. [Limiti e prove ancora necessarie](docs/NON-VERIFICATO.md).
 
 ## v1.1, seconda fase
 

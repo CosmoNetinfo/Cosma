@@ -1,9 +1,11 @@
 import {messages,tour,selectMessage} from './cosma-messages.js';
 import {clone,today} from './domain.js';
+import {cosmaPoses,contextPose} from './cosma-pose.js';
 
 export function createCosma(ui){
  let message=null,minimized=false,timer,expiry;
- const face=()=>'<img src="avatar.png" alt="Cosma" width="48" height="48">';
+ const chosenPoses=new Map();
+ const figure=(pose,large)=>`<img src="${pose}" alt="Cosma a figura intera" width="${large?88:48}" height="${large?144:72}">`;
  function clear(){clearTimeout(timer);clearTimeout(expiry);document.querySelector('#cosma-stage')?.remove();document.querySelectorAll('.coach-target').forEach(e=>e.classList.remove('coach-target'));}
  function paint(page){
   clear();const s=ui.state();if(!s?.onboarded||ui.locked())return;
@@ -14,9 +16,13 @@ export function createCosma(ui){
   stage.dataset.tour=String(s.cosmaTour);
   const bubble=m?`<div class="cosma-bubble"><div aria-live="polite"><p>${touring?'<b>'+ui.esc(step.title)+'</b><br>':''}${ui.esc(m.text)}</p></div>${m.answers?'<div class="cosma-answers">'+m.answers.map((a,i)=>ui.button('cosma-answer',a,'',`data-mood="${i}"`)).join('')+'</div>':''}${m.action?ui.button(m.action,m.label,'text-button'):''}${touring?`<div class="tour-controls">${ui.button('cosma-tour-next',s.cosmaTour===7?'Termina':'Avanti','secondary')}${ui.button('cosma-tour-pause','Salta per ora','text-button')}<span class="hint">${s.cosmaTour+1} di 8</span></div>`:ui.button('cosma-dismiss','Chiudi','text-button')}</div>`:'';
   const difficult=s.log[today()]?.umore==='Triste'||s.log[today()]?.dolore>=7;
-  const pose=night||s.cosmaPresence==='silenziosa'?'cosma-dorme-intera.png':m?.pose||(difficult?'cosma-abbraccio.png':'cosma-in-piedi.png');
-  stage.innerHTML=bubble+ui.button('cosma-toggle',page==='oggi'&&!minimized?`<img src="${pose}" alt="Cosma a figura intera" width="88" height="144">`:face(),'cosma-figure','aria-label="Apri il menu di Cosma"');
-  document.querySelector('#app').after(stage);
+  const pose=touring?'cosma-saluta-intera.png':chosenPoses.get(page)||contextPose(page,{night:night||s.cosmaPresence==='silenziosa',messagePose:m?.pose,difficult});
+  stage.innerHTML=bubble+ui.button('cosma-toggle',figure(pose,page==='oggi'&&!minimized),'cosma-figure','aria-label="Apri il menu di Cosma"');
+  const summary=page==='oggi'&&!touring?document.querySelector('.cycle-summary'):null;
+  if(summary)summary.append(stage);
+  else if(!touring&&page!=='oggi'&&!m)document.querySelector('#header .screen-heading').after(stage);
+  else if(!touring)document.querySelector('#app').prepend(stage);
+  else document.querySelector('#app').after(stage);
   if(touring){const target=document.querySelector(step.focus);target?.classList.add('coach-target');target?.scrollIntoView({block:'nearest',behavior:'instant'});}
   if(m&&!touring&&!m.answers&&!m.action)expiry=setTimeout(()=>{message=null;paint(page);},12000);
   if(page==='oggi'&&!message&&!touring)timer=setTimeout(()=>ui.run(async()=>{
@@ -33,8 +39,9 @@ export function createCosma(ui){
  async function action(act,el){
   if(act==='cosma-toggle'){
    message=null;minimized=true;paint(ui.page());
-   ui.modal('Cosma ti accompagna',`<p>${ui.esc((messages[ui.page()]||messages.general).text)}</p>${ui.button('today-diary','Cosa posso registrare oggi?','secondary')}${ui.button('cosma-tour','Rifai il tour','text-button')}${ui.button('cosma-less','Parla meno','text-button')}${ui.button('cosma-silent','Silenzio','text-button')}${ui.button('cosma-expand','Mostra Cosma','text-button')}`);return;
+   ui.modal('Cosma ti accompagna',`<p>${ui.esc((messages[ui.page()]||messages.general).text)}</p>${ui.button('today-diary','Cosa posso registrare oggi?','secondary')}${ui.button('cosma-tour','Rifai il tour','text-button')}${ui.button('cosma-less','Parla meno','text-button')}${ui.button('cosma-silent','Silenzio','text-button')}${ui.button('cosma-pose','Cambia posa','text-button')}${ui.button('cosma-expand','Mostra Cosma','text-button')}`);return;
   }
+  if(act==='cosma-pose'){minimized=false;const page=ui.page(),current=document.querySelector('#cosma-stage img')?.getAttribute('src'),index=cosmaPoses.indexOf(current);chosenPoses.set(page,cosmaPoses[(index+1)%cosmaPoses.length]);ui.close();paint(page);return;}
   if(act==='cosma-expand'){minimized=false;ui.close();paint(ui.page());return;}
   if(act==='cosma-dismiss'){message=null;paint(ui.page());return;}
   if(act==='cosma-answer'){
