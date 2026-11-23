@@ -1,0 +1,6 @@
+
+> cosma-android@1.0.0 test:android
+> node scripts/verify-android.mjs
+
+Manifest unito: INTERNET assente; backup automatico disattivato.
+Controlli statici Android superati. Non sostituiscono una prova su telefono.

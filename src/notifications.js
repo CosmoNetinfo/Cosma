@@ -1,0 +1,20 @@
+import {LocalNotifications} from '@capacitor/local-notifications';
+import {native} from './platform.js';
+import {today,iso,analysis,addD} from './domain.js';
+export const notificationHelp='I promemoria sono programmati sul telefono e possono apparire anche ad app chiusa. Android può ritardarli per risparmio energetico o se non autorizzi gli allarmi esatti. Dopo un arresto forzato devi riaprire Cosma. In uno spazio privato bloccato possono non comparire.';
+export function reminders(s,day=today()){const list=[];for(const m of s.meds)if(m.remind&&m.time)list.push({id:'med-'+m.id,date:day,time:m.time,label:m.name,daily:true});for(const v of s.visits)if(v.remind&&v.date>=day)list.push({id:'visit-'+v.id,date:v.date,time:v.time||'09:00',label:v.title});if(s.method!=='Nessuno'&&s.methodRemind)list.push({id:'method',date:day,time:s.methodTime,label:'Metodo contraccettivo',daily:true});const p=analysis(s,day).prediction;if(s.cycleReminder&&p&&p.low>=day)list.push({id:'cycle',date:p.low,time:'09:00',label:'Inizio della fascia descrittiva delle mestruazioni'});return list.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));}
+export function scheduleItems(s,now=new Date()){
+ const ids=new Set([1,2,3]),out=[];
+ const stableId=text=>{let n=2166136261;for(const c of text)n=Math.imul(n^c.charCodeAt(0),16777619);let id=100+(n>>>0)%2000000000;while(ids.has(id))id++;ids.add(id);return id;};
+ const generic=(id,schedule)=>({id,title:'Promemoria Cosma',body:'Apri Cosma per consultare il promemoria.',channelId:'cosma-discreti',smallIcon:'ic_stat_cosma',schedule});
+ for(const e of reminders(s,iso(now))){const [hour,minute]=e.time.split(':').map(Number);if(e.daily)out.push(generic(stableId(e.id),{on:{hour,minute},repeats:true,allowWhileIdle:true}));else{const at=new Date(e.date+'T'+e.time+':00');if(at>now)out.push(generic(stableId(e.id),{at,allowWhileIdle:true}));}}
+ const day=iso(now),anchor=s.lastBackup||s.createdAt||day;let date=addD(anchor,28);if(date<day||(date===day&&now.getHours()>=10))date=addD(day,1);
+ // Tredici scadenze civili ogni 28 giorni: aggiornate a ogni apertura/salvataggio.
+ // Nessuna dipendenza da un timer JavaScript quando l'app è chiusa.
+ for(let i=0;i<13;i++){const at=new Date(addD(date,i*28)+'T10:00:00');if(at>now)out.unshift(generic(10+i,{at,allowWhileIdle:true}));}return out.slice(0,500);
+}
+export async function requestNotifications(){if(!native){if(__COSMA_TEST__)return;throw Error('Le notifiche richiedono l’APK Android.');}const p=await LocalNotifications.requestPermissions();if(p.display!=='granted')throw Error('Notifiche non autorizzate. Puoi abilitarle nelle impostazioni Android.');}
+export async function exactStatus(){if(!native)return'non disponibile nel test';return(await LocalNotifications.checkExactNotificationSetting()).exact_alarm;}
+export async function requestExact(){if(native)await LocalNotifications.changeExactNotificationSetting();}
+export async function syncNotifications(s){if(!native)return;const pending=await LocalNotifications.getPending();if(pending.notifications.length)await LocalNotifications.cancel({notifications:pending.notifications.map(x=>({id:x.id}))});if(!s.notifications||(await LocalNotifications.checkPermissions()).display!=='granted')return;await LocalNotifications.createChannel({id:'cosma-discreti',name:'Promemoria Cosma',description:'Avvisi senza dettagli personali',importance:3,visibility:-1});const exact=await exactStatus(),notifications=scheduleItems(s).map(x=>({...x,isExactNotification:exact==='granted',isExactMandatory:false}));if(notifications.length)await LocalNotifications.schedule({notifications});}
+export async function notify(){if(!native){if(__COSMA_TEST__)return true;return false;}if((await LocalNotifications.checkPermissions()).display!=='granted')return false;await LocalNotifications.schedule({notifications:[{id:2,title:'Promemoria Cosma',body:'Apri Cosma per consultare il promemoria.',channelId:'cosma-discreti',isExactNotification:(await exactStatus())==='granted',isExactMandatory:false,schedule:{at:new Date(Date.now()+10000),allowWhileIdle:true}}]});return true;}

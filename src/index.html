@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf4ff" />
+    <meta
+      name="description"
+      content="Il tuo ciclo, solo tuo. Diario e salute sul dispositivo, anche offline."
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'"
+    />
+
+    <link id="favicon" rel="icon" href="icon.svg" type="image/svg+xml" />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Cosma</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Vai al contenuto</a>
+    <div class="shell">
+      <header id="header"></header>
+      <main id="app" tabindex="-1">
+        <p class="loading">Cosma sta aprendo il tuo spazio…</p>
+      </main>
+      <nav id="nav" aria-label="Navigazione principale" hidden></nav>
+    </div>
+    <p id="status" class="toast" role="status" aria-live="polite"></p>
+    <dialog id="dialog" aria-labelledby="dialog-title">
+      <div id="dialog-content"></div>
+    </dialog>
+    <noscript
+      >Per usare Cosma attiva JavaScript. Non vengono caricati script
+      esterni.</noscript
+    >
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

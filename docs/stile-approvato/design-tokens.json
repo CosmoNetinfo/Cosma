@@ -1,0 +1,22 @@
+{
+  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  "viewport": {"width": 390, "height": 844},
+  "type": {
+    "cycleDay": {"size": 76, "weight": 300, "lineHeight": 80, "tabularNums": true},
+    "screenTitle": {"size": 28, "weight": 700, "lineHeight": 32},
+    "estimatedDate": {"size": 24, "weight": 600, "lineHeight": 32},
+    "body": {"size": 16, "weight": 400, "lineHeight": 24},
+    "secondary": {"size": 14, "weight": 400, "lineHeight": 24},
+    "label": {"size": 12, "weight": 400, "lineHeight": 18},
+    "button": {"size": 16, "weight": 600, "lineHeight": 24}
+  },
+  "spacing": {"grid": 8, "gutter": 24, "blockGap": 32, "relatedGap": 8, "cardPadding": 20, "navClearance": 24},
+  "radius": {"card": 24, "button": 999, "mascot": 20},
+  "ring": {"size": 192, "radius": 84, "stroke": 8, "indicatorRadius": 5, "indicatorStroke": 2},
+  "mascotSize": 64,
+  "targetHeight": {"minimum": 48, "primary": 56, "navigation": 56},
+  "shadow": "none",
+  "gradient": ["#7c3aed", "#c026d3"],
+  "light": {"background": "#fdf4ff", "surface": "#ffffff", "text": "#3b0a45", "secondary": "#74597c", "border": "#e9deee", "ringTrack": "#e8d9f0", "accent": "#7c3aed"},
+  "dark": {"background": "#17101f", "surface": "#241a2c", "text": "#f8f0fc", "secondary": "#b9a7c6", "border": "#44324f", "ringTrack": "#422c50", "accent": "#d5b4ff"}
+}

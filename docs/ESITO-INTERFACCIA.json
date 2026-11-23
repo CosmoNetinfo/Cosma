@@ -1,0 +1,18 @@
+{
+  "tipo": "Test interfaccia in Chromium con archivio sostitutivo, non prova Android nativa",
+  "esito": "superato",
+  "controlli": [
+    "Oggi light, 360px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Oggi light, 390px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Oggi light, 430px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Oggi dark, 360px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Oggi dark, 390px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Oggi dark, 430px: nessun testo sotto 12px e nessuno scorrimento orizzontale",
+    "Diario salvato e ritrovato dopo riapertura",
+    "Undici schermate secondarie: chiaro/scuro a 360 e 430px, senza scorrimento orizzontale o testi sotto 12px",
+    "Visita e farmaco di prova aggiunti e ritrovati nei rispettivi elenchi",
+    "Backup cifrato esportato, decifrato e ripristinato dopo conferma",
+    "PIN: blocco, rifiuto del PIN errato e sblocco con PIN corretto",
+    "Nessun errore JavaScript nei percorsi provati"
+  ]
+}

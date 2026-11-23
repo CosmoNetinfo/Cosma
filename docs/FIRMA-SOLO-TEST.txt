@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=Solo test locale Cosma
+Signer #1 certificate SHA-256 digest: 806fd9788b4afdc5475d43e99b10a148063ded7ea58649a3c8d025a4c88e9aec
+Signer #1 certificate SHA-1 digest: b1ffb0673f6b3206e1ab56288ada62b7477194c0
+Signer #1 certificate MD5 digest: 4498471fe842603913d5826a0f4b0bf1
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: cac270c1d22ac3e5d0c0f4479011f36aadbd9be56bfcce73cd6ee801997713c8
+Signer #1 public key SHA-1 digest: b5abc74a87cdc85a6a62107f435b225a271399ea
+Signer #1 public key MD5 digest: 9b5bc18488d69dde2a9e06d49ec21ec0

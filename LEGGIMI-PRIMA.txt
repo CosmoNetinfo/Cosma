@@ -1,0 +1,18 @@
+Cosma Android 1.0 di prova
+
+1. Apri README.md: il repository GitHub è già configurato.
+2. Scarica l'APK da https://github.com/CosmoNetinfo/Cosma/releases
+   oppure dai file prodotti in https://github.com/CosmoNetinfo/Cosma/actions
+3. Conserva la chiave definitiva già configurata. Non ricrearla.
+4. Prova prima con dati fittizi, seguendo docs/PROVA-SUL-TELEFONO.md.
+
+La chiave e i quattro secrets sono già stati configurati per GitHub Actions.
+La precedente compilazione locale usava una firma di sola prova;
+quella firma non viene usata per le distribuzioni GitHub.
+
+19 test automatici superati. Compilazione Android debug e release firmata
+di prova riuscite. Permesso Internet assente nell'APK controllato.
+Le funzioni native richiedono ancora il collaudo sul telefono reale.
+
+Fonti scientifiche e limiti: FONTI.md e docs/NON-VERIFICATO.md.
+Anteprima delle schermate: docs/PANORAMICA.png e docs/PANORAMICA.html.

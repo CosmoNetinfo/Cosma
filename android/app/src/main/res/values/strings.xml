@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cosma</string>
+    <string name="title_activity_main">Cosma</string>
+    <string name="package_name">info.cosmonet.cosma</string>
+    <string name="custom_url_scheme">info.cosmonet.cosma</string>
+</resources>

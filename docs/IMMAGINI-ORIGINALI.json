@@ -1,0 +1,27 @@
+[
+  {
+    "immagine": "avatar.png",
+    "sha256_originale_e_consegna": "c7011de30f18dd10307929bc7dd135d92829e0a557357113eeae1da78db31204",
+    "identica": true
+  },
+  {
+    "immagine": "mascotte.png",
+    "sha256_originale_e_consegna": "a92b4e988fe87085e0f625d0c36d302a475811b185a3bd6e598c955453b84a3e",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-saluta.png",
+    "sha256_originale_e_consegna": "52977345bd7b1f9718053f738e44322d41449180d4126ff44c021e640cc56d87",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-dorme.png",
+    "sha256_originale_e_consegna": "3839ad39eb82138878e482105ad21aca65b905e3626a3fa96fe44cbcbfaa276f",
+    "identica": true
+  },
+  {
+    "immagine": "cosma-conforto.png",
+    "sha256_originale_e_consegna": "bc1448a1eed269001d8b156c72247549b806ae47e502c58a32d34ea73215d0ad",
+    "identica": true
+  }
+]

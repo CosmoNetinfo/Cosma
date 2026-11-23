@@ -1,0 +1,192 @@
+{
+  "geometry": [
+    {
+      "id": "oggi-chiaro",
+      "width": 390,
+      "height": 844,
+      "spazioPrimaDellaBarra": 24,
+      "bersagli": [
+        {
+          "testo": "Come l’ho calcolato?",
+          "altezza": 48,
+          "larghezza": 300
+        },
+        {
+          "testo": "Inizio mestruazioni",
+          "altezza": 56,
+          "larghezza": 342
+        },
+        {
+          "testo": "Visita 30 nov, 10:30 · Promemoria 21:00",
+          "altezza": 48,
+          "larghezza": 342
+        },
+        {
+          "testo": "Oggi",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Calendario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Diario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Salute",
+          "altezza": 56,
+          "larghezza": 85.5
+        }
+      ],
+      "testiSotto12": [],
+      "etichettaAnelloDentro": true
+    },
+    {
+      "id": "oggi-scuro",
+      "width": 390,
+      "height": 844,
+      "spazioPrimaDellaBarra": 24,
+      "bersagli": [
+        {
+          "testo": "Come l’ho calcolato?",
+          "altezza": 48,
+          "larghezza": 300
+        },
+        {
+          "testo": "Inizio mestruazioni",
+          "altezza": 56,
+          "larghezza": 342
+        },
+        {
+          "testo": "Visita 30 nov, 10:30 · Promemoria 21:00",
+          "altezza": 48,
+          "larghezza": 342
+        },
+        {
+          "testo": "Oggi",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Calendario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Diario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Salute",
+          "altezza": 56,
+          "larghezza": 85.5
+        }
+      ],
+      "testiSotto12": [],
+      "etichettaAnelloDentro": true
+    },
+    {
+      "id": "oggi-vuoto",
+      "width": 390,
+      "height": 844,
+      "spazioPrimaDellaBarra": 328,
+      "bersagli": [
+        {
+          "testo": "Aggiungi il primo ciclo",
+          "altezza": 56,
+          "larghezza": 342
+        },
+        {
+          "testo": "Oggi",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Calendario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Diario",
+          "altezza": 56,
+          "larghezza": 85.5
+        },
+        {
+          "testo": "Salute",
+          "altezza": 56,
+          "larghezza": 85.5
+        }
+      ],
+      "testiSotto12": [],
+      "etichettaAnelloDentro": true
+    }
+  ],
+  "contrast": [
+    {
+      "uso": "Primario chiaro",
+      "testo": "#3b0a45",
+      "fondo": "#fdf4ff",
+      "rapporto": 14.87
+    },
+    {
+      "uso": "Secondario chiaro",
+      "testo": "#74597c",
+      "fondo": "#fdf4ff",
+      "rapporto": 5.65
+    },
+    {
+      "uso": "Secondario su scheda chiara",
+      "testo": "#74597c",
+      "fondo": "#ffffff",
+      "rapporto": 6.06
+    },
+    {
+      "uso": "Link chiaro",
+      "testo": "#7c3aed",
+      "fondo": "#ffffff",
+      "rapporto": 5.7
+    },
+    {
+      "uso": "Primario scuro",
+      "testo": "#f8f0fc",
+      "fondo": "#17101f",
+      "rapporto": 16.69
+    },
+    {
+      "uso": "Secondario scuro",
+      "testo": "#b9a7c6",
+      "fondo": "#17101f",
+      "rapporto": 8.32
+    },
+    {
+      "uso": "Secondario su scheda scura",
+      "testo": "#b9a7c6",
+      "fondo": "#241a2c",
+      "rapporto": 7.47
+    },
+    {
+      "uso": "Link scuro",
+      "testo": "#d5b4ff",
+      "fondo": "#241a2c",
+      "rapporto": 9.37
+    },
+    {
+      "uso": "Pulsante estremo viola",
+      "testo": "#ffffff",
+      "fondo": "#7c3aed",
+      "rapporto": 5.7
+    },
+    {
+      "uso": "Pulsante estremo fucsia",
+      "testo": "#ffffff",
+      "fondo": "#c026d3",
+      "rapporto": 4.71
+    }
+  ],
+  "minGradientContrast": 4.71
+}

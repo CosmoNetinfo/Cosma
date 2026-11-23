@@ -1,0 +1,95 @@
+name: Costruisci Cosma Android
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    name: Verifica formule e configurazione
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run android:sync
+  apk:
+    name: APK con la chiave fissa
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - run: npm ci
+      - run: npm run android:sync
+      - name: Prepara firma e versione senza mostrare segreti
+        shell: bash
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          for value in "$KEYSTORE_B64" "$ANDROID_KEYSTORE_PASSWORD" "$ANDROID_KEY_ALIAS" "$ANDROID_KEY_PASSWORD"; do
+            test -n "$value" || { echo 'Manca uno dei quattro secrets Android. Vedi README.'; exit 1; }
+          done
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/cosma-release.jks"
+          chmod 600 "$RUNNER_TEMP/cosma-release.jks"
+          echo "COSMA_KEYSTORE_PATH=$RUNNER_TEMP/cosma-release.jks" >> "$GITHUB_ENV"
+          echo "COSMA_VERSION_CODE=$((10000 + GITHUB_RUN_NUMBER))" >> "$GITHUB_ENV"
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+            [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$ ]] || { echo 'Tag non valido: usa v1.0.0 o v1.0.0-prova.1'; exit 1; }
+          else
+            VERSION="1.0.0-prova.${GITHUB_RUN_NUMBER}"
+          fi
+          echo "COSMA_VERSION_NAME=$VERSION" >> "$GITHUB_ENV"
+      - name: Compila e verifica firma
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose app/build/outputs/apk/release/app-release.apk
+      - name: Controlla permessi effettivi
+        run: |
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump permissions android/app/build/outputs/apk/release/app-release.apk > permessi.txt
+          if grep -q 'android.permission.INTERNET' permessi.txt; then echo 'Permesso INTERNET inatteso'; exit 1; fi
+          cp android/app/build/outputs/apk/release/app-release.apk Cosma.apk
+          sha256sum Cosma.apk > Cosma.apk.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Cosma-Android-${{ github.run_number }}
+          path: |
+            Cosma.apk
+            Cosma.apk.sha256
+            permessi.txt
+          if-no-files-found: error
+      - name: Pubblica nella Release del tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "Cosma $COSMA_VERSION_NAME" --notes 'Versione di prova Android. Leggi README, FONTI e checklist prima di usare dati reali.'
+          gh release upload "$GITHUB_REF_NAME" Cosma.apk Cosma.apk.sha256 --clobber
+      - name: Elimina la chiave dal computer temporaneo
+        if: always()
+        run: rm -f "$RUNNER_TEMP/cosma-release.jks"

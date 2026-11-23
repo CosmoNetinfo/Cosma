@@ -1,0 +1,128 @@
+[
+  {
+    "pacchetto": "@aparajita/capacitor-biometric-auth",
+    "versione": "10.0.0",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/aparajita/capacitor-biometric-auth.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor-community/sqlite",
+    "versione": "8.1.1",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/capacitor-community/sqlite.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/android",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/app",
+    "versione": "8.1.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor-plugins.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/core",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/filesystem",
+    "versione": "8.1.5",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/ionic-team/capacitor-filesystem.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/local-notifications",
+    "versione": "8.3.1",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor-local-notifications.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/share",
+    "versione": "8.0.3",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor-plugins.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/splash-screen",
+    "versione": "8.0.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor-plugins.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/status-bar",
+    "versione": "8.0.4",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ionic-team/capacitor-plugins.git"
+    }
+  },
+  {
+    "pacchetto": "@capacitor/cli",
+    "versione": "8.6.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/ionic-team/capacitor.git"
+    }
+  },
+  {
+    "pacchetto": "@playwright/test",
+    "versione": "1.65.1",
+    "licenza": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/microsoft/playwright.git"
+    }
+  },
+  {
+    "pacchetto": "esbuild",
+    "versione": "0.28.2",
+    "licenza": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/evanw/esbuild.git"
+    }
+  },
+  {
+    "pacchetto": "typescript",
+    "versione": "7.0.2",
+    "licenza": "Apache-2.0",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/microsoft/TypeScript.git"
+    }
+  }
+]
