@@ -114,3 +114,9 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] Tocca Fine mestruazioni, scegli l’ultimo giorno reale anche precedente a oggi e salva: tratteggi rimossi, intervallo reale pieno, dati conservati dopo riapertura.
 - [ ] Correggi o cancella la fine: la rappresentazione torna coerente senza cambiare la stima del prossimo inizio. Non cambiare orologio del telefono principale per questa prova.
 - [ ] Apri Salute → I tuoi segnali: leggi Conoscere la mia fertilità e le fonti ASRM/NICE. Non compare una data personale più fertile.
+
+## Icona e umori multipli, prova.3
+
+- [ ] Installa sopra la versione precedente: icona senza segni viola o tagli nell’installatore Huawei, Home e Impostazioni Android. Prova maschera tonda/quadrata se il launcher lo permette.
+- [ ] Seleziona Calma e Con energia: entrambe marcate, conservate dopo Salva e riapertura. Togli solo una voce e ripeti.
+- [ ] Ripeti nel pannello rapido e con backup/ripristino e JSON/CSV Cosma. Un umore precedente rimane selezionato dopo l’aggiornamento.

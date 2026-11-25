@@ -1,6 +1,9 @@
 // Sole etichette di auto-osservazione: nessuna scala clinica o interpretazione.
 export const EXTRA_SYMPTOMS=['Coaguli','Va tutto bene','Vampate di calore','Sudorazione notturna','Confusione mentale','Dolori articolari','Bruciore alla bocca','Insonnia','Dolore addominale','Prurito vaginale','Secchezza vaginale','Stitichezza','Diarrea'];
 export const EXTRA_MOODS=['Con energia','Vivace','Sbalzi di umore','Umore basso','Sensi di colpa','Pensieri ripetitivi','Poca energia','Apatia','Confusione','Autocritica'];
+// Gli archivi precedenti conservavano un solo umore. L'elenco esplicito,
+// anche vuoto, prevale; la vecchia etichetta resta per compatibilità.
+export function moodValues(log={}){if(Array.isArray(log.umori))return log.umori;const old=typeof log.umore==='string'?log.umore.replace(/^[^A-Za-zÀ-ÿ]+/u,''):'';return old?[({Neutra:'Neutro',Ansiosa:'Ansia'})[old]||old]:[];}
 export const MUCUS=['Non osservato','Secco','Appiccicoso','Cremoso','Acquoso','Trasparente e filante','Spotting','Insolite','Bianco grumoso','Grigio'];
 export const INTIMACY=['Nessun rapporto','Rapporto protetto','Rapporto non protetto','Sesso orale','Sesso anale','Masturbazione','Tocco sensuale','Sex toy','Orgasmo','Desiderio elevato','Desiderio neutro','Desiderio basso'];
 export const ACTIVITY=['Nessuna attività','Yoga','Palestra','Aerobica e danza','Nuoto','Sport di squadra','Corsa','Bicicletta','Camminare'];

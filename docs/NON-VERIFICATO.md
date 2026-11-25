@@ -1,5 +1,14 @@
 # Limiti e verifiche mancanti
 
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.3
+
+Icona Android corretta: rimosso il bordo viola apparente, più margine per le maschere del launcher, risorse alternative Capacitor sostituite. Avatar originale identico; composizione XML e PNG tecnicamente scalati, senza ritoccare o ridisegnare il personaggio. Anteprima in docs/ICONA-ANTEPRIMA.png, parametri e hash in ICONA-ANDROID.json. Riproduzione: COSMA_BROWSER impostato a Chrome, node scripts/icone-android.mjs. La resa sul telefono Huawei dell’utente richiede una prova reale.
+
+Umore a selezione multipla nel Diario e nel pannello rapido: ogni voce è indipendente, senza esclusioni automatiche. Nuovo elenco umori; il precedente umore singolo viene convertito e resta anche nel campo compatibile umore come prima voce. Un elenco vuoto esplicito non fa riapparire una scelta rimossa. Le risposte di Cosma aggiungono senza cancellare gli altri umori. PDF, backup cifrato, esportazioni JSON/CSV Cosma e importazione conservano le voci; un vecchio Cosma può leggere solo il campo singolo.
+
+103 test Node superati; nuove prove su migrazione, rimozione, esportazioni e backup. Test dell’interfaccia con due umori, riapertura e rimozione indipendente. Formule scientifiche conservate byte per byte dalla base; domain.js cambia solo nella normalizzazione degli umori. Firma, secrets, cifratura, permessi e notifiche invariati. Le risorse Android sono state compilate localmente; l’assemblaggio debug locale è stato bloccato dall’accesso al file di blocco della chiave debug del computer, distinta dalla firma definitiva. La compilazione ufficiale e i due test nativi sono eseguiti da GitHub prima della consegna.
+
+
 ## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
 
 Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.

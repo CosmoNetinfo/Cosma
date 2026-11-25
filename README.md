@@ -1,6 +1,15 @@
 # Cosma · Android 1.1 di prova
 
-## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.3
+
+Icona Android corretta: rimosso il bordo viola apparente, più margine per le maschere del launcher, risorse alternative Capacitor sostituite. Avatar originale identico; composizione XML e PNG tecnicamente scalati, senza ritoccare o ridisegnare il personaggio. Anteprima in docs/ICONA-ANTEPRIMA.png, parametri e hash in ICONA-ANDROID.json. Riproduzione: COSMA_BROWSER impostato a Chrome, node scripts/icone-android.mjs. La resa sul telefono Huawei dell’utente richiede una prova reale.
+
+Umore a selezione multipla nel Diario e nel pannello rapido: ogni voce è indipendente, senza esclusioni automatiche. Nuovo elenco umori; il precedente umore singolo viene convertito e resta anche nel campo compatibile umore come prima voce. Un elenco vuoto esplicito non fa riapparire una scelta rimossa. Le risposte di Cosma aggiungono senza cancellare gli altri umori. PDF, backup cifrato, esportazioni JSON/CSV Cosma e importazione conservano le voci; un vecchio Cosma può leggere solo il campo singolo.
+
+103 test Node superati; nuove prove su migrazione, rimozione, esportazioni e backup. Test dell’interfaccia con due umori, riapertura e rimozione indipendente. Formule scientifiche conservate byte per byte dalla base; domain.js cambia solo nella normalizzazione degli umori. Firma, secrets, cifratura, permessi e notifiche invariati. Le risorse Android sono state compilate localmente; l’assemblaggio debug locale è stato bloccato dall’accesso al file di blocco della chiave debug del computer, distinta dalla firma definitiva. La compilazione ufficiale e i due test nativi sono eseguiti da GitHub prima della consegna.
+
+
+## Aggiornamento precedente · v1.1.0-prova.2
 
 Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.
 
@@ -9,9 +18,9 @@ Fertilità: l’utente ha confermato segnali e spiegazioni senza giorno personal
 99 test Node e prove dell’interfaccia locali superati, inclusi durata inclusiva, cambio mese/anno/bisestile, distinzione stima/registrazioni, nessun avanzamento automatico, chiusura retrodatata, rimozione tratteggi e riapertura. domain.js, protezioni native, workflow e firma non modificati. La nuova visualizzazione è separata in menstrual-days.js; non altera le formule della prossima mestruazione. I due test nativi devono passare nel workflow prima della firma. Restano le prove fisiche della checklist e i limiti precedenti.
 
 
-Diario del ciclo in italiano, con dati sul telefono e assistente locale Cosma. La versione **1.1.0-prova.2** raccoglie tutte le aggiunte del brief v1.1 e la revisione grafica richiesta. È una versione da provare, senza validazione clinica indipendente.
+Diario del ciclo in italiano, con dati sul telefono e assistente locale Cosma. La versione **1.1.0-prova.3** raccoglie tutte le aggiunte del brief v1.1 e la revisione grafica richiesta. È una versione da provare, senza validazione clinica indipendente.
 
-**[Scarica l’APK](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.2/Cosma.apk)** · **[Scarica il pacchetto completo](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.2/Cosma-Android-1.1.0-prova.2-completo.zip)** · [Release e verifiche della compilazione](https://github.com/CosmoNetinfo/Cosma/releases/tag/v1.1.0-prova.2).
+**[Scarica l’APK](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.3/Cosma.apk)** · **[Scarica il pacchetto completo](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.3/Cosma-Android-1.1.0-prova.3-completo.zip)** · [Release e verifiche della compilazione](https://github.com/CosmoNetinfo/Cosma/releases/tag/v1.1.0-prova.3).
 
 ## Installare o aggiornare, passo per passo
 
@@ -74,7 +83,7 @@ Prima dell’importazione è conservata una copia locale protetta. **Annulla imp
 
 ## Test e prove ancora necessarie
 
-99 test Node superati e controlli dell’interfaccia in due temi, larghezze 360/390/430 px e undici pagine secondarie. Provati primo avvio con importazione e riapertura, pannelli rapidi, persistenza, PIN, backup, correzione degli inizi, calendario annuale, gesti e scritte separate nei percorsi verificati.
+103 test Node superati e controlli dell’interfaccia in due temi, larghezze 360/390/430 px e undici pagine secondarie. Provati primo avvio con importazione e riapertura, pannelli rapidi, persistenza, PIN, backup, correzione degli inizi, calendario annuale, gesti e scritte separate nei percorsi verificati.
 
 Il workflow ripete questi controlli e **due test nativi su emulatore Android API 35 prima di firmare**. L’esito effettivo della versione è nella Release e nei suoi risultati allegati; non considerare pronta una compilazione rossa. La ricevuta dell’APK scaricato verifica firma, hash, versione, permessi e immagini.
 

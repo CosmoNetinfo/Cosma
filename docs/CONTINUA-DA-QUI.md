@@ -1,6 +1,15 @@
 # Continuare Cosma da qui
 
-## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.3
+
+Icona Android corretta: rimosso il bordo viola apparente, più margine per le maschere del launcher, risorse alternative Capacitor sostituite. Avatar originale identico; composizione XML e PNG tecnicamente scalati, senza ritoccare o ridisegnare il personaggio. Anteprima in docs/ICONA-ANTEPRIMA.png, parametri e hash in ICONA-ANDROID.json. Riproduzione: COSMA_BROWSER impostato a Chrome, node scripts/icone-android.mjs. La resa sul telefono Huawei dell’utente richiede una prova reale.
+
+Umore a selezione multipla nel Diario e nel pannello rapido: ogni voce è indipendente, senza esclusioni automatiche. Nuovo elenco umori; il precedente umore singolo viene convertito e resta anche nel campo compatibile umore come prima voce. Un elenco vuoto esplicito non fa riapparire una scelta rimossa. Le risposte di Cosma aggiungono senza cancellare gli altri umori. PDF, backup cifrato, esportazioni JSON/CSV Cosma e importazione conservano le voci; un vecchio Cosma può leggere solo il campo singolo.
+
+103 test Node superati; nuove prove su migrazione, rimozione, esportazioni e backup. Test dell’interfaccia con due umori, riapertura e rimozione indipendente. Formule scientifiche conservate byte per byte dalla base; domain.js cambia solo nella normalizzazione degli umori. Firma, secrets, cifratura, permessi e notifiche invariati. Le risorse Android sono state compilate localmente; l’assemblaggio debug locale è stato bloccato dall’accesso al file di blocco della chiave debug del computer, distinta dalla firma definitiva. La compilazione ufficiale e i due test nativi sono eseguiti da GitHub prima della consegna.
+
+
+## Aggiornamento precedente · v1.1.0-prova.2
 
 Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.
 
@@ -9,7 +18,7 @@ Fertilità: l’utente ha confermato segnali e spiegazioni senza giorno personal
 99 test Node e prove dell’interfaccia locali superati, inclusi durata inclusiva, cambio mese/anno/bisestile, distinzione stima/registrazioni, nessun avanzamento automatico, chiusura retrodatata, rimozione tratteggi e riapertura. domain.js, protezioni native, workflow e firma non modificati. La nuova visualizzazione è separata in menstrual-days.js; non altera le formule della prossima mestruazione. I due test nativi devono passare nel workflow prima della firma. Restano le prove fisiche della checklist e i limiti precedenti.
 
 
-Stato: **v1.1.0-prova.2**, completamento funzionale del delta v1.1 e revisione grafica richiesta. Repository https://github.com/CosmoNetinfo/Cosma, ramo main. Leggi README.md, docs/NON-VERIFICATO.md, FONTI.md, messaggi-cosma.md e docs/BRIEF-COSMA-v1.1-DELTA.md; controlla prima eventuali commit e Release successivi.
+Stato: **v1.1.0-prova.3**, completamento funzionale del delta v1.1 e revisione grafica richiesta. Repository https://github.com/CosmoNetinfo/Cosma, ramo main. Leggi README.md, docs/NON-VERIFICATO.md, FONTI.md, messaggi-cosma.md e docs/BRIEF-COSMA-v1.1-DELTA.md; controlla prima eventuali commit e Release successivi.
 
 ## Già fatto, da conservare
 
@@ -26,7 +35,7 @@ Stato: **v1.1.0-prova.2**, completamento funzionale del delta v1.1 e revisione g
 
 ## Verifiche e distribuzione
 
-99 test Node e controlli browser superati nei due temi a 360/390/430 px, undici pagine secondarie, altezze ridotte e conteggi lunghi. Il browser usa un archivio sostitutivo. Il workflow deve superare anche i due test nativi API35 prima di firmare. Il test della conferma Android usa il vero pulsante positivo tramite UiAutomation, evitando l’attesa instabile del focus Espresso; nessun aggiramento della conferma nell’app.
+103 test Node e controlli browser superati nei due temi a 360/390/430 px, undici pagine secondarie, altezze ridotte e conteggi lunghi. Il browser usa un archivio sostitutivo. Il workflow deve superare anche i due test nativi API35 prima di firmare. Il test della conferma Android usa il vero pulsante positivo tramite UiAutomation, evitando l’attesa instabile del focus Espresso; nessun aggiramento della conferma nell’app.
 
 Per l’esito effettivo dell’APK consulta la Release del tag, VERIFICA-APK.json e risultati XML nel pacchetto completo. Chiave, appId, versione crescente, assenza INTERNET, allowBackup e immagini vanno verificati sull’APK scaricato. Non chiamare riuscita una compilazione rossa; non riutilizzare tag esistenti.
 

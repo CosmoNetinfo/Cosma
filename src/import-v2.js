@@ -56,6 +56,7 @@ export function previewImport(state,table,o,asOf=today()){
    const old=work.log[date]||{};
    if(conflict==='existing')for(const k of Object.keys(data))if(old[k]!==undefined&&old[k]!==null&&old[k]!==''&&(!Array.isArray(old[k])||old[k].length))delete data[k];
    if(bad||!Object.keys(data).length){if(!bad&&Object.keys(old).length)plan.duplicates++;plan.skipped.push({line:row.line,reason:bad?'Valori non riconosciuti: correggi la mappatura.':'Nessun nuovo campo: dati già presenti o vuoti.'});continue;}
+   if(Object.hasOwn(data,'umore'))data.umori=data.umore?[data.umore]:[];
    work.log[date]={...old,...data,source};plan.items.push({line:row.line,date,data,source});
   }
  }else{

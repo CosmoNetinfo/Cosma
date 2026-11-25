@@ -1,3 +1,4 @@
+import {moodValues} from './diary-catalog.js';
 import {messages,tour,selectMessage} from './cosma-messages.js';
 import {clone,today} from './domain.js';
 import {cosmaPoses,contextPose,manualReply} from './cosma-pose.js';
@@ -15,7 +16,7 @@ export function createCosma(ui){
   stage.setAttribute('aria-label','Assistente Cosma');
   stage.dataset.tour=String(s.cosmaTour);
   const bubble=m?`<div class="cosma-bubble"><div aria-live="polite"><p>${touring?'<b>'+ui.esc(step.title)+'</b><br>':''}${ui.esc(m.text)}</p></div>${m.answers?'<div class="cosma-answers">'+m.answers.map((a,i)=>ui.button('cosma-answer',a,'',`data-mood="${i}"`)).join('')+'</div>':''}${m.action?ui.button(m.action,m.label,'text-button'):''}${touring?`<div class="tour-controls">${ui.button('cosma-tour-next',s.cosmaTour===7?'Termina':'Avanti','secondary')}${ui.button('cosma-tour-pause','Salta per ora','text-button')}<span class="hint">${s.cosmaTour+1} di 8</span></div>`:'<div class="cosma-bubble-actions">'+ui.button('cosma-toggle','Opzioni','text-button')+ui.button('cosma-dismiss','Chiudi','text-button')+'</div>'}</div>`:'';
-  const difficult=s.log[today()]?.umore==='Triste'||s.log[today()]?.dolore>=7;
+  const difficult=moodValues(s.log[today()]).includes('Triste')||s.log[today()]?.dolore>=7;
   const pose=touring?'cosma-saluta-intera.png':chosenPoses.get(page)||contextPose(page,{night:night||s.cosmaPresence==='silenziosa',messagePose:m?.pose,difficult});
   stage.innerHTML=bubble+ui.button(touring?'cosma-toggle':'cosma-touch',figure(pose,page==='oggi'&&!minimized),'cosma-figure',touring?'aria-label="Apri il menu di Cosma"':'aria-label="Parla con Cosma"');
   const summary=page==='oggi'&&!touring?document.querySelector('.cycle-summary'):null;
@@ -52,7 +53,7 @@ export function createCosma(ui){
   if(act==='cosma-answer'){
    const mood=['Calma','Neutro','Triste'][Number(el.dataset.mood)];if(!mood)return;
    if(!confirm('Registrare nel diario di oggi l’umore “'+mood+'”? Puoi correggerlo nel Diario.'))return;
-   const n=clone(ui.state());n.log[today()]={...(n.log[today()]||{}),umore:mood};await ui.commit(n);message=mood==='Triste'?'comfort':null;paint(ui.page());return;
+   const n=clone(ui.state());const previous=n.log[today()]||{},umori=[...new Set([...moodValues(previous),mood])];n.log[today()]={...previous,umori,umore:umori[0]||''};await ui.commit(n);message=mood==='Triste'?'comfort':null;paint(ui.page());return;
   }
   const n=clone(ui.state());
   if(act==='cosma-less'||act==='cosma-silent'){n.cosmaPresence=act==='cosma-less'?'discreta':'silenziosa';message=null;}

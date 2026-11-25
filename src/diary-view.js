@@ -19,7 +19,7 @@ export function diaryGlyph(field,value){
   const drop='<path d="M24 8C21 14 14 22 14 29a10 10 0 0 0 20 0C34 22 27 14 24 8Z" fill="'+rose+'"/><path d="M19 29q0 5 4 6" stroke="#ffbfd4" stroke-width="3" fill="none" stroke-linecap="round"/>';
   return svg(value==='Medio'?'<g transform="translate(-7 2) scale(.9)">'+drop+'</g><path d="M36 13s-5 7-5 11a5 5 0 0 0 10 0c0-4-5-11-5-11Z" fill="#f692b1"/>':value==='Abbondante'?'<g transform="translate(-5 -1) scale(.88)">'+drop+'</g><path d="M37 18s-5 7-5 11a5 5 0 0 0 10 0c0-4-5-11-5-11Z" fill="#f692b1"/><path d="M8 14s-4 6-4 9a4 4 0 0 0 8 0c0-3-4-9-4-9Z" fill="#f692b1"/>':drop);
  }
- if(field==='umore'){
+ if((field==='umore'||field==='umori')){
   const mouth={Felice:'M15 28q9 15 18 0',Calma:'M17 31q7 4 14 0',Neutro:'M17 31h14',Triste:'M16 34q8-10 16 0',Irritabile:'M17 33h14M12 15l8 3M28 18l8-3',Ansia:'M20 32q4-6 8 0M12 15l8 3M28 18l8-3'}[value]||'M17 31h14';
   return svg('<circle cx="24" cy="24" r="20" fill="#ffc16c"/><circle cx="24" cy="22" r="18" fill="#ffd38e"/><path d="M16 23h.1M32 23h.1" stroke="'+ink+'" stroke-width="4" stroke-linecap="round"/><path d="'+mouth+'" stroke="'+ink+'" stroke-width="2.5" stroke-linecap="round" fill="none"/>');
  }
@@ -28,7 +28,7 @@ export function diaryGlyph(field,value){
  return svg('<circle cx="24" cy="24" r="18" fill="#ccb2e2"/><path d="M14 24h20M24 14v20" stroke="#fff" stroke-width="4" stroke-linecap="round"/>');
 }
 export function diaryChoices(name,items,current,multiple,{button,esc},quick=false){
- return `<div class="diary-choices ${quick?'quick-symptoms':''}" role="group" aria-label="${({sint:'Sintomi',umore:'Umore',flusso:'Flusso',rapporti:'Rapporti e desiderio',activity:'Attività fisica',context:'Altro',mucus:'Perdite vaginali',lh:'Test LH',pregnancy:'Test di gravidanza'})[name]||name}">${items.map(v=>button('chip',`<span class="diary-glyph" aria-hidden="true">${diaryGlyph(name,v)}</span><span class="diary-choice-label">${esc(({'Seno dolente':'Tensione al seno','Voglia di dolci':'Voglie','Cremoso':'Cremose','Acquoso':'Liquide','Appiccicoso':'Appiccicose','Trasparente e filante':'Ad albume d’uovo'})[v]||v)}</span>`,'diary-choice',`data-field="${name}" data-value="${esc(v)}" data-multi="${multiple}" aria-pressed="${multiple?current.includes(v):current===v}"`)).join('')}</div>`;
+ return `<div class="diary-choices ${quick?'quick-symptoms':''}" role="group" aria-label="${({sint:'Sintomi',umore:'Umore',umori:'Umore',flusso:'Flusso',rapporti:'Rapporti e desiderio',activity:'Attività fisica',context:'Altro',mucus:'Perdite vaginali',lh:'Test LH',pregnancy:'Test di gravidanza'})[name]||name}">${items.map(v=>button('chip',`<span class="diary-glyph" aria-hidden="true">${diaryGlyph(name,v)}</span><span class="diary-choice-label">${esc(({'Seno dolente':'Tensione al seno','Voglia di dolci':'Voglie','Cremoso':'Cremose','Acquoso':'Liquide','Appiccicoso':'Appiccicose','Trasparente e filante':'Ad albume d’uovo'})[v]||v)}</span>`,'diary-choice',`data-field="${name}" data-value="${esc(v)}" data-multi="${multiple}" aria-pressed="${multiple?current.includes(v):current===v}"`)).join('')}</div>`;
 }
 export function filterDiary(root,query){
  const q=normalizeDiarySearch(query);let found=0;

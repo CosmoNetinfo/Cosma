@@ -1,4 +1,4 @@
-import {EXTRA_SYMPTOMS,EXTRA_MOODS,MUCUS,INTIMACY,ACTIVITY,CONTEXT,picks,intimacyPicks} from './diary-catalog.js';
+import {EXTRA_SYMPTOMS,EXTRA_MOODS,MUCUS,INTIMACY,ACTIVITY,CONTEXT,picks,intimacyPicks,moodValues} from './diary-catalog.js';
 // Evoluzione delle funzioni iso, addD, diff, avgCycle e predict della v0.2.
 // Le date civili si contano in UTC per evitare errori nei cambi di ora legale.
 export const SINTOMI = [
@@ -128,12 +128,11 @@ export function normalize(raw, { legacy = false } = {}) {
   for (const [d, l] of Object.entries(raw.log)) {
     if (!validDate(d) || d > date || !l || typeof l !== "object")
       throw Error("Una data del diario non è valida.");
-    const oldMood = str(l.umore).replace(/^[^A-Za-zÀ-ÿ]+/u, "");
+    const moods=picks(moodValues(l),UMORI);
     s.log[d] = {
       flusso: FLUSSI.includes(l.flusso) ? l.flusso : "",
-      umore:
-        { Neutra: "Neutro", Ansiosa: "Ansia" }[oldMood] ||
-        (UMORI.includes(oldMood) ? oldMood : ""),
+      umore:moods[0]||"",
+      umori:moods,
       sint: picks(l.sint,SINTOMI,'Va tutto bene'),
       rapporti:intimacyPicks(l.rapporti),
       activity:picks(l.activity,ACTIVITY,'Nessuna attività'),

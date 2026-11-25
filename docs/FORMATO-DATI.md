@@ -24,3 +24,7 @@ Ogni riga ha `versione` uguale a `1`. `dati_json` conserva la registrazione JSON
 Il diario conserva i vecchi valori. Le nuove proprietà sono elenchi di etichette: rapporti (attività/desiderio), activity (attività fisica), context (contesto). Sono normalizzate su cataloghi locali, senza proprietà arbitrarie. Il desiderio è distinto dall’assenza di rapporti. Va tutto bene e Nessuna attività sono scelte esplicite che non convivono con altre voci dello stesso gruppo. Nuove etichette ampliano sint, umore e mucus senza ricodificare quelle vecchie.
 
 JSON/CSV Cosma v1 conservano tutti i campi del diario in dati_json o nelle registrazioni; per importare rapporti è necessario selezionare la casella dedicata nell’anteprima del formato Cosma. In assenza di consenso vengono esclusi e segnalati. I formati commerciali non importano automaticamente dati sessuali. I backup cifrati ripristinano l’intero stato, comprese categorie nascoste e registrazioni facoltative.
+
+## Umori multipli, dalla prova.3
+
+Le registrazioni del diario possono avere `umori`, elenco di etichette supportate (esempio: `["Calma", "Felice"]`). Il vecchio campo `umore` rimane la prima voce, oppure stringa vuota. All’importazione un elenco presente, anche vuoto, prevale sul campo singolo; vecchi archivi con solo `umore` sono convertiti senza perdere la scelta. Backup, JSON e colonna dati_json del CSV conservano l’elenco; le versioni precedenti di Cosma supportano soltanto la voce singola.

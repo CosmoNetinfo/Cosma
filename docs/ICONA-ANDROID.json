@@ -1,0 +1,20 @@
+{
+  "originale": "src/avatar.png",
+  "sha256_originale": "c7011de30f18dd10307929bc7dd135d92829e0a557357113eeae1da78db31204",
+  "sfondo": "#fbedff",
+  "adaptive": {
+    "livello_dp": 108,
+    "immagine_dp": 54,
+    "margine_dp": 27,
+    "area_sicura_dp": 66
+  },
+  "legacy": {
+    "margine_percento": 14
+  },
+  "maschere_anteprima": [
+    "Quadrata",
+    "Tonda",
+    "Quadrata arrotondata"
+  ],
+  "originale_ritoccato": false
+}
