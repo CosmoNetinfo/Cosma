@@ -106,3 +106,11 @@ Usa prima dati finti e conserva un backup cifrato. Installa l’aggiornamento so
 - [ ] Importa uno storico fittizio nel primo avvio, chiudi e riapri prima della conclusione: conserva i dati e riprendi la scelta della presenza di Cosma.
 - [ ] Nelle letture ogni scheda ha fonti consultabili offline. I nomi delle fasi sono argomenti generali, non un’indicazione della tua fase.
 - [ ] Verifica Licenze e componenti nelle Impostazioni; il testo lungo deve scorrere e Indietro deve chiuderlo.
+
+## Durata indicativa e spiegazioni sulla fertilità, prova.2
+
+- [ ] Registra un inizio senza fine: primo giorno pieno e successivi tratteggi rosa; passa a sei giorni nel modulo e verifica settimana, mese e anno.
+- [ ] Riapri il giorno dopo: i tratteggi non diventano dati confermati. Nessuna fine salvata automaticamente.
+- [ ] Tocca Fine mestruazioni, scegli l’ultimo giorno reale anche precedente a oggi e salva: tratteggi rimossi, intervallo reale pieno, dati conservati dopo riapertura.
+- [ ] Correggi o cancella la fine: la rappresentazione torna coerente senza cambiare la stima del prossimo inizio. Non cambiare orologio del telefono principale per questa prova.
+- [ ] Apri Salute → I tuoi segnali: leggi Conoscere la mia fertilità e le fonti ASRM/NICE. Non compare una data personale più fertile.

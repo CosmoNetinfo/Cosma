@@ -1,8 +1,17 @@
 # Cosma · Android 1.1 di prova
 
-Diario del ciclo in italiano, con dati sul telefono e assistente locale Cosma. La versione **1.1.0-prova.1** raccoglie tutte le aggiunte del brief v1.1 e la revisione grafica richiesta. È una versione da provare, senza validazione clinica indipendente.
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
 
-**[Scarica l’APK](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.1/Cosma.apk)** · **[Scarica il pacchetto completo](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.1/Cosma-Android-1.1.0-prova.1-completo.zip)** · [Release e verifiche della compilazione](https://github.com/CosmoNetinfo/Cosma/releases/tag/v1.1.0-prova.1).
+Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.
+
+Fertilità: l’utente ha confermato segnali e spiegazioni senza giorno personale certo. Nuova scheda in Salute → I tuoi segnali con informazioni ASRM 2022 ricontrollate (S19), limiti NICE, accesso al diario e alle categorie facoltative. Nessuna data fertile ricavata dal primo giorno, né previsione retrospettiva o conferma clinica dai segnali.
+
+99 test Node e prove dell’interfaccia locali superati, inclusi durata inclusiva, cambio mese/anno/bisestile, distinzione stima/registrazioni, nessun avanzamento automatico, chiusura retrodatata, rimozione tratteggi e riapertura. domain.js, protezioni native, workflow e firma non modificati. La nuova visualizzazione è separata in menstrual-days.js; non altera le formule della prossima mestruazione. I due test nativi devono passare nel workflow prima della firma. Restano le prove fisiche della checklist e i limiti precedenti.
+
+
+Diario del ciclo in italiano, con dati sul telefono e assistente locale Cosma. La versione **1.1.0-prova.2** raccoglie tutte le aggiunte del brief v1.1 e la revisione grafica richiesta. È una versione da provare, senza validazione clinica indipendente.
+
+**[Scarica l’APK](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.2/Cosma.apk)** · **[Scarica il pacchetto completo](https://github.com/CosmoNetinfo/Cosma/releases/download/v1.1.0-prova.2/Cosma-Android-1.1.0-prova.2-completo.zip)** · [Release e verifiche della compilazione](https://github.com/CosmoNetinfo/Cosma/releases/tag/v1.1.0-prova.2).
 
 ## Installare o aggiornare, passo per passo
 
@@ -65,7 +74,7 @@ Prima dell’importazione è conservata una copia locale protetta. **Annulla imp
 
 ## Test e prove ancora necessarie
 
-92 test Node superati e controlli dell’interfaccia in due temi, larghezze 360/390/430 px e undici pagine secondarie. Provati primo avvio con importazione e riapertura, pannelli rapidi, persistenza, PIN, backup, correzione degli inizi, calendario annuale, gesti e scritte separate nei percorsi verificati.
+99 test Node superati e controlli dell’interfaccia in due temi, larghezze 360/390/430 px e undici pagine secondarie. Provati primo avvio con importazione e riapertura, pannelli rapidi, persistenza, PIN, backup, correzione degli inizi, calendario annuale, gesti e scritte separate nei percorsi verificati.
 
 Il workflow ripete questi controlli e **due test nativi su emulatore Android API 35 prima di firmare**. L’esito effettivo della versione è nella Release e nei suoi risultati allegati; non considerare pronta una compilazione rossa. La ricevuta dell’APK scaricato verifica firma, hash, versione, permessi e immagini.
 

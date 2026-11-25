@@ -200,3 +200,23 @@ Il testo completo della pagina del Ministero sulla fertilità femminile non è s
 
 
 Le schede generali su fase follicolare e fase luteale riprendono soltanto la distinzione qualitativa presente nella fonte S17, senza tempi fissi o attribuzioni personali. La scheda Intorno all’ovulazione riusa i limiti di temperatura e LH documentati in S01 e S10. Le categorie delle letture sono una navigazione tematica, non un’analisi dei dati della persona.
+
+## Durata indicativa e fertilità: aggiornamento del 25 novembre 2026
+
+### S18 — Durata generale delle mestruazioni, non previsione individuale
+
+**NHS. Periods. Pagina ufficiale consultata il 25 novembre 2026.**
+
+[Pagina ufficiale](https://www.nhs.uk/conditions/periods/).
+
+La pagina descrive una durata generalmente di 2–7 giorni, spesso circa cinque. Cosma non usa questi valori come soglie diagnostiche o intervallo personale: cinque è soltanto il valore iniziale modificabile della durata illustrativa. Ultimo giorno indicativo = primo giorno registrato + durata scelta − 1; il tratteggio non scrive dati di sanguinamento né una data di fine. Una fine reale confermata sostituisce tutta la durata illustrativa. Non si prolunga la stima perché manca la fine e non si ricostruiscono mestruazioni passate. Nessuna validazione clinica di questa convenzione grafica; non cambia la proiezione del prossimo inizio.
+
+### S19 — Fertilità: informazioni generali e limiti del calendario
+
+**ASRM Practice Committee. Optimizing natural fertility: a committee opinion. Fertility and Sterility 2022;117:53–63. Pagina ufficiale ricontrollata il 25 novembre 2026.**
+
+[Documento ufficiale](https://www.asrm.org/practice-guidance/practice-committee-documents/optimizing-natural-fertility-a-committee-opinion-2021/).
+
+La finestra biologica è costituita dal giorno dell’ovulazione e dai cinque precedenti; le probabilità sono generalmente maggiori nei due giorni prima dell’ovulazione. Sono indicazioni relative all’ovulazione, non date ricavabili con precisione dal solo primo giorno delle mestruazioni. La collocazione varia anche con cicli regolari. Un aumento urinario LH può precedere l’ovulazione entro circa due giorni, ma non la conferma; possono esserci falsi positivi. Muco e temperatura sono segnali e misure, non una diagnosi o una certificazione personale. Per la temperatura restano i limiti NICE di S01.
+
+Uso nell’app: spiegazioni qualitative e accesso alle osservazioni grezze in Conoscere la mia fertilità; nessun giorno personale più fertile, nessun intervallo datato ricostruito dai segnali, percentuale o formula meno 14. Nessun nuovo algoritmo di fertilità validato è stato trovato o dichiarato. L’utente ha confermato questa scelta il 25 novembre 2026.

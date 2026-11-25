@@ -1,3 +1,5 @@
+import {fertilityGuideHTML} from './fertility-guide.js';
+import {menstrualPlan,menstrualDayInfo,menstrualPlanHTML} from './menstrual-days.js';
 import {licensesText} from './licenses.js';
 import {onboardingSteps,advanceOnboarding,completeOnboarding} from './onboarding.js';
 import {educationHTML,homeReadingsHTML} from './education-view.js';
@@ -317,10 +319,10 @@ function ring(a){const r=a.record,count=Math.max(18,Math.min(60,a.cycle)),index=
 
 
 function homeQuickActions(){return `<section class="home-quick-actions" aria-label="Registra oggi">${button('new-period',`<span class="quick-circle">${icon('plus')}</span><span>Mestruazioni</span>`,'quick-action quick-primary','aria-label="Inizio mestruazioni"')}${button('quick-entry',`<span class="quick-circle">${icon('plus')}</span><span>Sintomi</span>`,'quick-action','data-kind="symptoms"')}${button('quick-entry',`<span class="quick-circle">${icon('diary')}</span><span>Note e test</span>`,'quick-action','data-kind="notes"')}${S.categories.rapporti?button('quick-entry',`<span class="quick-circle">${icon('health')}</span><span>Rapporti</span>`,'quick-action','data-kind="rapporti"'):''}</section>`;}
-function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>${pr&&pr.high<D.today()?'Ultima fascia descrittiva':'Prossime mestruazioni'}</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button>${homeReadingsHTML({button,esc,icon})}</div>`;}
+function vOggi(){const a=D.analysis(S),pr=a.prediction,visit=S.visits.filter(v=>v.date>=D.today()).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0],rs=reminders(S).filter(r=>r.date===D.today());if(!a.record)return `<div class="empty-home"><h2>Iniziamo da una data.</h2><p>Registra il primo giorno dell’ultima mestruazione per iniziare il tuo diario.</p>${primary('new-period','Aggiungi il primo ciclo')}</div>`;return `<div class="home-minimal"><div class="cycle-summary">${ring(a)}${button("edit-period","<span>Inizio registrato</span><strong>"+D.fmt(a.record.ls,true)+"</strong>","cycle-start-link",`data-id="${esc(S.periods.find(p=>p.start===a.record.ls).id)}"`)}</div><section class="prediction"><h2>${pr&&pr.high<D.today()?'Ultima fascia descrittiva':'Prossime mestruazioni'}</h2><p class="estimated-date">${pr?D.fmt(pr.low)+'–'+D.fmt(pr.high):'Dati ancora pochi'}</p><p class="secondary-text">${pr?'Basata sui tuoi ultimi cicli':a.used.length+' intervalli completi registrati'}</p>${button('calculation','Come l’ho calcolato?','method-link')}</section>${menstrualPlanHTML(S,{button})}${homeQuickActions()}${homeWeekHTML(S,{button,esc})}<button type="button" data-action="agenda" class="agenda-minimal"><span>${visit?'Visita '+D.fmt(visit.date)+', '+visit.time:'Visite da aggiungere'}</span><span aria-hidden="true">·</span><span>${rs.length?'Promemoria '+rs[0].time:'Nessun promemoria'}</span></button>${homeReadingsHTML({button,esc,icon})}</div>`;}
 
 function vCal() {
-  if(calendarView==='year'){const year=Number(month.slice(0,4));return calendarViewSwitch(calendarView,{button})+`<div class="month">${button('prev-month',icon('back'),'icon-button','aria-label="Anno precedente"')}<h2>${year}</h2>${button('next-month',icon('arrow'),'icon-button','aria-label="Anno successivo"')}</div>`+calendarSummaryHTML(S,{button})+yearCalendarHTML(S,year,{button,esc});}
+  if(calendarView==='year'){const year=Number(month.slice(0,4));return calendarViewSwitch(calendarView,{button})+`<div class="month">${button('prev-month',icon('back'),'icon-button','aria-label="Anno precedente"')}<h2>${year}</h2>${button('next-month',icon('arrow'),'icon-button','aria-label="Anno successivo"')}</div>`+menstrualPlanHTML(S,{button})+calendarSummaryHTML(S,{button})+yearCalendarHTML(S,year,{button,esc});}
   const [y, m] = month.split("-").map(Number),
     first = new Date(y, m - 1, 1),
     off = (first.getDay() + 6) % 7,
@@ -329,11 +331,13 @@ function vCal() {
     n = Math.ceil((off + daysInMonth) / 7) * 7;
   const cells = Array.from({ length: n }, (_, i) => {
     const d = D.addD(start, i),
-      v = D.dayInfo(S, d),
+      v = menstrualDayInfo(S, d),
       c = [
         d.slice(0, 7) !== month.slice(0, 7) ? "other" : "",
         v.per
           ? "period"
+          : v.planned
+            ? "planned-period"
           : v.pred
             ? "pred"
             : "",
@@ -343,7 +347,7 @@ function vCal() {
       label = [
         D.fmt(d, true),
         v.per ? "mestruazioni registrate" : "",
-        v.pred ? "mestruazioni previste" : "",
+        v.planned ? "durata indicativa, sanguinamento non confermato" : v.pred ? "fascia stimata del prossimo inizio" : "",
 
         v.log ? "diario compilato" : "",
       ]
@@ -356,8 +360,8 @@ function vCal() {
       `data-date="${d}" aria-label="${label}" aria-pressed="${d === sel}"`,
     );
   }).join("");
-  const v = D.dayInfo(S, sel);
-  return `${calendarViewSwitch(calendarView,{button})}<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div>${calendarSummaryHTML(S,{button})}<div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.pred ? "Stima mestruazioni" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div>${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
+  const v = menstrualDayInfo(S, sel);
+  return `${calendarViewSwitch(calendarView,{button})}<div class="month">${button("prev-month", icon("back"), "icon-button", 'aria-label="Mese precedente"')}<h2>${first.toLocaleDateString("it-IT", { month: "long", year: "numeric" })}</h2>${button("next-month", icon("arrow"), "icon-button", 'aria-label="Mese successivo"')}</div><div class="calendar-scroll"><div class="week" aria-hidden="true">${["L", "M", "M", "G", "V", "S", "D"].map((d) => `<span>${d}</span>`).join("")}</div><div class="days">${cells}</div></div><div class="legend"><span><i class="period"></i>Mestruazioni</span><span><i class="planned-period"></i>Durata indicativa</span><span><i class="pred"></i>Stima inizio</span><span><i class="dot"></i>Diario compilato</span><span>Fascia descrittiva</span></div>${menstrualPlanHTML(S,{button})}${calendarSummaryHTML(S,{button})}<div class="card selected-day"><div class="split"><h2>${D.fmt(sel, true)}</h2>${sel === D.today() ? '<span class="tag">Oggi</span>' : ""}</div><p>${v.per ? "Mestruazioni registrate" : v.planned ? "Durata indicativa delle mestruazioni: sanguinamento non confermato" : v.pred ? "Stima del prossimo inizio" : "Nessun evento del ciclo"}</p>${sel <= D.today() ? button("selected-diary", S.log[sel] ? "Modifica il diario" : "Apri il diario", "secondary") + button("new-period", "Registra mestruazioni qui", "text-button", `data-date="${sel}"`) : '<p class="hint">Puoi compilare il diario e registrare cicli fino a oggi.</p>'}</div>${row("periods", "cal", "Gestisci i cicli", "Modifica, elimina o escludi dalle medie")}`;
 }
 function blankLog() {
   return {
@@ -511,7 +515,7 @@ function vSettings() {
     .map(([k, t]) => check(k, t, S.categories[k]))
     .join(
       "",
-    )}<p class="hint">Nascondere una categoria conserva le registrazioni già fatte.</p>${field("cycleLen", "Durata iniziale del ciclo (giorni)", "number", S.cycleLen, 'min="18" max="60" required')}${field("periodLen", "Durata iniziale mestruazioni (giorni)", "number", S.periodLen, 'min="1" max="15" required')}${formEnd("Salva le preferenze")}${row("life-mode", "moon", "Modalità di vita", S.mode === "ciclo" ? "Ciclo" : "Conoscere la mia fertilità")}`;
+    )}<p class="hint">Nascondere una categoria conserva le registrazioni già fatte.</p>${field("cycleLen", "Durata iniziale del ciclo (giorni)", "number", S.cycleLen, 'min="18" max="60" required')}${field("periodLen", "Durata indicativa mestruazioni (giorni)", "number", S.periodLen, 'min="1" max="15" required')}${formEnd("Salva le preferenze")}${row("life-mode", "moon", "Modalità di vita", S.mode === "ciclo" ? "Ciclo" : "Conoscere la mia fertilità")}`;
 }
 
 
@@ -556,7 +560,7 @@ function tempChart() {
 
 function vTemp(){
  const records=Object.entries(S.log).filter(([,l])=>l.mucus||l.lh||l.pregnancy||l.temp!=null).sort(([a],[b])=>b.localeCompare(a)).slice(0,90);
- return `${card('<h2>Temperatura: misure registrate</h2>'+tempChart())}${primary('record-temp','Registra una temperatura')}${flat('<h2>Lettura dei segnali</h2><p class="hint">Intervallo non stimabile. Questa versione mostra i dati grezzi e non interpreta automaticamente la combinazione di temperatura, muco e test LH.</p><p class="hint">Eventuali “segnali compatibili con un’ovulazione già avvenuta” richiedono un metodo documentato: nessuna data certa, nessuna conferma clinica. NICE NG257 §1.18.9 sconsiglia di usare i grafici BBT per confermare l’ovulazione; LH è un segnale indiretto (ASRM 2026).</p>'+button('science','Metodo, limiti e fonti','text-button'))}<h2 class="block-title">Dati grezzi del diario</h2>${records.length?flat(records.map(([d,l])=>`<div class="list-entry"><b>${D.fmt(d,true)}</b><p>${[l.temp!=null?'Temperatura '+l.temp.toFixed(2)+' °C'+(l.tempDisturbed?' · disturbata':''):'',l.mucus?'Muco: '+esc(l.mucus):'',l.lh?'LH: '+esc(l.lh):'',l.pregnancy?'Test gravidanza: '+esc(l.pregnancy):''].filter(Boolean).join('<br>')}</p></div>`).join('')):'<p class="hint">Nessun segnale registrato. Le categorie sono facoltative, attivabili da Impostazioni.</p>'}${button('settings','Scegli i dati da registrare','secondary')}<p class="hint">Import da dispositivi indossabili e interpretazione numerica retrospettiva non disponibili in questa versione di prova.</p>`;
+ return `${fertilityGuideHTML({button})}${card('<h2>Temperatura: misure registrate</h2>'+tempChart())}${primary('record-temp','Registra una temperatura')}${flat('<h2>Lettura dei segnali</h2><p class="hint">Intervallo non stimabile. Questa versione mostra i dati grezzi e non interpreta automaticamente la combinazione di temperatura, muco e test LH.</p><p class="hint">Eventuali “segnali compatibili con un’ovulazione già avvenuta” richiedono un metodo documentato: nessuna data certa, nessuna conferma clinica. NICE NG257 §1.18.9 sconsiglia di usare i grafici BBT per confermare l’ovulazione; LH è un segnale indiretto (ASRM 2026).</p>'+button('science','Metodo, limiti e fonti','text-button'))}<h2 class="block-title">Dati grezzi del diario</h2>${records.length?flat(records.map(([d,l])=>`<div class="list-entry"><b>${D.fmt(d,true)}</b><p>${[l.temp!=null?'Temperatura '+l.temp.toFixed(2)+' °C'+(l.tempDisturbed?' · disturbata':''):'',l.mucus?'Muco: '+esc(l.mucus):'',l.lh?'LH: '+esc(l.lh):'',l.pregnancy?'Test gravidanza: '+esc(l.pregnancy):''].filter(Boolean).join('<br>')}</p></div>`).join('')):'<p class="hint">Nessun segnale registrato. Le categorie sono facoltative, attivabili da Impostazioni.</p>'}${button('settings','Scegli i dati da registrare','secondary')}<p class="hint">Import da dispositivi indossabili e interpretazione numerica retrospettiva non disponibili in questa versione di prova.</p>`;
 }
 
 
@@ -566,7 +570,7 @@ function periodModal(id = "", date = D.today()) {
   const p = S.periods.find((p) => p.id === id) || { start: date };
   modal(
     id ? "Modifica inizio ciclo" : "Registra mestruazioni",
-    `<form data-form="period" data-id="${esc(id)}">${field("start", "Primo giorno", "date", p.start, `max="${D.today()}" required`)}${field("end", "Ultimo giorno (facoltativo)", "date", p.end || "", `max="${D.today()}"`)}${check("exclude", "Escludi questo ciclo dalle statistiche e dalle previsioni", p.exclude)}<p class="hint">La registrazione rimane visibile anche se esclusa. La data di fine può essere aggiunta più tardi.</p>${formEnd("Salva il ciclo")}${id?button("delete-period","Elimina questo inizio ciclo","danger delete-cycle",`data-id="${esc(id)}"`):""}`,
+    `<form data-form="period" data-id="${esc(id)}">${field("start", "Primo giorno", "date", p.start, `max="${D.today()}" required`)}${field("end", "Ultimo giorno (facoltativo)", "date", p.end || "", `max="${D.today()}"`)}${field("periodLen", "Durata indicativa sul calendario (giorni)", "number", S.periodLen, 'min="1" max="15" step="1" required')}<p class="hint">I giorni tratteggiati sono solo indicativi. La fine reale viene registrata solo quando la confermi.</p>${check("exclude", "Escludi questo ciclo dalle statistiche e dalle previsioni", p.exclude)}<p class="hint">La registrazione rimane visibile anche se esclusa. La data di fine può essere aggiunta più tardi.</p>${formEnd("Salva il ciclo")}${id?button("delete-period","Elimina questo inizio ciclo","danger delete-cycle",`data-id="${esc(id)}"`):""}`,
   );
 }
 function visitModal(id = "") {
@@ -745,6 +749,11 @@ document.addEventListener("click", (e) => {
     case "delete-period":
       removeConfirm("periods", b.dataset.id, "questa registrazione del ciclo");
       break;
+    case "duration-method": {
+      const plan=menstrualPlan(S);
+      modal("Durata indicativa: come funziona",`<p>${plan?"Primo giorno registrato: "+D.fmt(plan.start,true)+". Durata scelta nelle preferenze: "+plan.days+" giorni. Intervallo visualizzato: "+D.fmt(plan.start,true)+"–"+D.fmt(plan.end,true)+".":"Non c’è una mestruazione aperta."}</p><p>Ultimo giorno indicativo = primo giorno + durata scelta − 1. Cinque giorni è il valore iniziale modificabile, non una previsione individuale validata. Non usiamo questa durata per calcolare l’ovulazione.</p><p>Il tratteggio non scrive la data di fine e non diventa una registrazione con il passare del tempo. Con Fine mestruazioni scegli l’ultimo giorno reale, anche precedente a oggi; dopo il salvataggio il tratteggio scompare.</p><p class="hint">NHS, Periods: la durata può variare; circa cinque giorni è un riferimento generale, non una certezza personale. Metodo di visualizzazione scelto da Cosma, non modello clinico. Fonte S18.</p>${button("science","Fonti e metodo","text-button")}`);
+      break;
+    }
     case "end-period": {
       const p = S.periods.find(
         (p) =>
@@ -1038,6 +1047,9 @@ document.addEventListener("submit", (e) => {
           id = form.dataset.id || D.uid(),
           p = { id, start: value("start"), exclude: on("exclude") };
         if (value("end")) p.end = value("end");
+        const duration=Number(value("periodLen"));
+        if(!Number.isInteger(duration)||duration<1||duration>15)throw Error("Scegli una durata indicativa da 1 a 15 giorni.");
+        n.periodLen=duration;
         n.periods = n.periods.filter((x) => x.id !== id);
         n.periods.push(p);
         await commit(n);

@@ -10,8 +10,9 @@ test('Sette date civili da oggi: cambio mese, anno, bisestile e ora legale',()=>
 });
 test('Pieno soltanto per mestruazioni registrate: nessun flusso futuro o fine inventata',()=>{
  const s=initial();s.periods=[{id:'a',start:'2026-11-22',exclude:false}];
- assert.deepEqual(homeWeek(s,'2026-11-22').map(d=>d.kind),['registered','none','none','none','none','none','none']);
- assert.ok(homeWeek(s,'2026-11-23').every(d=>d.kind==='none'));
+ assert.deepEqual(homeWeek(s,'2026-11-22').map(d=>d.kind),['registered','planned','planned','planned','planned','none','none']);
+ assert.deepEqual(homeWeek(s,'2026-11-23').map(d=>d.kind),['planned','planned','planned','planned','none','none','none']);
+ assert.equal(s.periods[0].end,undefined);
 });
 test('Tratteggio per tutti i giorni nella fascia descrittiva, senza ridurla al centro',()=>{
  const s=initial();s.periods=['2026-07-01','2026-07-27','2026-08-24','2026-09-23'].map(start=>({id:start,start,exclude:false}));

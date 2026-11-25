@@ -1,5 +1,14 @@
 # Limiti e verifiche mancanti
 
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
+
+Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.
+
+Fertilità: l’utente ha confermato segnali e spiegazioni senza giorno personale certo. Nuova scheda in Salute → I tuoi segnali con informazioni ASRM 2022 ricontrollate (S19), limiti NICE, accesso al diario e alle categorie facoltative. Nessuna data fertile ricavata dal primo giorno, né previsione retrospettiva o conferma clinica dai segnali.
+
+99 test Node e prove dell’interfaccia locali superati, inclusi durata inclusiva, cambio mese/anno/bisestile, distinzione stima/registrazioni, nessun avanzamento automatico, chiusura retrodatata, rimozione tratteggi e riapertura. domain.js, protezioni native, workflow e firma non modificati. La nuova visualizzazione è separata in menstrual-days.js; non altera le formule della prossima mestruazione. I due test nativi devono passare nel workflow prima della firma. Restano le prove fisiche della checklist e i limiti precedenti.
+
+
 ## Consegna complessiva v1.1.0-prova.1
 
 Tutte le dieci voci funzionali del delta sono implementate: tinte piatte, settimana, azioni rapide, pannelli di registrazione, tocco su Cosma, gesto calendario, letture con fonti, primo avvio a passi, linguaggio inclusivo e audit dei componenti per F-Droid. Aggiunte richieste successive: Diario illustrato, sette varianti di Cosma separate dagli originali, vista annuale e numero nell’anello senza parole sul bordo. README riscritto per un principiante, con guida dettagliata e configurazione iniziale chiaramente separata dal repository già pronto.

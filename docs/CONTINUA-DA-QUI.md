@@ -1,6 +1,15 @@
 # Continuare Cosma da qui
 
-Stato: **v1.1.0-prova.1**, completamento funzionale del delta v1.1 e revisione grafica richiesta. Repository https://github.com/CosmoNetinfo/Cosma, ramo main. Leggi README.md, docs/NON-VERIFICATO.md, FONTI.md, messaggi-cosma.md e docs/BRIEF-COSMA-v1.1-DELTA.md; controlla prima eventuali commit e Release successivi.
+## Aggiornamento 25 novembre 2026 · v1.1.0-prova.2
+
+Aggiunta la durata indicativa dell’ultima mestruazione senza fine: valore iniziale cinque giorni, modificabile a sei o ad altra durata 1–15 nelle preferenze o nel modulo. Dal primo giorno, i giorni successivi sono tratteggiati rosa in mese/anno e settimana. Non diventano sanguinamento confermato con il passare del tempo e non si sposta il termine perché manca la fine. Il pulsante **Fine mestruazioni**, visibile su Oggi e Calendario, apre l’ultimo giorno reale precompilato a oggi ma correggibile: il salvataggio sostituisce tutta la durata tratteggiata. Date di fine già presenti rispettate. Il metodo e la fonte NHS S18 sono consultabili.
+
+Fertilità: l’utente ha confermato segnali e spiegazioni senza giorno personale certo. Nuova scheda in Salute → I tuoi segnali con informazioni ASRM 2022 ricontrollate (S19), limiti NICE, accesso al diario e alle categorie facoltative. Nessuna data fertile ricavata dal primo giorno, né previsione retrospettiva o conferma clinica dai segnali.
+
+99 test Node e prove dell’interfaccia locali superati, inclusi durata inclusiva, cambio mese/anno/bisestile, distinzione stima/registrazioni, nessun avanzamento automatico, chiusura retrodatata, rimozione tratteggi e riapertura. domain.js, protezioni native, workflow e firma non modificati. La nuova visualizzazione è separata in menstrual-days.js; non altera le formule della prossima mestruazione. I due test nativi devono passare nel workflow prima della firma. Restano le prove fisiche della checklist e i limiti precedenti.
+
+
+Stato: **v1.1.0-prova.2**, completamento funzionale del delta v1.1 e revisione grafica richiesta. Repository https://github.com/CosmoNetinfo/Cosma, ramo main. Leggi README.md, docs/NON-VERIFICATO.md, FONTI.md, messaggi-cosma.md e docs/BRIEF-COSMA-v1.1-DELTA.md; controlla prima eventuali commit e Release successivi.
 
 ## Già fatto, da conservare
 
@@ -17,7 +26,7 @@ Stato: **v1.1.0-prova.1**, completamento funzionale del delta v1.1 e revisione g
 
 ## Verifiche e distribuzione
 
-92 test Node e controlli browser superati nei due temi a 360/390/430 px, undici pagine secondarie, altezze ridotte e conteggi lunghi. Il browser usa un archivio sostitutivo. Il workflow deve superare anche i due test nativi API35 prima di firmare. Il test della conferma Android usa il vero pulsante positivo tramite UiAutomation, evitando l’attesa instabile del focus Espresso; nessun aggiramento della conferma nell’app.
+99 test Node e controlli browser superati nei due temi a 360/390/430 px, undici pagine secondarie, altezze ridotte e conteggi lunghi. Il browser usa un archivio sostitutivo. Il workflow deve superare anche i due test nativi API35 prima di firmare. Il test della conferma Android usa il vero pulsante positivo tramite UiAutomation, evitando l’attesa instabile del focus Espresso; nessun aggiramento della conferma nell’app.
 
 Per l’esito effettivo dell’APK consulta la Release del tag, VERIFICA-APK.json e risultati XML nel pacchetto completo. Chiave, appId, versione crescente, assenza INTERNET, allowBackup e immagini vanno verificati sull’APK scaricato. Non chiamare riuscita una compilazione rossa; non riutilizzare tag esistenti.
 

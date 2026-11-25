@@ -1479,3 +1479,11 @@ dialog.bottom-sheet:before{content:"";display:block;width:40px;height:4px;border
 .ring-label[data-digits="6"] strong{font-size:28px}
 
 .days .day{width:48px;min-width:48px;justify-self:center;border-radius:999px;font-size:16px;font-weight:500;padding:0}
+
+/* Durata illustrativa: distinta dalle registrazioni e dalla stima del prossimo inizio. */
+.days .day.planned-period,.mini-day.planned-period{border:2px dashed var(--danger);background:var(--tint);color:var(--text)}
+.home-week-day.planned .home-week-number{border:2px dashed var(--danger);background:var(--tint);color:var(--text)}
+.legend i.planned-period,.home-week-legend i.planned{border:2px dashed var(--danger);background:var(--tint)}
+.home-week-legend{flex-wrap:wrap;row-gap:8px}
+.menstrual-plan{padding:16px 20px;border:1px solid var(--border);border-radius:24px;background:var(--surface);margin:16px 0}
+.menstrual-plan p{margin:0 0 8px}.menstrual-plan .actions{display:flex;flex-wrap:wrap;gap:8px}.menstrual-plan .actions button{min-height:48px}
